@@ -3,6 +3,11 @@
 {% block title %}{{ someVariable }}{% endblock %}
 
 {% block main %}
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
     <div>
     <h1>Recipes</h1>
     <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras rutrum sapien mauris, venenatis
