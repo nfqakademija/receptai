@@ -24,7 +24,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
-        if ($this->getUser()){
+        if ($this->getUser()) {
             return $this->redirectToRoute('home');
         }
 
@@ -43,4 +43,5 @@ class RegistrationController extends AbstractController
             'our_form' => $form->createView()
         ]);
     }
+
 }
