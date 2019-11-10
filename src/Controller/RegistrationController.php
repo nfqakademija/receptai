@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -18,7 +18,7 @@ class RegistrationController extends AbstractController
     public function registration(
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
-        ValidatorInterface $validator
+        TranslatorInterface $translator
     ) {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -28,29 +28,19 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        $errors = $validator->validate($user);
-
-        if ($form->isSubmitted() && !$form->isValid()) {
-            return $this->render('registration/registration.html.twig', [
-                'our_form' => $form->createView(),
-                'errors' => $errors,
-            ]);
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            $this->addFlash('success', 'Registered successfully');
+            $translated = $translator->trans('Registered successfully');
+            $this->addFlash('success', $translated);
             return $this->redirectToRoute('registration');
         }
 
         return $this->render('registration/registration.html.twig', [
-            'our_form' => $form->createView(),
-            'errors' => $errors,
+            'our_form' => $form->createView()
         ]);
     }
 }

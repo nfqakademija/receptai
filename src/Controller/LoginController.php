@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -15,10 +14,9 @@ class LoginController extends AbstractController
     public function login(AuthenticationUtils $authUtils)
     {
         $error= $authUtils->getLastAuthenticationError();
-
         $lastUsername = $authUtils->getLastUsername();
 
-        if ($this->getUser()){
+        if ($this->getUser()) {
             return $this->redirectToRoute('home');
         }
 
@@ -26,16 +24,9 @@ class LoginController extends AbstractController
             'error' => $error,
             'last_username' => $lastUsername,
         ]);
-
     }
-
-
-
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout()
-    {
-
-    }
+    public function logout(){}
 }

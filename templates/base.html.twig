@@ -16,29 +16,24 @@
     <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}" />
     {% block stylesheets %}{% endblock %}
 </head>
-
 <body>
 <header>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container">
-
-            <a class="navbar-brand" href="{{ path('home') }}">Home</a>
-
+            <a class="navbar-brand" href="{{ path('home') }}">{% trans %}Home{% endtrans %}</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('login') }}">Login</a>
+                        <a class="nav-link" href="{{ path('login') }}">{% trans %}Login{% endtrans %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('registration') }}">Register</a>
+                        <a class="nav-link" href="{{ path('registration') }}">{% trans %}Register{% endtrans %}</a>
                     </li>
                 </ul>
             </div>
         </div>
-
     </nav>
 </header>
-
 <main role="main" class="container main">
     {% include 'flash_messages_html.twig' %}
     {% block main %}{% endblock main %}

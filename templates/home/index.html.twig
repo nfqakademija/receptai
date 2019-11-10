@@ -5,16 +5,12 @@
 {% block main %}
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            {% trans %}You are logged in as{% endtrans %} {{ app.user.username }}, <a href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a>
         </div>
     {% endif %}
     <div>
-    <h1>Recipes</h1>
-    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras rutrum sapien mauris, venenatis
-        facilisis neque tincidunt vel. Maecenas vel felis vel turpis scelerisque eleifend. Fusce nec purus egestas,
-        efficitur nisi ac, ultrices nulla. Pellentesque eu mollis tortor, in mollis nisl. Maecenas rhoncus quam non
-        lacinia mollis.</p>
+    <h1>{% trans %}Recipes{% endtrans %}</h1>
+    <p class="lead">{% trans %}Text about a recipe.{% endtrans %}</p>
     </div>
-
 
 {% endblock %}
