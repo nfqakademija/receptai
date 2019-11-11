@@ -8,8 +8,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields="username", message ="This username already exists")
- * @UniqueEntity(fields="email", message ="This email already exists")
+ * @UniqueEntity(fields={"username"}, message ="username.existing")
+ * @UniqueEntity(fields={"email"}, message ="email.existing")
  */
 class User implements UserInterface, \Serializable
 {

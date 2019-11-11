@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}{{'login_page.login'|trans}}{% endblock %}
 
 {% block main %}
     <form method="post">
@@ -8,17 +8,17 @@
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">{% trans %}Please sign in{% endtrans %}</h1>
-        <label for="inputUsername" class="sr-only">{% trans %}Username{% endtrans %}</label>
-        <input type="text" value="{{ last_username }}" name="username" id="inputUsernane" class="form-control" placeholder="{% trans %}Username{% endtrans %}" required autofocus>
-        <label for="inputPassword" class="sr-only">{% trans %}Password{% endtrans %}</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="{% trans %}Password{% endtrans %}" required>
+        <h1 class="h3 mb-3 font-weight-normal">{{ 'login_page.sign_in'|trans }}</h1>
+        <label for="inputEmail" class="sr-only">{{ 'login_page.email'|trans }}</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="{{ 'login_page.email'|trans }}" required autofocus>
+        <label for="inputPassword" class="sr-only">{{ 'login_page.password'|trans }}</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="{{ 'login_page.password'|trans }}" required>
 
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}">
 
         <button class="btn btn-lg btn-primary" type="submit">
-            {% trans %}Sign in{% endtrans %}
+            {{ 'login_page.button'|trans }}
         </button>
     </form>
 {% endblock %}

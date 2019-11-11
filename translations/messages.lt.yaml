@@ -1,0 +1,24 @@
+home_page:
+  home: 'Pagrindinis'
+  logged_in_as: 'Esate prisijungęs, kaip  '
+  logout: 'Atsijungti'
+  recipes: 'Receptai'
+  text: 'Tekstai apie receptą'
+base:
+  home: 'Pagrindinis'
+  login: 'Prisijungti'
+  register: 'Registracija'
+login_page:
+  sign_in: 'Prašome prisijungti'
+  login: 'Prisijungimas'
+  email: 'E-paštas'
+  password: 'Slaptažodis'
+  button: 'Prisijungti'
+registration_form:
+  register_title: 'Registracija'
+  username: 'Vartotojas'
+  password: 'Slaptažodis'
+  email : 'E-paštas'
+  register_button: 'Registruotis'
+flash:
+  success: 'Sėkmingai užregistruota'

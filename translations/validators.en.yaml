@@ -1,0 +1,4 @@
+username:
+  existing: 'This username is already taken'
+email:
+  existing: 'This email is already taken'

@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{% block title %}Page{% endblock title %}</title>
+    <title>{% block title %}{% endblock title %}</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet"
@@ -20,14 +20,14 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ path('home') }}">{% trans %}Home{% endtrans %}</a>
+            <a class="navbar-brand" href="{{ path('home') }}">{{ 'base.home'|trans }}</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('login') }}">{% trans %}Login{% endtrans %}</a>
+                        <a class="nav-link" href="{{ path('login') }}">{{ 'base.login'|trans }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('registration') }}">{% trans %}Register{% endtrans %}</a>
+                        <a class="nav-link" href="{{ path('registration') }}">{{ 'base.register'|trans }}</a>
                     </li>
                 </ul>
             </div>

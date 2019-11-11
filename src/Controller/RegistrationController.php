@@ -34,13 +34,12 @@ class RegistrationController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            $translated = $translator->trans('Registered successfully');
-            $this->addFlash('success', $translated);
+            $this->addFlash('success', $translator->trans('flash.success'));
             return $this->redirectToRoute('registration');
         }
 
         return $this->render('registration/registration.html.twig', [
-            'our_form' => $form->createView()
+            'registrationForm' => $form->createView()
         ]);
     }
 }
