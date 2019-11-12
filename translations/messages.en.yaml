@@ -1,0 +1,22 @@
+home_page:
+  home: 'Home'
+  logged_in_as: 'You are currently logged in as '
+  logout: 'Log out'
+  recipes: 'Recipes'
+  text: 'Random text about a recipe'
+base:
+  home: 'Home'
+  login: 'Login'
+  register: 'Register'
+login_page:
+  sign_in: 'Please sign in'
+  login: 'Login'
+  email: 'Email'
+  password: 'Password'
+  button: 'Sign in'
+registration_form:
+  register_title: 'Registration'
+  username: 'Username'
+  password: 'Password'
+  email: 'Email'
+  register_button: 'Register'

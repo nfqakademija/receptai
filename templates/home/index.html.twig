@@ -1,8 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ someVariable }}{% endblock %}
+{% block title %}{{ "home_page.home"|trans }}{% endblock %}
 
-{% block body %}
-    <div class="nfq-academy">{{ someVariable }}</div>
-    <p>Testing website</p>
+{% block main %}
+    {% if app.user %}
+        <div class="mb-3">
+            {{ "home_page.logged_in_as"|trans }} {{ app.user.username }}, <a href="{{ path('app_logout') }}">{{ "home_page.logout"|trans }}</a>
+        </div>
+    {% endif %}
+    <div>
+    <h1>{{ "home_page.recipes"|trans }}</h1>
+    <p class="lead">{{ "home_page.text"|trans }}</p>
+    </div>
+
 {% endblock %}
