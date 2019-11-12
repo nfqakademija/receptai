@@ -12,8 +12,8 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        return $this->render('home/index.html.twig', [
-            'someVariable' => 'NFQ Akademija',
+        return $this->render('home/register.html.twig', [
+            //'someVariable' => 'NFQ Akademija',
         ]);
     }
 }
