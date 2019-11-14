@@ -2,23 +2,92 @@
 
 {% block title %}{{'login_page.login'|trans}}{% endblock %}
 
-{% block main %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+{% block body %}
+        <body class="authentication">
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">{{ 'login_page.sign_in'|trans }}</h1>
-        <label for="inputEmail" class="sr-only">{{ 'login_page.email'|trans }}</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="{{ 'login_page.email'|trans }}" required autofocus>
-        <label for="inputPassword" class="sr-only">{{ 'login_page.password'|trans }}</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="{{ 'login_page.password'|trans }}" required>
+        <!--[if lt IE 9]>
+        <div class="browser-upgrade">You are using an <strong>outdated</strong> browser. Please <a
+                href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+        </div>
+        <![endif]-->
 
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}">
+        <div id="authentication">
+            <div id="auth-header">
+                <div class="image">
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            {{ 'login_page.button'|trans }}
-        </button>
+                </div>
+            </div>
+            <div id="auth-well">
+                <div id="auth-well-header">
+
+                </div>
+                <div id="auth-well-content">
+                    <div id="login">
+                        <h1>
+                            Log in</h1>
+                        <form action="/sessions" accept-charset="UTF-8" method="post">
+                            <input name="utf8" type="hidden" value="✓">
+                            <input type="hidden" name="authenticity_token"
+                                   value="cldy9xNGxaZArxVUdzc2DnWPA3dElQ1ItnG8y9AHnvB8EPjRNtxMno+DISx7R310vU3+I163Zux8OyNBaw1BYA==">
+                            <div class="form-group">
+                                <label for="email">
+                                    Email</label>
+                                {#<label for="inputEmail" class="sr-only">{{ 'login_page.email'|trans }}</label>#}
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" autofocus="autofocus" class="form-control" placeholder="{{ 'login_page.email'|trans }}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">
+                                    Password</label>
+
+                                {#<label for="inputPassword" class="sr-only">{{ 'login_page.password'|trans }}</label>#}
+                                <input type="password" name="password" id="password" value="" class="form-control" placeholder="{{ 'login_page.password'|trans }}" required>
+                            </div>
+
+
+                            <div class="form-group hp-field">
+                                <label for="hp2">
+                                    Hp2</label>
+                                <input type="text" name="hp2" id="hp2" value="" class="form-control">
+                            </div>
+                            <div class="form-group remember-me clearfix">
+                                <label class="control checkbox">
+                                    <input type="checkbox" name="remember_me" id="remember_me" value="1" checked="checked">
+                                    <span class="control-indicator">
+
+                            </span>
+                                    Remember me</label>
+                                <div class="forgot-password">
+                                    <a href="/password_resets/new">
+                                        I don't have my password</a>
+                                </div>
+                            </div>
+                            <input type="submit" name="commit" value="Log in" class="ml-btn-success btn-lg disable-on-click" {{ 'login_page.button'|trans }}>
+                        </form>
+                        <div class="forgot-password-mobile">
+                            <a href="/password_resets/new">
+                                I don't have my password</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="auth-footer">
+                New to Mealime? <a href="/signup">
+                    Sign Up</a>
+            </div>
+        </div>
+
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}">
+
     </form>
+        </body>
+
+
 {% endblock %}
+
+
