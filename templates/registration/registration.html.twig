@@ -2,30 +2,102 @@
 
 {% block title %}{{ 'registration_form.register_title'|trans }}{% endblock %}
 
-{% block main %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block body %}
 {{ form_start(registrationForm) }}
-<div class="example-wrapper">
-    <div class="form__field">
-        {{ form_label(registrationForm.username) }}
-    {{ form_widget(registrationForm.username) }}
-    </div>
-    <div>
-        {{ form_label(registrationForm.email) }}
-    {{ form_widget(registrationForm.email) }}
-    </div>
-    {{ form_label(registrationForm.password) }}
-    {{ form_widget(registrationForm.password) }}
-    <div class="form-group row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-10">
-            <input type="submit" value="{{ 'registration_form.register_button'|trans }}" class="btn btn-success"/>
+
+    <body class="authentication">
+    <!--[if lt IE 9]>
+
+    <div class="browser-upgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>
+        to improve your experience.</div>
+    <![endif]-->
+    <div id="authentication">
+        <div id="auth-header">
+            <div class="image">
+
+            </div>
+        </div>
+        <div id="auth-well">
+            <div id="auth-well-header">
+
+            </div>
+            <div id="auth-well-content">
+                <div id="signup">
+                    <h1>
+                        Create a free account</h1>
+                    <form novalidate="novalidate" class="edit_registration" id="edit_registration_75988" action="/registrations/dDLMgKY_7Tz8skZLQyj7hw" accept-charset="UTF-8" method="post">
+                        <input name="utf8" type="hidden" value="✓">
+                        <input type="hidden" name="_method" value="patch">
+                        <input type="hidden" name="authenticity_token" value="TijkDFW2f22zLn/uRaidSfJVFyHXNtFCC1phQ7yq2chAb24qcCz2VXwCS5ZJ2NYzOpfqdc0UuubBEP7JB6AGWA==">
+
+
+                        <div class="form-group first-name">
+                            <label for="registration_first_name">
+                                What's your first name?</label>
+                                {# form_label(registrationForm.username) #}
+                                {{ form_widget(registrationForm.username) }}
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="registration_email">
+                                Enter your email</label>
+                            <div>
+                                {# form_label(registrationForm.email) #}
+                                {{ form_widget(registrationForm.email) }}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="registration_password">
+                                Create a password</label>
+                            {# form_label(registrationForm.password) #}
+                            {{ form_widget(registrationForm.password) }}
+                        </div>
+
+
+
+                        <div class="form-group consent">
+                            <label class="control checkbox" for="registration_consented_to_marketing_emails">
+                                <input name="registration[consented_to_marketing_emails]" type="hidden" value="false">
+                                <input type="checkbox" value="true" name="registration[consented_to_marketing_emails]" id="registration_consented_to_marketing_emails">
+                                <span class="control-indicator">
+
+                            </span>
+                            </label>
+                            <div class="terms-body">
+                                I'd like to receive meal planning tips, personalized recipe recommendations,
+                                and product updates from Mealime.</div>
+                        </div>
+                        <div class="form-group terms">
+                            <label class="control checkbox" for="registration_agree_terms">
+                                <input name="registration[agree_terms]" type="hidden" value="0">
+                                <input type="checkbox" value="1" name="registration[agree_terms]" id="registration_agree_terms">
+                                <span class="control-indicator">
+
+                            </span>
+                            </label>
+                            <div class="terms-body">
+                                I agree to the <a href="http://mealime.com/terms-of-service" target="_blank">
+                                    Terms of Service</a>
+                                and<br>
+                                <a href="http://mealime.com/privacy-policy" target="_blank">
+                                    Privacy Policy</a>
+                                .</div>
+                        </div>
+                        <input type="submit" name="commit" value="{{ 'registration_form.register_button'|trans }}" class="ml-btn-strong-cta disable-on-click">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="auth-footer">
+
         </div>
     </div>
-</div>
+    </body>
 
     {{ form_end(registrationForm) }}
 {% endblock %}
+
