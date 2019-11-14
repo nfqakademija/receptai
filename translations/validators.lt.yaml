@@ -1,0 +1,4 @@
+username:
+  existing: 'Vartotojas jau egzistuoja'
+email:
+  existing: 'Elektroninis pastas jau užimtas'
