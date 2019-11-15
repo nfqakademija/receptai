@@ -11,7 +11,7 @@
     {% endif %}
 
     <body ng-app="mealime" class="ng-scope">
-        <main class="container"><!-- ngView: --><ng-view class="ng-scope"><div id="meal-plan" class="meal-plan-app ng-scope" ng-class="{'meal-plan-complete': allCooked()}">
+    <main class="container"><!-- ngView: --><ng-view class="ng-scope"><div id="meal-plan" class="meal-plan-app ng-scope" ng-class="{'meal-plan-complete': allCooked()}">
                 <div>
 
                     <div id="meal-plan-header" class="pad-small">
@@ -19,6 +19,7 @@
 
                         <h1>
                             <span id="meal-plan-title">My Meal Plan</span>
+                            <span class="green-dot">.</span>
                         </h1>
 
                         <a id="grocery-list-toggle" class="ml-btn-default" ng-click="toggleGroceryList()">
@@ -32,7 +33,7 @@
                     </div><!-- meal-plan-header -->
 
                     <div id="meal-plan-content" class="clearfix">
-                        <!-- ngInclude: --><ng-include class="ng-scope"><div id="grocery-list-container" ng-show="isGroceryListOpen" class="ng-scope ng-hide">
+                        <!-- ngInclude: --><ng-include src="'grocery_list.html'" class="ng-scope"><div id="grocery-list-container" ng-show="isGroceryListOpen" class="ng-scope ng-hide">
                                 <div id="grocery-list">
                                     <a class="add-item has-tooltip" title="" ng-click="showAddItemModal()" data-original-title="Add to your grocery list">
                                         <i>
@@ -528,23 +529,22 @@
                                 </div><!-- add-item-modal -->
 
                             </div></ng-include>
+                        <!-- ngInclude: --><ng-include src="'meals.html'" class="ng-scope"><div id="meals" class="pad-small ng-scope">
+                                {{ cards.card(
+                                    'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/38/thumbnail_9d9cdd61-cdf8-47c4-94df-d83c7c326364.jpg',
+                                    'Broccoli, Bell Pepper &amp; Chickpea Salad with Feta &amp; Zesty Lemon Dressing'
+                                ) }}
 
-                        <div id="meals" class="pad-small ng-scope">
-                            {{ cards.card(
-                                'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/38/thumbnail_9d9cdd61-cdf8-47c4-94df-d83c7c326364.jpg',
-                                'Broccoli, Bell Pepper &amp; Chickpea Salad with Feta &amp; Zesty Lemon Dressing'
-                            ) }}
+                                {{ cards.card(
+                                    'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/132/thumbnail_e9d21025-0fa8-4131-90a1-0ce286f89d9e.jpg',
+                                    'Dijon Pork Chops with Roasted Brussels Sprouts &amp; Grapes'
+                                ) }}
 
-                            {{ cards.card(
-                                'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/132/thumbnail_e9d21025-0fa8-4131-90a1-0ce286f89d9e.jpg',
-                                'Dijon Pork Chops with Roasted Brussels Sprouts &amp; Grapes'
-                            ) }}
-
-                            {{ cards.card(
-                                'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/416/thumbnail_0ba70a35-f71b-4240-9e6b-3db810c86589.jpg',
-                                'Lemon-Garlic Chicken Drumsticks with Zucchini, Corn &amp; Feta Salad'
-                            ) }}
-                        </div>
+                                {{ cards.card(
+                                    'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/416/thumbnail_0ba70a35-f71b-4240-9e6b-3db810c86589.jpg',
+                                    'Lemon-Garlic Chicken Drumsticks with Zucchini, Corn &amp; Feta Salad'
+                                ) }}
+                            </div></ng-include>
 
                         <a class="previous-meal-plan-toggle ng-binding ng-hide" ng-click="togglePreviousMealPlan()" ng-show="showPreviousMealPlanToggle()">Show meals from my previous meal plan</a>
 
@@ -598,6 +598,5 @@
 
                 </div>
             </div></ng-view>
-
 
     {% endblock %}
