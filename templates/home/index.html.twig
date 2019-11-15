@@ -2,15 +2,669 @@
 
 {% block title %}{{ "home_page.home"|trans }}{% endblock %}
 
-{% block main %}
+{% block body %}
     {% if app.user %}
         <div class="mb-3">
             {{ "home_page.logged_in_as"|trans }} {{ app.user.username }}, <a href="{{ path('app_logout') }}">{{ "home_page.logout"|trans }}</a>
         </div>
     {% endif %}
-    <div>
-        <h1>{{ "home_page.recipes"|trans }}</h1>
-        <p class="lead">{{ "home_page.text"|trans }}</p>
-    </div>
 
-{% endblock %}
+    <body ng-app="mealime" class="ng-scope">
+    <main class="container"><!-- ngView: --><ng-view class="ng-scope"><div id="meal-plan" class="meal-plan-app ng-scope" ng-class="{'meal-plan-complete': allCooked()}">
+                <div>
+
+                    <div id="meal-plan-header" class="pad-small">
+                        <a class="next-plan next-plan-desktop" ng-click="startNextPlan()" ng-show="loaded()">Start next meal plan</a>
+
+                        <h1>
+                            <span id="meal-plan-title">My Meal Plan</span>
+                            <span class="green-dot">.</span>
+                        </h1>
+
+                        <a id="grocery-list-toggle" class="ml-btn-default" ng-click="toggleGroceryList()">
+                            Grocery List
+                            <i class="caret" ng-class="{'caret-up': isGroceryListOpen}"></i>
+                        </a>
+
+                        <a class="next-plan next-plan-mobile" ng-click="startNextPlan()" ng-show="loaded()">
+                            Next meal plan
+                        </a>
+                    </div><!-- meal-plan-header -->
+
+                    <div id="meal-plan-content" class="clearfix">
+                        <!-- ngInclude: --><ng-include src="'grocery_list.html'" class="ng-scope"><div id="grocery-list-container" ng-show="isGroceryListOpen" class="ng-scope ng-hide">
+                                <div id="grocery-list">
+                                    <a class="add-item has-tooltip" title="" ng-click="showAddItemModal()" data-original-title="Add to your grocery list">
+                                        <i>
+                                            <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1344 800v64q0 14-9 23t-23 9h-352v352q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-352h-352q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h352v-352q0-14 9-23t23-9h64q14 0 23 9t9 23v352h352q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z"></path></svg>
+                                        </i>
+                                    </a>
+
+                                    <div id="success-message" ng-show="gl.allItemsComplete()" class="ng-hide">
+                                        <i class="fa fa-check"></i>
+                                        <h2>All done here!</h2>
+                                    </div>
+
+                                    <!-- ngRepeat: section in gl.incompleteSections() --><div class="grocery-section ng-scope" ng-repeat="section in gl.incompleteSections()">
+                                        <h3 class="ng-binding">Produce<span class="small-green-dot">.</span></h3>
+                                        <ul>
+                                            <!-- ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">1 ear</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">corn</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">2 medium</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">zucchini squash</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">½ lb</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">red grapes</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">½ lb</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">brussels sprouts</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">1 crown</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">broccoli</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">1</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">red bell pepper</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">2</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">lemons</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">1 small bunch</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">Italian (flat-leaf) parsley</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">4 cloves</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">garlic</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) -->
+                                        </ul>
+                                    </div><!-- end ngRepeat: section in gl.incompleteSections() --><div class="grocery-section ng-scope" ng-repeat="section in gl.incompleteSections()">
+                                        <h3 class="ng-binding">Deli &amp; Specialty Cheese<span class="small-green-dot">.</span></h3>
+                                        <ul>
+                                            <!-- ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">1 (4 oz) pkg</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">crumbled feta cheese</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) -->
+                                        </ul>
+                                    </div><!-- end ngRepeat: section in gl.incompleteSections() --><div class="grocery-section ng-scope" ng-repeat="section in gl.incompleteSections()">
+                                        <h3 class="ng-binding">Meat &amp; Seafood<span class="small-green-dot">.</span></h3>
+                                        <ul>
+                                            <!-- ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">1 ¼ lb</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">chicken drumsticks</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">2</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">pork chops, bone-in</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) -->
+                                        </ul>
+                                    </div><!-- end ngRepeat: section in gl.incompleteSections() --><div class="grocery-section ng-scope" ng-repeat="section in gl.incompleteSections()">
+                                        <h3 class="ng-binding">Baking &amp; Spices<span class="small-green-dot">.</span></h3>
+                                        <ul>
+                                            <!-- ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding"></span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">pure maple syrup</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding"></span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">thyme</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding"></span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">salt</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding"></span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">black pepper</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) -->
+                                        </ul>
+                                    </div><!-- end ngRepeat: section in gl.incompleteSections() --><div class="grocery-section ng-scope" ng-repeat="section in gl.incompleteSections()">
+                                        <h3 class="ng-binding">Nut Butters, Honey &amp; Jams<span class="small-green-dot">.</span></h3>
+                                        <ul>
+                                            <!-- ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding"></span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">honey</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) -->
+                                        </ul>
+                                    </div><!-- end ngRepeat: section in gl.incompleteSections() --><div class="grocery-section ng-scope" ng-repeat="section in gl.incompleteSections()">
+                                        <h3 class="ng-binding">Canned &amp; Jarred Goods<span class="small-green-dot">.</span></h3>
+                                        <ul>
+                                            <!-- ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding">1 (15 oz) can</span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">garbanzo beans (chickpeas)</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) -->
+                                        </ul>
+                                    </div><!-- end ngRepeat: section in gl.incompleteSections() --><div class="grocery-section ng-scope" ng-repeat="section in gl.incompleteSections()">
+                                        <h3 class="ng-binding">Oils, Sauces &amp; Condiments<span class="small-green-dot">.</span></h3>
+                                        <ul>
+                                            <!-- ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding"></span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">balsamic vinegar</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding"></span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">virgin coconut oil</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding"></span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">Dijon mustard</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                                <label class="control checkbox">
+                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <span class="control-indicator"></span>
+                                                    <span class="quantity ng-binding"></span>
+                                                </label>
+                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
+            <span class="ng-binding">extra virgin olive oil</span>
+            <a>
+              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
+                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
+              </i>
+
+              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
+                !
+              </i>
+            </a>
+          </span>
+                                            </li><!-- end ngRepeat: item in gl.sectionItems(section) -->
+                                        </ul>
+                                    </div><!-- end ngRepeat: section in gl.incompleteSections() -->
+
+                                    <div class="grocery-section ng-hide" ng-show="gl.hasCompleteItems()">
+                                        <h3>Got 'Em<span class="small-green-dot">.</span></h3>
+                                        <ul>
+                                            <!-- ngRepeat: item in gl.completeItems() -->
+                                        </ul>
+                                    </div>
+
+                                    <div class="action-bar">
+                                        <a class="has-tooltip action-bar-add ml-btn-link" ng-click="showAddItemModal()" title="" data-original-title="Add to your grocery list">
+                                            <i>
+                                                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1600 736v192q0 40-28 68t-68 28h-416v416q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-416h-416q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h416v-416q0-40 28-68t68-28h192q40 0 68 28t28 68v416h416q40 0 68 28t28 68z"></path></svg>
+                                            </i>
+                                        </a>
+                                        <a class="has-tooltip action-bar-schedule ml-btn-link" href="/api/grocery_list/schedule" target="_blank" title="" data-original-title="Schedule grocery trip in Google Calendar">
+                                            <i>
+                                                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M192 1664h288v-288h-288v288zm352 0h320v-288h-320v288zm-352-352h288v-320h-288v320zm352 0h320v-320h-320v320zm-352-384h288v-288h-288v288zm736 736h320v-288h-320v288zm-384-736h320v-288h-320v288zm768 736h288v-288h-288v288zm-384-352h320v-320h-320v320zm-352-864v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm736 864h288v-320h-288v320zm-384-384h320v-288h-320v288zm384 0h288v-288h-288v288zm32-480v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm384-64v1280q0 52-38 90t-90 38h-1408q-52 0-90-38t-38-90v-1280q0-52 38-90t90-38h128v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128q52 0 90 38t38 90z"></path></svg>
+                                            </i>
+                                        </a>
+                                        <a class="ml-btn-link has-tooltip action-bar-print" href="/grocery_list" target="_blank" title="" data-original-title="Print your grocery list">
+                                            <i>
+                                                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M448 1536h896v-256h-896v256zm0-640h896v-384h-160q-40 0-68-28t-28-68v-160h-640v640zm1152 64q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm128 0v416q0 13-9.5 22.5t-22.5 9.5h-224v160q0 40-28 68t-68 28h-960q-40 0-68-28t-28-68v-160h-224q-13 0-22.5-9.5t-9.5-22.5v-416q0-79 56.5-135.5t135.5-56.5h64v-544q0-40 28-68t68-28h672q40 0 88 20t76 48l152 152q28 28 48 76t20 88v256h64q79 0 135.5 56.5t56.5 135.5z"></path></svg>
+                                            </i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div id="add-item-modal" class="modal">
+                                    <div class="modal-content">
+
+                                        <button class="close">×</button>
+                                        <h3>Add to your grocery list</h3>
+                                        <form ng-submit="addItem()" class="ng-pristine ng-invalid ng-invalid-required">
+                                            <select ng-model="newItem.section_id" ng-options="section.id as section.name for section in gl.sections" class="ng-pristine ng-untouched ng-valid ng-not-empty"><option label="Your Items" value="number:-1" selected="selected">Your Items</option><option label="Produce" value="number:4">Produce</option><option label="Deli &amp; Specialty Cheese" value="number:7">Deli &amp; Specialty Cheese</option><option label="Bakery" value="number:6">Bakery</option><option label="Meat &amp; Seafood" value="number:1">Meat &amp; Seafood</option><option label="Dairy, Cheese &amp; Eggs" value="number:2">Dairy, Cheese &amp; Eggs</option><option label="Frozen" value="number:13">Frozen</option><option label="Baking &amp; Spices" value="number:8">Baking &amp; Spices</option><option label="Nuts, Seeds &amp; Dried Fruit" value="number:12">Nuts, Seeds &amp; Dried Fruit</option><option label="Nut Butters, Honey &amp; Jams" value="number:11">Nut Butters, Honey &amp; Jams</option><option label="Rice, Grains &amp; Beans" value="number:3">Rice, Grains &amp; Beans</option><option label="Canned &amp; Jarred Goods" value="number:9">Canned &amp; Jarred Goods</option><option label="Pasta &amp; Sauces" value="number:15">Pasta &amp; Sauces</option><option label="Oils, Sauces &amp; Condiments" value="number:14">Oils, Sauces &amp; Condiments</option><option label="Ethnic" value="number:5">Ethnic</option><option label="Other" value="number:17">Other</option></select>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <input class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="newItem.quantity" placeholder="Amount..." type="text">
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" ng-model="newItem.ingredient_name" placeholder="Ingredient..." required="" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="actions">
+                                                <button class="ml-btn-success" type="submit">Add item</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div><!-- add-item-modal -->
+
+                            </div></ng-include>
+                        <!-- ngInclude: --><ng-include src="'meals.html'" class="ng-scope"><div id="meals" class="pad-small ng-scope">
+                                <!-- ngRepeat: meal in mealPlan.meals --><div class="recipe-thumb ng-scope" ng-class="{'is-cooked': meal.is_cooked, 'is-favourited': meal.is_favourited}" ng-repeat="meal in mealPlan.meals">
+                                    <div class="content">
+                                        <a href="#!/meals/25639401">
+                                            <img class="image" ng-src="https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/38/thumbnail_9d9cdd61-cdf8-47c4-94df-d83c7c326364.jpg" src="https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/38/thumbnail_9d9cdd61-cdf8-47c4-94df-d83c7c326364.jpg">
+                                        </a>
+                                        <div class="details">
+                                            <h2 class="title">
+                                                <a href="#!/meals/25639401" class="ng-binding">Broccoli, Bell Pepper &amp; Chickpea Salad with Feta &amp; Zesty Lemon Dressing</a>
+                                            </h2>
+
+                                            <div class="action-bar">
+                                                <div class="action-bar-right">
+                                                    <div class="action">
+                                                        <a class="has-tooltip" data-original-title="Add to favourites" ng-click="toggleFavourited(meal)">
+                                                            <i class="favourited-icon">
+                                                                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
+                                                                </svg>
+                                                            </i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- action-bar -->
+                                        </div>
+                                        <!-- details -->
+                                    </div>
+                                </div><!-- end ngRepeat: meal in mealPlan.meals --><div class="recipe-thumb ng-scope" ng-class="{'is-cooked': meal.is_cooked, 'is-favourited': meal.is_favourited}" ng-repeat="meal in mealPlan.meals">
+                                    <div class="content">
+                                        <a href="#!/meals/25639402">
+                                            <img class="image" ng-src="https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/132/thumbnail_e9d21025-0fa8-4131-90a1-0ce286f89d9e.jpg" src="https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/132/thumbnail_e9d21025-0fa8-4131-90a1-0ce286f89d9e.jpg">
+                                        </a>
+                                        <div class="details">
+                                            <h2 class="title">
+                                                <a href="#!/meals/25639402" class="ng-binding">Dijon Pork Chops with Roasted Brussels Sprouts &amp; Grapes</a>
+                                            </h2>
+
+                                            <div class="action-bar">
+                                                <div class="action-bar-right">
+                                                    <div class="action">
+                                                        <a class="has-tooltip" data-original-title="Add to favourites" ng-click="toggleFavourited(meal)">
+                                                            <i class="favourited-icon">
+                                                                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
+                                                                </svg>
+                                                            </i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- action-bar -->
+                                        </div>
+                                        <!-- details -->
+                                    </div>
+                                </div><!-- end ngRepeat: meal in mealPlan.meals --><div class="recipe-thumb ng-scope" ng-class="{'is-cooked': meal.is_cooked, 'is-favourited': meal.is_favourited}" ng-repeat="meal in mealPlan.meals">
+                                    <div class="content">
+                                        <a href="#!/meals/25639403">
+                                            <img class="image" ng-src="https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/416/thumbnail_0ba70a35-f71b-4240-9e6b-3db810c86589.jpg" src="https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/416/thumbnail_0ba70a35-f71b-4240-9e6b-3db810c86589.jpg">
+                                        </a>
+                                        <div class="details">
+                                            <h2 class="title">
+                                                <a href="#!/meals/25639403" class="ng-binding">Lemon-Garlic Chicken Drumsticks with Zucchini, Corn &amp; Feta Salad</a>
+                                            </h2>
+                                            <div class="action-bar">
+                                                <div class="action-bar-right">
+                                                    <div class="action">
+                                                        <a class="has-tooltip" data-original-title="Add to favourites" ng-click="toggleFavourited(meal)">
+                                                            <i class="favourited-icon">
+                                                                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
+                                                                </svg>
+                                                            </i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- action-bar -->
+                                        </div>
+                                        <!-- details -->
+                                    </div>
+                                </div><!-- end ngRepeat: meal in mealPlan.meals -->
+                                <!-- recipe-thumb -->
+                            </div></ng-include>
+
+                        <a class="previous-meal-plan-toggle ng-binding ng-hide" ng-click="togglePreviousMealPlan()" ng-show="showPreviousMealPlanToggle()">Show meals from my previous meal plan</a>
+
+                        <div class="previous-meal-plan ng-hide" ng-show="showPreviousMealPlan">
+                            <!-- ngInclude: --><ng-include src="'previous_meal_plan_meals.html'" class="ng-scope"><div id="meals" class="pad-small ng-scope">
+                                    <!-- ngRepeat: meal in mealPlan.previous_meal_plan_meals -->
+                                    <!-- recipe-thumb -->
+                                </div></ng-include>
+                        </div>
+
+                    </div>
+
+                    <!-- ngInclude: --><ng-include src="'modals/rate_meal.html'" class="ng-scope"><div class="modal ng-scope" id="rate-meal"><div class="modal-content"><button class="close">×</button><h2>What did you think of this meal?</h2><form ng-submit="submitRating()" class="ng-pristine ng-valid"><div class="input-group controls-inline"><label class="control radio"><input ng-model="rating.value" type="radio" value="0" class="ng-pristine ng-untouched ng-valid ng-not-empty" name="7"><span class="control-indicator"></span>Yuck!</label><label class="control radio"><input ng-model="rating.value" type="radio" value="1" class="ng-pristine ng-untouched ng-valid ng-not-empty" name="8"><span class="control-indicator"></span>Meh</label><label class="control radio"><input ng-model="rating.value" type="radio" value="2" class="ng-pristine ng-untouched ng-valid ng-not-empty" name="9"><span class="control-indicator"></span>Good</label><label class="control radio"><input ng-model="rating.value" type="radio" value="3" class="ng-pristine ng-untouched ng-valid ng-not-empty" name="10"><span class="control-indicator"></span>Yum!</label></div><div class="input-group comment-group"><textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="comment" ng-model="rating.comment" placeholder="Please tell us what you liked or didn't like about this meal." rows="3"></textarea></div><input class="ml-btn-success disable-on-click" type="submit" value="Submit Rating"></form></div></div></ng-include>
+                    <!-- ngInclude: --><ng-include src="'modals/grocery_list_item_extra.html'" class="ng-scope"><div id="grocery-list-item-extra" class="modal ng-scope">
+                            <div class="modal-content">
+                                <button class="close">×</button>
+
+                                <img>
+
+                                <div class="warnings ng-hide" ng-show="gl.itemHasWarnings(selectedItem)">
+                                    Some varieties of this ingredient may not be <strong class="ng-binding"></strong>. Make sure to check labels carefully and purchase an allergen-free variety while shopping.
+                                </div>
+
+                                <div class="body">
+
+                                    <h2 class="ng-binding"></h2>
+
+                                    <div class="equivalents ng-hide" ng-show="selectedItem.extra.equivalents">
+                                        <strong>Not sure about the size or amount?</strong>
+                                        <span class="ng-binding"></span>
+                                    </div>
+
+                                    <div class="substitutes ng-hide" ng-show="selectedItem.extra.substitutes">
+                                        <strong>Need a substitute?</strong>
+                                        <span class="ng-binding"></span>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="usages">
+                                        <strong>You'll use this in…</strong>
+
+                                        <ul>
+                                            <!-- ngRepeat: usage in selectedItem.extra.usages -->
+                                        </ul>
+                                    </div>
+                                </div><!-- body -->
+
+                            </div><!-- modal content -->
+                        </div><!-- modal --></ng-include>
+
+                </div>
+            </div></ng-view>
+
+
+    {% endblock %}
