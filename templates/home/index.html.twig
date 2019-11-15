@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import "/card/card.html.twig" as cards %}
 
 {% block title %}{{ "home_page.home"|trans }}{% endblock %}
 
@@ -10,7 +11,7 @@
     {% endif %}
 
     <body ng-app="mealime" class="ng-scope">
-    <main class="container"><!-- ngView: --><ng-view class="ng-scope"><div id="meal-plan" class="meal-plan-app ng-scope" ng-class="{'meal-plan-complete': allCooked()}">
+        <main class="container"><!-- ngView: --><ng-view class="ng-scope"><div id="meal-plan" class="meal-plan-app ng-scope" ng-class="{'meal-plan-complete': allCooked()}">
                 <div>
 
                     <div id="meal-plan-header" class="pad-small">
@@ -18,7 +19,6 @@
 
                         <h1>
                             <span id="meal-plan-title">My Meal Plan</span>
-                            <span class="green-dot">.</span>
                         </h1>
 
                         <a id="grocery-list-toggle" class="ml-btn-default" ng-click="toggleGroceryList()">
@@ -32,7 +32,7 @@
                     </div><!-- meal-plan-header -->
 
                     <div id="meal-plan-content" class="clearfix">
-                        <!-- ngInclude: --><ng-include src="'grocery_list.html'" class="ng-scope"><div id="grocery-list-container" ng-show="isGroceryListOpen" class="ng-scope ng-hide">
+                        <!-- ngInclude: --><ng-include class="ng-scope"><div id="grocery-list-container" ng-show="isGroceryListOpen" class="ng-scope ng-hide">
                                 <div id="grocery-list">
                                     <a class="add-item has-tooltip" title="" ng-click="showAddItemModal()" data-original-title="Add to your grocery list">
                                         <i>
@@ -528,90 +528,23 @@
                                 </div><!-- add-item-modal -->
 
                             </div></ng-include>
-                        <!-- ngInclude: --><ng-include src="'meals.html'" class="ng-scope"><div id="meals" class="pad-small ng-scope">
-                                <!-- ngRepeat: meal in mealPlan.meals --><div class="recipe-thumb ng-scope" ng-class="{'is-cooked': meal.is_cooked, 'is-favourited': meal.is_favourited}" ng-repeat="meal in mealPlan.meals">
-                                    <div class="content">
-                                        <a href="#!/meals/25639401">
-                                            <img class="image" ng-src="https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/38/thumbnail_9d9cdd61-cdf8-47c4-94df-d83c7c326364.jpg" src="https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/38/thumbnail_9d9cdd61-cdf8-47c4-94df-d83c7c326364.jpg">
-                                        </a>
-                                        <div class="details">
-                                            <h2 class="title">
-                                                <a href="#!/meals/25639401" class="ng-binding">Broccoli, Bell Pepper &amp; Chickpea Salad with Feta &amp; Zesty Lemon Dressing</a>
-                                            </h2>
 
-                                            <div class="action-bar">
-                                                <div class="action-bar-right">
-                                                    <div class="action">
-                                                        <a class="has-tooltip" data-original-title="Add to favourites" ng-click="toggleFavourited(meal)">
-                                                            <i class="favourited-icon">
-                                                                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
-                                                                </svg>
-                                                            </i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- action-bar -->
-                                        </div>
-                                        <!-- details -->
-                                    </div>
-                                </div><!-- end ngRepeat: meal in mealPlan.meals --><div class="recipe-thumb ng-scope" ng-class="{'is-cooked': meal.is_cooked, 'is-favourited': meal.is_favourited}" ng-repeat="meal in mealPlan.meals">
-                                    <div class="content">
-                                        <a href="#!/meals/25639402">
-                                            <img class="image" ng-src="https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/132/thumbnail_e9d21025-0fa8-4131-90a1-0ce286f89d9e.jpg" src="https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/132/thumbnail_e9d21025-0fa8-4131-90a1-0ce286f89d9e.jpg">
-                                        </a>
-                                        <div class="details">
-                                            <h2 class="title">
-                                                <a href="#!/meals/25639402" class="ng-binding">Dijon Pork Chops with Roasted Brussels Sprouts &amp; Grapes</a>
-                                            </h2>
+                        <div id="meals" class="pad-small ng-scope">
+                            {{ cards.card(
+                                'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/38/thumbnail_9d9cdd61-cdf8-47c4-94df-d83c7c326364.jpg',
+                                'Broccoli, Bell Pepper &amp; Chickpea Salad with Feta &amp; Zesty Lemon Dressing'
+                            ) }}
 
-                                            <div class="action-bar">
-                                                <div class="action-bar-right">
-                                                    <div class="action">
-                                                        <a class="has-tooltip" data-original-title="Add to favourites" ng-click="toggleFavourited(meal)">
-                                                            <i class="favourited-icon">
-                                                                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
-                                                                </svg>
-                                                            </i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- action-bar -->
-                                        </div>
-                                        <!-- details -->
-                                    </div>
-                                </div><!-- end ngRepeat: meal in mealPlan.meals --><div class="recipe-thumb ng-scope" ng-class="{'is-cooked': meal.is_cooked, 'is-favourited': meal.is_favourited}" ng-repeat="meal in mealPlan.meals">
-                                    <div class="content">
-                                        <a href="#!/meals/25639403">
-                                            <img class="image" ng-src="https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/416/thumbnail_0ba70a35-f71b-4240-9e6b-3db810c86589.jpg" src="https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/416/thumbnail_0ba70a35-f71b-4240-9e6b-3db810c86589.jpg">
-                                        </a>
-                                        <div class="details">
-                                            <h2 class="title">
-                                                <a href="#!/meals/25639403" class="ng-binding">Lemon-Garlic Chicken Drumsticks with Zucchini, Corn &amp; Feta Salad</a>
-                                            </h2>
-                                            <div class="action-bar">
-                                                <div class="action-bar-right">
-                                                    <div class="action">
-                                                        <a class="has-tooltip" data-original-title="Add to favourites" ng-click="toggleFavourited(meal)">
-                                                            <i class="favourited-icon">
-                                                                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
-                                                                </svg>
-                                                            </i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- action-bar -->
-                                        </div>
-                                        <!-- details -->
-                                    </div>
-                                </div><!-- end ngRepeat: meal in mealPlan.meals -->
-                                <!-- recipe-thumb -->
-                            </div></ng-include>
+                            {{ cards.card(
+                                'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/132/thumbnail_e9d21025-0fa8-4131-90a1-0ce286f89d9e.jpg',
+                                'Dijon Pork Chops with Roasted Brussels Sprouts &amp; Grapes'
+                            ) }}
+
+                            {{ cards.card(
+                                'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/416/thumbnail_0ba70a35-f71b-4240-9e6b-3db810c86589.jpg',
+                                'Lemon-Garlic Chicken Drumsticks with Zucchini, Corn &amp; Feta Salad'
+                            ) }}
+                        </div>
 
                         <a class="previous-meal-plan-toggle ng-binding ng-hide" ng-click="togglePreviousMealPlan()" ng-show="showPreviousMealPlanToggle()">Show meals from my previous meal plan</a>
 
