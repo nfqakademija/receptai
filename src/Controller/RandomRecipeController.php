@@ -56,9 +56,10 @@ class RandomRecipeController extends AbstractController
 
         $random = random_int(0, $totalRecipes);
 
-        $receptai = new RecipeIngredient();
-        $n = 0;
+        $neededRecipesId = array();
         //7 Dienom suranda po viena recepta
+        //Reikes perkelt dar, i kita funkcija, nes reikia, kad kiekvienam useriui skirtingai rodytu
+        //Ir issavintu
         for ($i = 0 ; $i < 7 ; $i++) {
             $randomm = random_int(0, $totalRecipes - 1);
             $randomas = $randomm++;
@@ -69,15 +70,15 @@ class RandomRecipeController extends AbstractController
 
             }
             if (in_array($randomas, $recipeIdArray)) {
+                $neededRecipesId[] = $randomas;
                 $key = array_search($randomas, $recipeIdArray);
                 unset($recipeIdArray[$key]);
                 $recipeIdArray = array_values($recipeIdArray);
-                $posts = $this->getDoctrine()->getRepository(RecipeIngredient::class)->findBy([
-                    'recipe' => $randomas
-                ]);
-                $receptai = $posts;
             }
         }
+        $posts = $this->getDoctrine()->getRepository(RecipeIngredient::class)->findBy([
+            'recipe' => $neededRecipesId
+        ]);
 
 
 
@@ -103,9 +104,9 @@ class RandomRecipeController extends AbstractController
 
         return $this->render('random_recipe/index.html.twig', [
             'total' => $totalRecipes,
-           'posts' => $receptai,
+           'posts' => $posts,
             'randomNr' => $randomas,
-            'recipes' => $recipeIdArray,
+            'recipes' => $neededRecipesId,
         ]);
     }
 }
