@@ -10,63 +10,55 @@
         </div>
     {% endif %}
 
-    <body ng-app="mealime" class="ng-scope">
-    <main class="container"><!-- ngView: --><ng-view class="ng-scope"><div id="meal-plan" class="meal-plan-app ng-scope" ng-class="{'meal-plan-complete': allCooked()}">
+    <body>
+    <main class="container">
+    <div id="meal-plan" class="meal-plan-app">
                 <div>
 
                     <div id="meal-plan-header" class="pad-small">
-                        <a class="next-plan next-plan-desktop" ng-click="startNextPlan()" ng-show="loaded()">Start next meal plan</a>
+                        <a class="next-plan next-plan-desktop">Start next meal plan</a>
 
                         <h1>
                             <span id="meal-plan-title">My Meal Plan</span>
                             <span class="green-dot">.</span>
                         </h1>
 
-                        <a id="grocery-list-toggle" class="ml-btn-default" ng-click="toggleGroceryList()">
+                        <a id="grocery-list-toggle" class="ml-btn-default">
                             Grocery List
-                            <i class="caret" ng-class="{'caret-up': isGroceryListOpen}"></i>
+                            <i class="caret"></i>
                         </a>
 
-                        <a class="next-plan next-plan-mobile" ng-click="startNextPlan()" ng-show="loaded()">
+                        <a class="next-plan next-plan-mobile">
                             Next meal plan
                         </a>
                     </div><!-- meal-plan-header -->
 
                     <div id="meal-plan-content" class="clearfix">
-                        <!-- ngInclude: --><ng-include src="'grocery_list.html'" class="ng-scope"><div id="grocery-list-container" ng-show="isGroceryListOpen" class="ng-scope ng-hide">
+                        <div id="grocery-list-container">
                                 <div id="grocery-list">
-                                    <a class="add-item has-tooltip" title="" ng-click="showAddItemModal()" data-original-title="Add to your grocery list">
+                                    <a class="add-item has-tooltip" title="" data-original-title="Add to your grocery list">
                                         <i>
                                             <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1344 800v64q0 14-9 23t-23 9h-352v352q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-352h-352q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h352v-352q0-14 9-23t23-9h64q14 0 23 9t9 23v352h352q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z"></path></svg>
                                         </i>
                                     </a>
 
-                                    <div id="success-message" ng-show="gl.allItemsComplete()" class="ng-hide">
+                                    <div id="success-message">
                                         <i class="fa fa-check"></i>
                                         <h2>All done here!</h2>
                                     </div>
 
-                                    <!-- ngRepeat: section in gl.incompleteSections() --><div class="grocery-section ng-scope" ng-repeat="section in gl.incompleteSections()">
-                                        <h3 class="ng-binding">Produce<span class="small-green-dot">.</span></h3>
+                                    <div>
+                                        <h3> Produce </h3>
                                         <ul>
-                                            <!-- ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
+                                            <li class="grocery-item">
                                                 <label class="control checkbox">
-                                                    <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
+                                                    <input type="checkbox">
                                                     <span class="control-indicator"></span>
-                                                    <span class="quantity ng-binding">1 ear</span>
+                                                    <span class="quantity">1 ear</span>
                                                 </label>
-                                                <span class="ingredient" ng-click="showGroceryListItemExtra(item)">
-            <span class="ng-binding">corn</span>
-            <a>
-              <i ng-show="item.extra &amp;&amp; !gl.itemHasWarnings(item)">
-                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path></svg>
-              </i>
-
-              <i ng-show="gl.itemHasWarnings(item)" class="ingredient-warning ng-hide" title="This may contain allergens. Click for more details">
-                !
-              </i>
-            </a>
-          </span>
+                                                <span class="ingredient">
+                                                    <span>corn</span>
+                                                  </span>
                                             </li><!-- end ngRepeat: item in gl.sectionItems(section) --><li class="grocery-item ng-scope" ng-class="{'grocery-item-user': item.is_user_created}" ng-repeat="item in gl.sectionItems(section)">
                                                 <label class="control checkbox">
                                                     <input type="checkbox" ng-change="itemToggled(item)" ng-model="item.is_complete" class="ng-pristine ng-untouched ng-valid ng-empty">
