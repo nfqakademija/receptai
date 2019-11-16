@@ -2,7 +2,7 @@
 
 {% block title %}{{ "home_page.home"|trans }}{% endblock %}
 
-{% block main %}
+{% block body %}
     {% if app.user %}
         <div class="mb-3">
             {{ "home_page.logged_in_as"|trans }} {{ app.user.username }}, <a href="{{ path('app_logout') }}">{{ "home_page.logout"|trans }}</a>

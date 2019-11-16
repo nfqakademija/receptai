@@ -3,7 +3,7 @@
 {% block title %}{{ 'registration_form.register_title'|trans }}{% endblock %}
 
 {% block body %}
-{{ form_start(registrationForm) }}
+    {{ form_start(registrationForm) }}
 
     <body class="authentication">
     <!--[if lt IE 9]>
@@ -25,60 +25,55 @@
                 <div id="signup">
                     <h1>
                         Create a free account</h1>
-                    <form novalidate="novalidate" class="edit_registration" id="edit_registration_75988" action="/registrations/dDLMgKY_7Tz8skZLQyj7hw" accept-charset="UTF-8" method="post">
-                        <input name="utf8" type="hidden" value="✓">
-                        <input type="hidden" name="_method" value="patch">
-                        <input type="hidden" name="authenticity_token" value="TijkDFW2f22zLn/uRaidSfJVFyHXNtFCC1phQ7yq2chAb24qcCz2VXwCS5ZJ2NYzOpfqdc0UuubBEP7JB6AGWA==">
+                    <input name="utf8" type="hidden" value="✓">
+
+                    <div class="form-group first-name">
+                        <label for="registration_first_name">
+                            What's your first name?</label>
+                        {# form_label(registrationForm.username) #}
+                        {{ form_widget(registrationForm.username) }}
+                    </div>
 
 
-                        <div class="form-group first-name">
-                            <label for="registration_first_name">
-                                What's your first name?</label>
-                                {# form_label(registrationForm.username) #}
-                                {{ form_widget(registrationForm.username) }}
+
+                    <div class="form-group">
+                        <label for="registration_email">
+                            Enter your email</label>
+                        <div>
+                            {# form_label(registrationForm.email) #}
+                            {{ form_widget(registrationForm.email) }}
                         </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="registration_password">
+                            Create a password</label>
+                        {# form_label(registrationForm.password) #}
+                        {{ form_widget(registrationForm.password) }}
+                    </div>
 
 
 
-                        <div class="form-group">
-                            <label for="registration_email">
-                                Enter your email</label>
-                            <div>
-                                {# form_label(registrationForm.email) #}
-                                {{ form_widget(registrationForm.email) }}
-                            </div>
-                        </div>
+                    {# <div class="form-group consent">
+                         <label class="control checkbox" for="registration_consented_to_marketing_emails">
+                             <input name="registration[consented_to_marketing_emails]" type="hidden" value="false">
+                             <input type="checkbox" value="true" name="registration[consented_to_marketing_emails]" id="registration_consented_to_marketing_emails">
+                             <span class="control-indicator">
 
-
-                        <div class="form-group">
-                            <label for="registration_password">
-                                Create a password</label>
-                            {# form_label(registrationForm.password) #}
-                            {{ form_widget(registrationForm.password) }}
-                        </div>
-
-
-
-                        <div class="form-group consent">
-                            <label class="control checkbox" for="registration_consented_to_marketing_emails">
-                                <input name="registration[consented_to_marketing_emails]" type="hidden" value="false">
-                                <input type="checkbox" value="true" name="registration[consented_to_marketing_emails]" id="registration_consented_to_marketing_emails">
-                                <span class="control-indicator">
-
-                            </span>
-                            </label>
-                            <div class="terms-body">
-                                I'd like to receive meal planning tips, personalized recipe recommendations,
-                                and product updates from Mealime.</div>
-                        </div>
-                        <input type="submit" name="commit" value="{{ 'registration_form.register_button'|trans }}" class="ml-btn-strong-cta disable-on-click">
-                    </form>
+                         </span> #}
+                    </label>
+                    <div class="terms-body">
+                        I'd like to receive meal planning tips, personalized recipe recommendations,
+                        and product updates from Mealime.</div>
                 </div>
+                <input type="submit" name="commit" value="{{ 'registration_form.register_button'|trans }}" class="ml-btn-strong-cta disable-on-click">
             </div>
         </div>
-        <div id="auth-footer">
+    </div>
+    <div id="auth-footer">
 
-        </div>
+    </div>
     </div>
     </body>
 

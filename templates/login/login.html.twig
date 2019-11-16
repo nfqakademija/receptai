@@ -3,11 +3,11 @@
 {% block title %}{{'login_page.login'|trans}}{% endblock %}
 
 {% block body %}
-        <body class="authentication">
-        <form method="post">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+    <body class="authentication">
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
         <!--[if lt IE 9]>
         <div class="browser-upgrade">You are using an <strong>outdated</strong> browser. Please <a
@@ -48,8 +48,11 @@
                                 <input type="password" name="password" id="password" value="" class="form-control" placeholder="{{ 'login_page.password'|trans }}" required>
                             </div>
 
+                            <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}">
 
                             <div class="form-group hp-field">
+
                                 <label for="hp2">
                                     Hp2</label>
                                 <input type="text" name="hp2" id="hp2" value="" class="form-control">
@@ -81,11 +84,11 @@
             </div>
         </div>
 
-            <input type="hidden" name="_csrf_token"
-                   value="{{ csrf_token('authenticate') }}">
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}">
 
     </form>
-        </body>
+    </body>
 
 
 {% endblock %}
