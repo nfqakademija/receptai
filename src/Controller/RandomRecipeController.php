@@ -51,10 +51,6 @@ class RandomRecipeController extends AbstractController
               //for ($j = 0; $j < count($recipeIdArray); $j++) {
               unset($recipeIdArray[$random]);
           } */
-        $random = random_int(1, $totalRecipes);
-
-
-        $random = random_int(0, $totalRecipes);
 
         $neededRecipesId = array();
         //7 Dienom suranda po viena recepta
@@ -79,26 +75,27 @@ class RandomRecipeController extends AbstractController
         $posts = $this->getDoctrine()->getRepository(RecipeIngredient::class)->findBy([
             'recipe' => $neededRecipesId
         ]);
+        $names = $this->getDoctrine()->getRepository(Recipe::class)->findBy([
+        'id' => $neededRecipesId
+        ]);
 
+       // $namesOfRecipe = array();
 
+        //$recipeNames = $posts->getCA()->getTitle();
+        foreach ($posts as $post){
+            $namesOfRecipe[] = array($post->getRecipe()->getTitle());
+        }
 
+       // $results = $posts->createQueryBuilder('a')
+         //   ->groupBy('a.recipe')
+        //    ->getQuery()
+         //   ->getResult();
 
-
-     //   $randomas = random_int(0, count($));
-      //  array_splice($recipeIdArray,$randomas,1);
-     //   $recipeIdArray = array_values($recipeIdArray);
-     //   $randomas = random_int(0, 3);
-      //  array_splice($recipeIdArray,$randomas,1);
-     //   $recipeIdArray = array_values($recipeIdArray);
-
-
-      // $random =  count($recipeIdArray);
-        $name = '';
-        //Visas receptas su ingredientais vienoj pusej ir desinej pusej visi ingredientai, kuriu reikes, kad pagaminti
-       // foreach ($posts as $post){
-       // }
-
-
+    //    $db = $this->createQueryBuilder('mytable');
+    //    $db
+    //        ->groupBy('mytable.recipe')
+    //        ->orderBy('mytable.id', 'DESC');
+       // $posts = $db->getQuery()->getResult();
 
         dump($posts);
 
@@ -106,7 +103,7 @@ class RandomRecipeController extends AbstractController
             'total' => $totalRecipes,
            'posts' => $posts,
             'randomNr' => $randomas,
-            'recipes' => $neededRecipesId,
+            'recipes' => $names
         ]);
     }
 }

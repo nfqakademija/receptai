@@ -12,25 +12,26 @@
     {{ total }}
     {{ randomNr }}
 
-    <ul>
-        {% for post in posts %}
-        <li>
-            <div>
-            {{ post.recipe.title }}
-                {{ post.recipe.description }}
-            </div>
-            {{ post.measure.title }}
-            <div>
-            {{ post.ingredient.title }}
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
+
     <ul>
         {% for recipe in recipes %}
             <li>
                 <div>
-                    {{ recipe }}
+                    {{ recipe.title }}
+                    {{ recipe.description }}
+                    <ul>
+                        {% for post in posts %}
+                            {% if recipe.title == post.recipe.title %}
+                            <li>
+                                {{ post.measure.title }}
+                                {{ post.amount }}
+                                <div>
+                                    {{ post.ingredient.title }}
+                                </div>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
                 </div>
             </li>
         {% endfor %}
