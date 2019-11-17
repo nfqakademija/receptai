@@ -10,7 +10,6 @@
 
 <div class="example-wrapper">
     {{ total }}
-    {{ randomNr }}
 
 
     <ul>
@@ -35,6 +34,17 @@
                 </div>
             </li>
         {% endfor %}
+    </ul>
+    Everything needed to make these recipes
+    <ul>
+        <li>
+            {% for soin in soins %}
+            <div>
+                {{ soin.total }} kg
+                {{ soin.0.ingredient.title }}
+            </div>
+        {% endfor %}
+        </li>
     </ul>
 
 </div>
