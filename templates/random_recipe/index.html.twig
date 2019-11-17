@@ -3,28 +3,30 @@
 {% block title %}Hello RandomRecipeController!{% endblock %}
 
 {% block body %}
+    {% if app.user %}
+        <div class="mb-3">
+            {{ "home_page.logged_in_as"|trans }} {{ app.user.username }}, <a href="{{ path('app_logout') }}">{{ "home_page.logout"|trans }}</a>
+        </div>
+    {% endif %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
 <div class="example-wrapper">
-    {{ total }}
-
-
     <ul>
-        {% for recipe in recipes %}
+        {% for recipeName in recipeNames %}
             <li>
                 <div>
-                    {{ recipe.title }}
-                    {{ recipe.description }}
+                    {{ recipeName.title }}
+                    {{ recipeName.description }}
                     <ul>
-                        {% for post in posts %}
-                            {% if recipe.title == post.recipe.title %}
+                        {% for recipe in recipes %}
+                            {% if recipeName.title == recipe.recipe.title %}
                             <li>
-                                {{ post.ingredient.title }}
-                                {{ post.amount }}
-                                {{ post.measure.title }}
+                                {{ recipe.ingredient.title }}
+                                {{ recipe.amount }}
+                                {{ recipe.measure.title }}
                             </li>
                             {% endif %}
                         {% endfor %}
@@ -33,13 +35,14 @@
             </li>
         {% endfor %}
     </ul>
-    Everything needed to make these recipes
+    {{ 'random_recipe.allIngredients'|trans }}
     <ul>
         <li>
-            {% for soin in soins %}
+            {% for summedRecipe in summedRecipes %}
             <div>
-                {{ soin.total }} kg
-                {{ soin.0.ingredient.title }}
+                {{ summedRecipe.total }}
+                {{ summedRecipe.0.measure.title }}
+                {{ summedRecipe.0.ingredient.title }}
             </div>
         {% endfor %}
         </li>

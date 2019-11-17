@@ -14,12 +14,12 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        $posts = $this->getDoctrine()->getRepository(RecipeIngredient::class)->findAll();
+        $recipes = $this->getDoctrine()->getRepository(RecipeIngredient::class)->findAll();
         $names = $this->getDoctrine()->getRepository(Recipe::class)->findAll();
 
         return $this->render('home/index.html.twig', [
-            'posts' => $posts,
-            'recipes' => $names
+            'recipes' => $recipes,
+            'recipeNames' => $names
         ]);
     }
 }

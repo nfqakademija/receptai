@@ -21,17 +21,19 @@ class RecipeRepository extends ServiceEntityRepository
 
     /**
      * @return int
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function allRecipesCount(): int
+    public function findRecipeCount()
     {
-        $entityManager = $this->getEntityManager();
+        $qb = $this->getEntityManager()->createQueryBuilder();
 
-        $query =  $entityManager->createQueryBuilder('a')
-            ->from('App\Entity\Recipe a')
-            ->select('count(a.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
-        // returns an array of Product objects
-        return $query->getResult();
+        $qb
+            ->select('count(recipe.id)')
+            ->from('App\Entity\Recipe', 'recipe')
+        ;
+
+        $query = $qb->getQuery();
+
+        return $query->getSingleScalarResult();
     }
 }

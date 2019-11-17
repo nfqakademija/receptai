@@ -12,18 +12,18 @@
         <h1>{{ "home_page.recipes"|trans }}</h1>
         <p class="lead">{{ "home_page.text"|trans }}</p>
         <ul>
-            {% for recipe in recipes %}
+            {% for recipeName in recipeNames %}
                 <li>
                     <div>
-                        {{ recipe.title }}
-                        {{ recipe.description }}
+                        {{ recipeName.title }}
+                        {{ recipeName.description }}
                         <ul>
-                            {% for post in posts %}
-                                {% if recipe.title == post.recipe.title %}
+                            {% for recipe in recipes %}
+                                {% if recipeName.title == recipe.recipe.title %}
                                     <li>
-                                        {{ post.ingredient.title }}
-                                        {{ post.amount }}
-                                        {{ post.measure.title }}
+                                        {{ recipe.ingredient.title }}
+                                        {{ recipe.amount }}
+                                        {{ recipe.measure.title }}
                                     </li>
                                 {% endif %}
                             {% endfor %}
@@ -31,6 +31,7 @@
                     </div>
                 </li>
             {% endfor %}
+        </ul>
     </div>
 
 {% endblock %}
