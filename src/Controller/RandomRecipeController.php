@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ingredient;
 use App\Entity\Recipe;
 use App\Entity\RecipeIngredient;
+use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,27 +14,21 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RandomRecipeController extends AbstractController
 {
+    //Is recipe lenteles imt ir tada is, kartojasi recep
     /**
      * @Route("/random/recipe", name="random_recipe")
      */
     public function random(RandomRecipeGenerator $recipeGenerator, TranslatorInterface $translator)
     {
-
+        //Su buttonu generate padaryt, kai paspaudi padaryt, kad galetum kita kart spaust po valandos
         if ($this->getUser()) {
-
             $em = $this->getDoctrine()->getManager();
             $recipes = $em->getRepository(Recipe::class);
             $ingredients = $em->getRepository(RecipeIngredient::class);
 
-            //Sita funkcija galima accesint tik jei prisijunges
-            //Dar reikes padaryt, kad kiekvienam prisijungusiam useriui butu skirtinga
-            //Padaryt, kad tas chro job eitu kas minute pradziai pabandyt
-            //Perkelt recepto pavadinima i $variable, kad lengviau twige butu viska daryt
-            //Padaryt, kad issiustu recepto pavadinima i pasta su ingredientais
-            //Jei ingredientas tas pats sudet amount, padaryti double array su ingredientu ir jo kiekiu kad galetum sudet kieki
-            //Cikla, kuris ideda jei jau neegzistuoja ingredientas ir kitas ciklas, kuris prideda amount
-
-            //Move to service
+            $products = $this->getDoctrine()
+                ->getRepository(Recipe::class);
+            //Move to repository
             $totalRecipes = $recipes->createQueryBuilder('a')
                 ->select('count(a.id)')
                 ->getQuery()
@@ -50,7 +45,6 @@ class RandomRecipeController extends AbstractController
             //Ir issavintu
             $neededRecipesId = $recipeGenerator->getRecipeIdArray($totalRecipes, $recipeIdArray);
 
-
             $posts = $this->getDoctrine()->getRepository(RecipeIngredient::class)->findBy([
                 'recipe' => $neededRecipesId
             ]);
@@ -59,7 +53,6 @@ class RandomRecipeController extends AbstractController
             ]);
            // Daryt for cikla, kuris eina per
             //Move to repository
-            $ids_string = implode(',', $neededRecipesId);
             $query = $ingredients->createQueryBuilder('s')
                 ->addSelect('SUM(s.amount) as total')
                 ->where('s.recipe IN (:neededRecipesId)')
@@ -68,8 +61,6 @@ class RandomRecipeController extends AbstractController
                 ->groupBy('s.ingredient')
                 ->getQuery();
             $soins = $query->getResult();
-
-            dump($posts);
 
             return $this->render('random_recipe/index.html.twig', [
                 'total' => $totalRecipes,
@@ -82,6 +73,7 @@ class RandomRecipeController extends AbstractController
             $this->addFlash('failure', $translator->trans('Please log in'));
             return $this->redirectToRoute('home');
         }
+        //Save state controller
     }
 }
 # send to the logged in user the random recipe

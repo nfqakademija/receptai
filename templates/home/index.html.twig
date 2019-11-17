@@ -11,6 +11,26 @@
     <div>
         <h1>{{ "home_page.recipes"|trans }}</h1>
         <p class="lead">{{ "home_page.text"|trans }}</p>
+        <ul>
+            {% for recipe in recipes %}
+                <li>
+                    <div>
+                        {{ recipe.title }}
+                        {{ recipe.description }}
+                        <ul>
+                            {% for post in posts %}
+                                {% if recipe.title == post.recipe.title %}
+                                    <li>
+                                        {{ post.ingredient.title }}
+                                        {{ post.amount }}
+                                        {{ post.measure.title }}
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+            {% endfor %}
     </div>
 
 {% endblock %}

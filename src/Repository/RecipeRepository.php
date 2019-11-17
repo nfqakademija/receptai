@@ -18,4 +18,20 @@ class RecipeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Recipe::class);
     }
+
+    /**
+     * @return int
+     */
+    public function allRecipesCount(): int
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query =  $entityManager->createQueryBuilder('a')
+            ->from('App\Entity\Recipe a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        // returns an array of Product objects
+        return $query->getResult();
+    }
 }

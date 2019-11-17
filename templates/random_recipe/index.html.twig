@@ -22,11 +22,9 @@
                         {% for post in posts %}
                             {% if recipe.title == post.recipe.title %}
                             <li>
-                                {{ post.measure.title }}
+                                {{ post.ingredient.title }}
                                 {{ post.amount }}
-                                <div>
-                                    {{ post.ingredient.title }}
-                                </div>
+                                {{ post.measure.title }}
                             </li>
                             {% endif %}
                         {% endfor %}
