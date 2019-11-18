@@ -39,9 +39,8 @@ class RandomRecipeController extends AbstractController
                 'recipeNames' => $names,
                 'summedRecipes' => $summedRecipes
             ]);
-        } else {
-            $this->addFlash('success', $translator->trans('flash.failure'));
-            return $this->redirectToRoute('home');
         }
+        $this->addFlash('warning', $translator->trans('flash.failure'));
+        return $this->redirectToRoute('home');
     }
 }
