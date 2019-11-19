@@ -3,20 +3,36 @@ home_page:
   logged_in_as: 'You are currently logged in as '
   logout: 'Log out'
   recipes: 'Recipes'
-  text: 'Random text about a recipe'
+  text: 'All recipes'
 base:
   home: 'Home'
   login: 'Login'
   register: 'Register'
+  random_recipe: 'Random Recipes'
 login_page:
   sign_in: 'Please sign in'
-  login: 'Login'
+  login: 'Log in'
   email: 'Email'
   password: 'Password'
   button: 'Sign in'
+  rememberMe: 'Remember me'
+  noPassword: 'I do not have my password'
+  new: 'New to Ka Pietums?'
+  signUp: 'Sign Up'
 registration_form:
   register_title: 'Registration'
   username: 'Username'
   password: 'Password'
   email: 'Email'
   register_button: 'Register'
+  create: 'Create a free account'
+  whatFirstName: 'What is your First Name?'
+  enterEmail: 'Enter your email'
+  createPassword: 'Create a password'
+  receive: 'I would like to receive meal planning tips, personalized recipe recommendations,
+             and product updates from Ka Pietums.'
+flash:
+  success: 'Registered successfully'
+  failure: 'Please log in before proceeding'
+random_recipe:
+  allIngredients: 'Everything needed to make these recipes'

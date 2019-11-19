@@ -3,11 +3,11 @@
 {% block title %}{{'login_page.login'|trans}}{% endblock %}
 
 {% block body %}
-        <body class="authentication">
-        <form method="post">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+    <body class="authentication">
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
         <!--[if lt IE 9]>
         <div class="browser-upgrade">You are using an <strong>outdated</strong> browser. Please <a
@@ -25,28 +25,31 @@
                 <div id="auth-well-content">
                     <div id="login">
                         <h1>
-                            Log in</h1>
+                            {{'login_page.login'|trans}}</h1>
                         <form action="/sessions" accept-charset="UTF-8" method="post">
                             <input name="utf8" type="hidden" value="✓">
                             <input type="hidden" name="authenticity_token"
                                    value="cldy9xNGxaZArxVUdzc2DnWPA3dElQ1ItnG8y9AHnvB8EPjRNtxMno+DISx7R310vU3+I163Zux8OyNBaw1BYA==">
                             <div class="form-group">
                                 <label for="email">
-                                    Email</label>
+                                    {{'login_page.email'|trans}}</label>
                                 {#<label for="inputEmail" class="sr-only">{{ 'login_page.email'|trans }}</label>#}
                                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail" autofocus="autofocus" class="form-control" placeholder="{{ 'login_page.email'|trans }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="password">
-                                    Password</label>
+                                    {{'login_page.password'|trans}}</label>
 
                                 {#<label for="inputPassword" class="sr-only">{{ 'login_page.password'|trans }}</label>#}
                                 <input type="password" name="password" id="password" value="" class="form-control" placeholder="{{ 'login_page.password'|trans }}" required>
                             </div>
 
+                            <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}">
 
                             <div class="form-group hp-field">
+
                                 <label for="hp2">
                                     Hp2</label>
                                 <input type="text" name="hp2" id="hp2" value="" class="form-control">
@@ -57,32 +60,36 @@
                                     <span class="control-indicator">
 
                             </span>
-                                    Remember me</label>
+                                    {{'login_page.rememberMe'|trans}}</label>
                                 <div class="forgot-password">
                                     <a href="/password_resets/new">
-                                        I don't have my password</a>
+                                        {{'login_page.noPassword'|trans}}</a>
                                 </div>
                             </div>
                             <input type="submit" name="commit" value="Log in" class="ml-btn-success btn-lg disable-on-click" {{ 'login_page.button'|trans }}>
                         </form>
                         <div class="forgot-password-mobile">
                             <a href="/password_resets/new">
-                                I don't have my password</a>
+                                {{'login_page.noPassword'|trans}}</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="auth-footer">
+            
+                {{'login_page.new'|trans}} <a href="/signup">
+                    {{'login_page.signUp'|trans}}</a>
                 New to Receptai? <a href="/signup">
                     Sign Up</a>
+
             </div>
         </div>
 
-            <input type="hidden" name="_csrf_token"
-                   value="{{ csrf_token('authenticate') }}">
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}">
 
     </form>
-        </body>
+    </body>
 
 
 {% endblock %}
