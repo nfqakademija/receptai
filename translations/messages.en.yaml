@@ -17,7 +17,7 @@ login_page:
   button: 'Sign in'
   rememberMe: 'Remember me'
   noPassword: 'I do not have my password'
-  new: 'New to Ka Pietums?'
+  new: 'New to Receptai?'
   signUp: 'Sign Up'
 registration_form:
   register_title: 'Registration'
@@ -30,7 +30,7 @@ registration_form:
   enterEmail: 'Enter your email'
   createPassword: 'Create a password'
   receive: 'I would like to receive meal planning tips, personalized recipe recommendations,
-             and product updates from Ka Pietums.'
+             and product updates from Receptai.'
 flash:
   success: 'Registered successfully'
   failure: 'Please log in before proceeding'

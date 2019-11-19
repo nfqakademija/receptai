@@ -30,7 +30,7 @@ registration_form:
   enterEmail: 'Įveskite savo e-paštą'
   createPassword: 'Susikurkite slaptažodį'
   receive: 'Aš norėčiau gauto patiekalų planavimo patarimus, specialiai man sukurtas receptų rekomendacijas
-            ir produktų naujienas iš Ką Pietums'
+            ir produktų naujienas iš Receptai'
 flash:
   success: 'Sėkmingai užregistruota'
   failure: 'Prašome prisijungti, prieš naudojantis šia funkcija'
