@@ -13,10 +13,7 @@
     <![endif]-->
     <div id="authentication">
         <div id="auth-header">
-            <div class="image">
-
             </div>
-        </div>
         <div id="auth-well">
             <div id="auth-well-header">
 
@@ -53,9 +50,14 @@
                         {{ form_widget(registrationForm.password) }}
                     </div>
 
+
                     <div class="terms-body">
                         {{ 'registration_form.receive'|trans }}
                     </div>
+                        </div>
+                        <input type="submit" name="commit" value="{{ 'registration_form.register_button'|trans }}" class="ml-btn-strong-cta disable-on-click">
+                    </form>
+
                 </div>
                 <input type="submit" name="commit" value="{{ 'registration_form.register_button'|trans }}" class="ml-btn-strong-cta disable-on-click">
             </div>
