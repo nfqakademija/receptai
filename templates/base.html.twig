@@ -20,17 +20,32 @@
                     <div class="container">
                         <a class="navbar-brand" href="{{ path('home') }}">{{ 'base.home'|trans }}</a>
                         <div class="collapse navbar-collapse">
-                            <ul class="navbar-nav mr-auto">
+                            {% if app.user %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('random_recipe') }}">{{ 'base.random_recipe'|trans }}</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ path('profile') }}">
+                                        Naudotojas: <b>{{ app.user.email }}</b>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('easyadmin') }}">Administravimas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('app_logout') }}">Atsijungti</a>
+                                </li>
+                            {% else %}
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('login') }}">{{ 'base.login'|trans }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('registration') }}">{{ 'base.register'|trans }}</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('random_recipe') }}">{{ 'base.random_recipe'|trans }}</a>
-                                </li>
-                            </ul>
+
+                            {% endif %}
+
                         </div>
                     </div>
                 </nav>
