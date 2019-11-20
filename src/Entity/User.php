@@ -86,6 +86,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /** Virtual method for EasyAdminBundle */
+    public function getPlainPassword(): string
+    {
+        return ''; // We store passwords hashed, it is impossible to regenerate back
+    }
+    /** Virtual method for EasyAdminBundle */
+    public function setPlainPassword(string $password): self
+    {
+        $hash = password_hash($password, PASSWORD_ARGON2I);
+        return $this->setPassword($hash);
+    }
+
     /**
      * @see UserInterface
      */

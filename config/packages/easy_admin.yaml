@@ -3,8 +3,43 @@ easy_admin:
     # List the entity class name you want to manage
     #        - App\Entity\Product
     #        - App\Entity\Category
-    - App\Entity\User
-    - App\Entity\Recipe
-    - App\Entity\Ingredient
-    - App\Entity\Measure
-    - App\Entity\RecipeIngredient
+    User:
+      class: App\Entity\User
+      list:  # <-- 'form' is applied to both 'new' and 'edit' views
+        fields:
+          - 'firstname'
+          - 'username'
+          - { property: 'roles'}
+          - { property: 'password', label: 'Password hash' }
+      form:
+        fields:
+          - {property: 'firstname', type: 'text'}
+          - { property: 'email', type: 'email' }
+          - { property: 'roles', type: 'collection' }
+          - { property: 'plainPassword', type: 'password' }
+    RecipeIngredient:
+      class: App\Entity\RecipeIngredient
+      list: ['id', 'recipe', 'ingredient', 'measure', 'amount']
+      form:
+        fields: ['recipe', 'ingredient', 'measure', 'amount']
+    Recipe:
+      class: App\Entity\Recipe
+      list:
+        fields: ['id', 'title', 'description']
+      form:
+        fields: ['title', 'description']
+    Ingredient:
+      class: App\Entity\Ingredient
+      list:
+        fields: ['id', 'title']
+      form:
+        fields: ['title']
+    Measure:
+      class: App\Entity\Measure
+      list:
+        fields: ['id', 'title']
+      form:
+        fields: ['title']
+
+  user:
+    name_property_path: "email"
