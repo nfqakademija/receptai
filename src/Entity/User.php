@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message ="email.existing")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -24,6 +24,10 @@ class User implements UserInterface, \Serializable
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
     /**
      * @var string The hashed password
@@ -34,7 +38,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $username;
+    private $firstname;
 
     public function getId(): ?int
     {
@@ -60,14 +64,38 @@ class User implements UserInterface, \Serializable
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string) $this->email;
     }
 
-    public function getRoles()
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        return [
-            'ROLE_USER'
-        ];
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /** Virtual method for EasyAdminBundle */
+    public function getPlainPassword(): string
+    {
+        return ''; // We store passwords hashed, it is impossible to regenerate back
+    }
+    /** Virtual method for EasyAdminBundle */
+    public function setPlainPassword(string $password): self
+    {
+        $hash = password_hash($password, PASSWORD_ARGON2I);
+        return $this->setPassword($hash);
     }
 
     /**
@@ -102,30 +130,15 @@ class User implements UserInterface, \Serializable
         // $this->plainPassword = null;
     }
 
-    public function setUsername(string $username): self
+    public function getFirstname(): ?string
     {
-        $this->username = $username;
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
 
         return $this;
-    }
-
-    public function serialize()
-    {
-        return serialize([
-            $this->id,
-            $this->username,
-            $this->email,
-            $this->password
-        ]);
-    }
-
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->username,
-            $this->email,
-            $this->password
-            ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

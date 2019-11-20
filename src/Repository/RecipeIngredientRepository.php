@@ -35,16 +35,5 @@ class RecipeIngredientRepository extends ServiceEntityRepository
         $query = $qb->getQuery();
 
         return $query->getResult();
-
-
-
-       // $query = $this->getEntityManager()->createQueryBuilder('s')
-       //     ->select('SUM(s.amount) as total')
-       //     ->where('s.recipe IN (:neededRecipesId)')
-      //      ->setParameter('neededRecipesId', $neededRecipesId)
-       //     ->select('s')
-        //    ->groupBy('s.ingredient')
-        //    ->getQuery();
-       // return $soins = $query->getResult();
     }
 }
