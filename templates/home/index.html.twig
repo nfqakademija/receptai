@@ -4,32 +4,8 @@
 {% block title %}{{ "home_page.home"|trans }}{% endblock %}
 
 {% block body %}
-    
-    <div>
-        <h1>{{ "home_page.recipes"|trans }}</h1>
-        <p class="lead">{{ "home_page.text"|trans }}</p>
-        <ul>
-            {% for recipeName in recipeNames %}
-                <li>
-                    <div>
-                        {{ recipeName.title }}
-                        {{ recipeName.description }}
-                        <ul>
-                            {% for recipe in recipes %}
-                                {% if recipeName.title == recipe.recipe.title %}
-                                    <li>
-                                        {{ recipe.ingredient.title }}
-                                        {{ recipe.amount }}
-                                        {{ recipe.measure.title }}
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+
+
 
 
     <body>
@@ -110,6 +86,12 @@
 
                             </div>
                         <div id="meals" class="pad-small">
+
+                            {% for recipe in recipes %}
+                                {{ macros.card(
+                                    recipe.imageUrl,
+                                    recipe.title) }}
+                            {% endfor %}
                                 {{ macros.card(
                                     'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/38/thumbnail_9d9cdd61-cdf8-47c4-94df-d83c7c326364.jpg',
                                     'Broccoli, Bell Pepper &amp; Chickpea Salad with Feta &amp; Zesty Lemon Dressing'
