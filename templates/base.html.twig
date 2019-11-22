@@ -26,12 +26,14 @@
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ path('profile') }}">
-                                {{ 'base.user'|trans }} <b>{{ app.user.email }}</b>
+                                {{ 'base.user'|trans }}
                             </a>
                         </li>
+                        {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('easyadmin') }}">{{ 'base.admin'|trans }}</a>
                         </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_logout') }}">{{ 'base.logout'|trans }}</a>
                         </li>

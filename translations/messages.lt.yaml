@@ -10,7 +10,7 @@ base:
   login: 'Prisijungti'
   register: 'Registracija'
   random_recipe: 'Atsitiktiniai receptai'
-  user: 'Naudotojas:'
+  user: 'Profilis'
   admin: 'Administracija'
   logout: 'Atsijungti'
   title: 'Ka Pietums'
