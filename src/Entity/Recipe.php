@@ -33,6 +33,27 @@ class Recipe
      */
     private $recipeIngredients;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $imageUrl;
+
+    /**
+     * @return mixed
+     */
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
+    }
+
+    /**
+     * @param mixed $imageUrl
+     */
+    public function setImageUrl($imageUrl): void
+    {
+        $this->imageUrl = $imageUrl;
+    }
+
     public function __construct()
     {
         $this->recipeIngredients = new ArrayCollection();
