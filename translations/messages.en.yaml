@@ -9,16 +9,21 @@ base:
   login: 'Login'
   register: 'Register'
   random_recipe: 'Random Recipes'
+  user: 'Profile'
+  admin: 'Administration'
+  logout: 'Log out'
+  title: 'Recipes'
 login_page:
   sign_in: 'Please sign in'
   login: 'Log in'
   email: 'Email'
   password: 'Password'
-  button: 'Sign in'
+  button: 'Log in'
   rememberMe: 'Remember me'
   noPassword: 'I do not have my password'
   new: 'New to Receptai?'
   signUp: 'Sign Up'
+  noEmail: 'Email could not be found'
 registration_form:
   register_title: 'Registration'
   username: 'Username'
@@ -31,6 +36,8 @@ registration_form:
   createPassword: 'Create a password'
   receive: 'I would like to receive meal planning tips, personalized recipe recommendations,
              and product updates from Receptai.'
+security_page:
+  user: 'User'
 flash:
   success: 'Registered successfully'
   failure: 'Please log in before proceeding'

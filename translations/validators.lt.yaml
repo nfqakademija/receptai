@@ -1,4 +1,6 @@
-username:
-  existing: 'Vartotojas jau egzistuoja'
 email:
-  existing: 'Elektroninis pastas jau užimtas'
+  existing: 'Elektroninis paštas jau užimtas'
+  notFound: 'Toks e-paštas neegzistuoja'
+password:
+  short: 'Slaptažodis turėtų turėti {{ limit }} simbolius'
+  long: 'Slaptažodis neturėtų būtų ilgesnis nei {{ limit }} simbolių'

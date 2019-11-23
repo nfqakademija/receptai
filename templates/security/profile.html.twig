@@ -1,10 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Naudotojas{% endblock %}
-
 {% block body %}
     <div class="jumbotron">
-        <h1 id="user_{{ userId }}">Naudotojas</h1>
+        <h1 id="user_{{ userId }}">{{ 'security_page.user'|trans }}</h1>
         {{ user.firstname }}
         {% for role in roles %}
             <span class="badge badge-secondary">{{ role|lower }}</span>
