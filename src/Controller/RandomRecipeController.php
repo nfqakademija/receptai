@@ -16,6 +16,7 @@ class RandomRecipeController extends AbstractController
      */
     public function random(RandomRecipeGenerator $recipeGenerator, TranslatorInterface $translator)
     {
+
         if ($this->getUser()) {
             $recipeCount = $this->getDoctrine()
                 ->getRepository(Recipe::class)
@@ -37,7 +38,8 @@ class RandomRecipeController extends AbstractController
             return $this->render('random_recipe/index.html.twig', [
                 'recipes' => $recipes,
                 'recipeNames' => $names,
-                'summedRecipes' => $summedRecipes
+                'summedRecipes' => $summedRecipes,
+                'recipesForCards' => $names
             ]);
         }
         $this->addFlash('warning', $translator->trans('flash.failure'));
