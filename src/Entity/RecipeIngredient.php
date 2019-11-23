@@ -17,7 +17,7 @@ class RecipeIngredient
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $amount;
 
@@ -49,7 +49,7 @@ class RecipeIngredient
         return $this->amount;
     }
 
-    public function setAmount(int $amount): self
+    public function setAmount(float $amount): self
     {
         $this->amount = $amount;
 
