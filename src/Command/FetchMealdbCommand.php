@@ -159,7 +159,6 @@ class FetchMealdbCommand extends Command
                 $recIngr->setMeasure($mea);
                 $recIngr->setRecipe($rec);
                 $entityManager->persist($recIngr);
-
             }
             $entityManager->flush();
         }
