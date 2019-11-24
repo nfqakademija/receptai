@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+{% import "/macros/macros.html.twig" as macros %}
+
+{% block body %}
+<main class="container">
+    <div id="meal-plan" class="meal-plan-app">
+        <div>
+
+            <div id="meal-plan-header" class="pad-small">
+                <h1>
+                    <span id="meal-plan-title">My Meal Plan</span>
+                </h1>
+                <a id="grocery-list-toggle" class="ml-btn-default">
+                    Grocery List
+                    <i class="caret"></i>
+                </a>
+            </div><!-- meal-plan-header -->
+
+            <div id="meal-plan-content" class="clearfix">
+                <div id="grocery-list-container">
+                    <div id="grocery-list">
+                        <a class="add-item has-tooltip" title="" data-original-title="Add to your grocery list">
+                            <i>
+                                <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1344 800v64q0 14-9 23t-23 9h-352v352q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-352h-352q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h352v-352q0-14 9-23t23-9h64q14 0 23 9t9 23v352h352q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z"></path></svg>
+                            </i>
+                        </a>
+
+                        <div id="success-message">
+                            <i class="fa fa-check"></i>
+                            <h2>All done here!</h2>
+                        </div>
+
+                        <div>
+                            <h3> Produce </h3>
+                            <ul>
+                                {{ macros.ingredient('corn', '1 ear') }}
+                                {{ macros.ingredient('zucchini squash', '2 medium') }}
+                                {{ macros.ingredient('red grapes', '½ lb') }}
+                                {{ macros.ingredient('brussels sprouts', '½ lb') }}
+                                {{ macros.ingredient('broccoli', '1 crown') }}
+                                {{ macros.ingredient('red bell pepper', '1') }}
+                                {{ macros.ingredient('lemons', '2') }}
+                                {{ macros.ingredient('chicken breasts', '½ lb') }}
+                                {{ macros.ingredient('rice', '1 lb') }}
+
+                                {% if summedRecipes is defined %}
+                                {% for summedRecipe in summedRecipes %}
+                                        {{ macros.ingredient(
+                                            summedRecipe.0.ingredient.title,
+                                            summedRecipe.total ~ summedRecipe.0.measure.title
+                                        )  }}
+                                {% endfor %}
+                                {% endif %}
+
+                            </ul>
+                        </div>
+
+
+                        <div class="action-bar">
+                            <a class="has-tooltip action-bar-add ml-btn-link" title="" data-original-title="Add to your grocery list">
+                                <i>
+                                    <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1600 736v192q0 40-28 68t-68 28h-416v416q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-416h-416q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h416v-416q0-40 28-68t68-28h192q40 0 68 28t28 68v416h416q40 0 68 28t28 68z"></path></svg>
+                                </i>
+                            </a>
+                            <a class="has-tooltip action-bar-schedule ml-btn-link" target="_blank" title="" data-original-title="Schedule grocery trip in Google Calendar">
+                                <i>
+                                    <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M192 1664h288v-288h-288v288zm352 0h320v-288h-320v288zm-352-352h288v-320h-288v320zm352 0h320v-320h-320v320zm-352-384h288v-288h-288v288zm736 736h320v-288h-320v288zm-384-736h320v-288h-320v288zm768 736h288v-288h-288v288zm-384-352h320v-320h-320v320zm-352-864v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm736 864h288v-320h-288v320zm-384-384h320v-288h-320v288zm384 0h288v-288h-288v288zm32-480v-288q0-13-9.5-22.5t-22.5-9.5h-64q-13 0-22.5 9.5t-9.5 22.5v288q0 13 9.5 22.5t22.5 9.5h64q13 0 22.5-9.5t9.5-22.5zm384-64v1280q0 52-38 90t-90 38h-1408q-52 0-90-38t-38-90v-1280q0-52 38-90t90-38h128v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h384v-96q0-66 47-113t113-47h64q66 0 113 47t47 113v96h128q52 0 90 38t38 90z"></path></svg>
+                                </i>
+                            </a>
+                            <a class="ml-btn-link has-tooltip action-bar-print" href="/grocery_list" target="_blank" title="" data-original-title="Print your grocery list">
+                                <i>
+                                    <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M448 1536h896v-256h-896v256zm0-640h896v-384h-160q-40 0-68-28t-28-68v-160h-640v640zm1152 64q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm128 0v416q0 13-9.5 22.5t-22.5 9.5h-224v160q0 40-28 68t-68 28h-960q-40 0-68-28t-28-68v-160h-224q-13 0-22.5-9.5t-9.5-22.5v-416q0-79 56.5-135.5t135.5-56.5h64v-544q0-40 28-68t68-28h672q40 0 88 20t76 48l152 152q28 28 48 76t20 88v256h64q79 0 135.5 56.5t56.5 135.5z"></path></svg>
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="add-item-modal" class="modal">
+
+                    </div>
+
+                </div>
+                <div id="meals" class="pad-small">
+                    {{ macros.card(
+                        'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/38/thumbnail_9d9cdd61-cdf8-47c4-94df-d83c7c326364.jpg',
+                        'Broccoli, Bell Pepper &amp; Chickpea Salad with Feta &amp; Zesty Lemon Dressing'
+                    ) }}
+
+                    {{ macros.card(
+                        'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/132/thumbnail_e9d21025-0fa8-4131-90a1-0ce286f89d9e.jpg',
+                        'Dijon Pork Chops with Roasted Brussels Sprouts &amp; Grapes'
+                    ) }}
+
+                    {{ macros.card(
+                        'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/416/thumbnail_0ba70a35-f71b-4240-9e6b-3db810c86589.jpg',
+                        'Lemon-Garlic Chicken Drumsticks with Zucchini, Corn &amp; Feta Salad'
+                    ) }}
+                    {% if recipesForCards is defined %}
+                        {% for recipe in recipesForCards %}
+                            {{ macros.card(
+                                recipe.imageUrl,
+                                recipe.title) }}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock %}

@@ -42,3 +42,78 @@
         </span>
     </li>
 {% endmacro %}
+
+
+
+{% macro ingredientInSingleRecipe(name, quantity) %}
+    <li class="line-item" >
+        <div class="quantity">{{quantity}}</div>
+        <div class="ingredient">{{name}}</div>
+    </li>
+{% endmacro %}
+
+{% macro singleRecipe(name, imageUrl, ingredients, instructions) %}
+    {% import _self as macros %}
+    <header class="clearfix" id="main-header"></header>
+    <main class="container">
+        <div class="recipe">
+            <div class="header">
+                <a class="ml-btn-default">← Back</a>
+            </div>
+            <div class="content">
+                <div class="content-left">
+                    <div class="pad-small">
+                        <h2>
+                            {{name}}
+                        </h2>
+                        <div class="description-bar">
+                            <div class="actions">
+                                <a class="has-tooltip" data-original-title="Add to favourites">
+                                    <i class="favourited-icon">
+                                        <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26t-55.5-65.5-68-97.5-53.5-121-23.5-138q0-220 127-344t351-124q62 0 126.5 21.5t120 58 95.5 68.5 76 68q36-36 76-68t95.5-68.5 120-58 126.5-21.5q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
+                                        </svg>
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <img class="image" src={{imageUrl}}>
+                </div>
+                <div class="content-right">
+                    <ul class="tabs nav nav-tabs">
+                        <li class="active">
+                            <a>
+                                "Cook!
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <ul>
+                                {% if ingredients is defined %}
+                                    {% for item in ingredients %}
+                                        {{ macros.ingredientInSingleRecipe(item.name, item.quantity) }}
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="tab-pane active">
+                            <ul>
+                                <li class="instruction ng-scope">
+                                    <div class="content">
+                                        <div class="primary ng-binding">
+                                            {% if instructions is defined %}
+                                                {{ instructions}}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endmacro %}

@@ -1,4 +1,6 @@
-username:
-  existing: 'This username is already taken'
 email:
   existing: 'This email is already taken'
+  notFound: 'Email could not be found'
+password:
+  short: 'Your password should be at least {{ limit }} character'
+  long: 'Your password should not be more than {{limit}} characters'

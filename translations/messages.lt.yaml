@@ -1,24 +1,45 @@
+'Email could not be found.': 'Toks e-paštas neegzistuoja'
 home_page:
   home: 'Pagrindinis'
   logged_in_as: 'Esate prisijungęs, kaip  '
   logout: 'Atsijungti'
   recipes: 'Receptai'
-  text: 'Tekstai apie receptą'
+  text: 'Visi receptai'
 base:
   home: 'Pagrindinis'
   login: 'Prisijungti'
   register: 'Registracija'
+  random_recipe: 'Atsitiktiniai receptai'
+  user: 'Profilis'
+  admin: 'Administracija'
+  logout: 'Atsijungti'
+  title: 'Ka Pietums'
 login_page:
   sign_in: 'Prašome prisijungti'
   login: 'Prisijungimas'
   email: 'E-paštas'
   password: 'Slaptažodis'
   button: 'Prisijungti'
+  rememberMe: 'Prisiminti'
+  noPassword: 'Aš neturiu savo slaptažodžio'
+  new: 'Naujas vartotojas?'
+  signUp: 'Prisijunkite'
 registration_form:
   register_title: 'Registracija'
   username: 'Vartotojas'
   password: 'Slaptažodis'
   email : 'E-paštas'
   register_button: 'Registruotis'
+  create: 'Susikurti nemokamą paskyrą'
+  whatFirstName: 'Koks jūsų vardas'
+  enterEmail: 'Įveskite savo e-paštą'
+  createPassword: 'Susikurkite slaptažodį'
+  receive: 'Aš norėčiau gauto patiekalų planavimo patarimus, specialiai man sukurtas receptų rekomendacijas
+            ir produktų naujienas iš Receptai'
+security_page:
+  user: 'Naudotojas'
 flash:
   success: 'Sėkmingai užregistruota'
+  failure: 'Prašome prisijungti, prieš naudojantis šia funkcija'
+random_recipe:
+  allIngredients: 'Visi ingredientai, kurie reikia pasigaminti šiuos receptus'

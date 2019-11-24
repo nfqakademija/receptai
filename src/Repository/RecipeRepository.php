@@ -18,4 +18,22 @@ class RecipeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Recipe::class);
     }
+
+    /**
+     * @return int
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findRecipeCount()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $qb
+            ->select('count(recipe.id)')
+            ->from('App\Entity\Recipe', 'recipe')
+        ;
+
+        $query = $qb->getQuery();
+
+        return $query->getSingleScalarResult();
+    }
 }

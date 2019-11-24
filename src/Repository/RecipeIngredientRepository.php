@@ -18,4 +18,22 @@ class RecipeIngredientRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, RecipeIngredient::class);
     }
+
+    public function findSum(array $neededRecipesId)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $qb
+            ->select('sum(recipe.amount) as total')
+            ->from('App\Entity\RecipeIngredient', 'recipe')
+            ->where('recipe.recipe IN (:neededRecipesId)')
+            ->setParameter('neededRecipesId', $neededRecipesId)
+            ->addSelect('recipe')
+            ->groupBy('recipe.ingredient')
+        ;
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
 }

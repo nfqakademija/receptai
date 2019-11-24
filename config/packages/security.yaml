@@ -1,12 +1,15 @@
 security:
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     encoders:
         App\Entity\User:
             algorithm: auto
+
     providers:
-        my_provider:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
             entity:
                 class: App\Entity\User
+                property: email
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -21,3 +24,4 @@ security:
             logout:
                 path: app_logout
     access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
