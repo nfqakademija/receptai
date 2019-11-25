@@ -1,13 +1,16 @@
-{% macro card(source, name) %}
+{% macro card(imageUrl, name, ingredients, instructions) %}
 
     <div class="recipe-thumb">
         <div class="content">
-            <a href="#!/meals/25639401">
-                <img class="image" src="{{source}}">
+            <a href="{{ path('single_recipe',
+                {name: name, imageUrl: imageUrl, ingredients: ingredients, instructions: instructions}) }}">
+                <img class="image" src="{{imageUrl}}">
             </a>
             <div class="details">
                 <h2 class="title">
-                    <a href="#!/meals/25639401">{{ name }}</a>
+                    <a href="{{ path('single_recipe',
+                        {name: name, imageUrl: imageUrl, ingredients: ingredients, instructions: instructions}) }}
+                    ">{{ name }} </a>
                 </h2>
 
                 <div class="action-bar">
@@ -23,9 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- action-bar -->
             </div>
-            <!-- details -->
         </div>
     </div>
 {% endmacro %}
