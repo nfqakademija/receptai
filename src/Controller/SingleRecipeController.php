@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SingleRecipeController extends AbstractController
 {
     /**
-     * @Route("/single/recipe/{id}", name="single_recipe", requirements={"id"="\d+"})
+     * @Route("/recipe/{id}", name="single_recipe", requirements={"id"="\d+"})
      * @param int $id
      * @return Response
      */
