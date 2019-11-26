@@ -5,23 +5,25 @@ namespace App\Controller;
 use App\Entity\Recipe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 class SingleRecipeController extends AbstractController
 {
     /**
-     * @Route("/single/recipe", name="single_recipe")
-     * @param Request $request
+     * @Route("/single/recipe/{id}", name="single_recipe")
+     * @param string $id
      * @return Response
      */
-    public function index(Request $request)
+    public function index(string $id)
     {
-        $id = $request->query->get('id');
-        $recipe = $this->getDoctrine()->getRepository(Recipe::class)->find($id);
-
-        return $this->render('single_recipe/index.html.twig', [
-            'recipe' => $recipe
-        ]);
+        $recipe = $this->getDoctrine()->getRepository(Recipe::class)->find(intval($id));
+        if ($recipe === null) {
+            throw new NotFoundHttpException("Page not found");
+        } else {
+            return $this->render('single_recipe/index.html.twig', [
+                'recipe' => $recipe
+            ]);
+        }
     }
 }
