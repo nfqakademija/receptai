@@ -67,6 +67,7 @@ class FetchMealdbCommand extends Command
             $rec = new Recipe();
             $rec->setTitle($newRecipe->name);
             $rec->setDescription($newRecipe->description);
+            $rec->setImageUrl($newRecipe->image);
 
             if (property_exists($newRecipe, 'tag')) {
                 if (count($newRecipe->ingredient) !== 0) {

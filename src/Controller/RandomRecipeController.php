@@ -43,6 +43,6 @@ class RandomRecipeController extends AbstractController
             ]);
         }
         $this->addFlash('warning', $translator->trans('flash.failure'));
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('login');
     }
 }
