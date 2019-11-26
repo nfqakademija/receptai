@@ -11,19 +11,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class SingleRecipeController extends AbstractController
 {
     /**
-     * @Route("/single/recipe/{id}", name="single_recipe")
-     * @param string $id
+     * @Route("/single/recipe/{id}", name="single_recipe", requirements={"id"="\d+"})
+     * @param int $id
      * @return Response
      */
-    public function index(string $id)
+    public function index(int $id)
     {
-        $recipe = $this->getDoctrine()->getRepository(Recipe::class)->find(intval($id));
+        $recipe = $this->getDoctrine()->getRepository(Recipe::class)->find($id);
         if ($recipe === null) {
             throw new NotFoundHttpException("Page not found");
-        } else {
-            return $this->render('single_recipe/index.html.twig', [
+        }
+        return $this->render('single_recipe/index.html.twig', [
                 'recipe' => $recipe
             ]);
-        }
     }
 }
