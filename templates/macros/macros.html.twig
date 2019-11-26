@@ -2,12 +2,12 @@
 
     <div class="recipe-thumb">
         <div class="content">
-            <a href="{{ path('single/recipe/' ~ id) }}">
+            <a href="{{ path('single_recipe', {id: id}) }}">
                 <img class="image" src="{{imageUrl}}">
             </a>
             <div class="details">
                 <h2 class="title">
-                    <a href="{{ path('single/recipe/' ~ id) }}">{{ name }} </a>
+                    <a href="{{ path('single_recipe', {id: id}) }}">{{ name }} </a>
                 </h2>
 
                 <div class="action-bar">
