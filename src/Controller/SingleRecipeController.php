@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Recipe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,16 +17,11 @@ class SingleRecipeController extends AbstractController
      */
     public function index(Request $request)
     {
-        $name = $request->query->get('name');
-        $imageUrl = $request->query->get('imageUrl');
-        $ingredients = $request->query->get('ingredients');
-        $instructions = $request->query->get('instructions');
+        $id = $request->query->get('id');
+        $recipe = $this->getDoctrine()->getRepository(Recipe::class)->find($id);
 
         return $this->render('single_recipe/index.html.twig', [
-            'name' => $name,
-            'imageUrl' => $imageUrl,
-            'ingredients' => $ingredients,
-            'instructions' => $instructions,
+            'recipe' => $recipe
         ]);
     }
 }

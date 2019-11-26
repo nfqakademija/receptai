@@ -1,15 +1,15 @@
-{% macro card(imageUrl, name, ingredients, instructions) %}
+{% macro card(imageUrl, name, id) %}
 
     <div class="recipe-thumb">
         <div class="content">
             <a href="{{ path('single_recipe',
-                {name: name, imageUrl: imageUrl, ingredients: ingredients, instructions: instructions}) }}">
+                {id: id}) }}">
                 <img class="image" src="{{imageUrl}}">
             </a>
             <div class="details">
                 <h2 class="title">
                     <a href="{{ path('single_recipe',
-                        {name: name, imageUrl: imageUrl, ingredients: ingredients, instructions: instructions}) }}
+                        {id: id}) }}
                     ">{{ name }} </a>
                 </h2>
 
@@ -53,7 +53,7 @@
     </li>
 {% endmacro %}
 
-{% macro singleRecipe(name, imageUrl, ingredients, instructions) %}
+{% macro singleRecipe(recipe) %}
     {% import _self as macros %}
     <header class="clearfix" id="main-header"></header>
     <main class="container">
@@ -65,7 +65,7 @@
                 <div class="content-left">
                     <div class="pad-small">
                         <h2>
-                            {{name}}
+                            {{recipe.title}}
                         </h2>
                         <div class="description-bar">
                             <div class="actions">
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                     </div>
-                    <img class="image" src={{imageUrl}}>
+                    <img class="image" src={{recipe.imageUrl}}>
                 </div>
                 <div class="content-right">
                     <ul class="tabs nav nav-tabs">
@@ -92,8 +92,8 @@
                     <div class="tab-content">
                         <div class="tab-pane active">
                             <ul>
-                                {% if ingredients is defined %}
-                                    {% for item in ingredients %}
+                                {% if recipe.ingredients is defined %}
+                                    {% for item in recipe.ingredients %}
                                         {{ macros.ingredientInSingleRecipe(item.name, item.quantity) }}
                                     {% endfor %}
                                 {% endif %}
@@ -104,9 +104,7 @@
                                 <li class="instruction ng-scope">
                                     <div class="content">
                                         <div class="primary ng-binding">
-                                            {% if instructions is defined %}
-                                                {{ instructions}}
-                                            {% endif %}
+                                                {{ recipe.description}}
                                         </div>
                                     </div>
                                 </li>
