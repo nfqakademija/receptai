@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% import "/macros/macros.html.twig" as macros %}
-{% block title %}Single Recipe{% endblock %}
+{% block title %}{{ recipe.title }} {% endblock %}
 
 {% block body %}
 {{ macros.singleRecipe(recipe) }}
