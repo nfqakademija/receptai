@@ -3,19 +3,10 @@
 {% block body %}
     <body class="authentication">
     <form method="post">
-
-        <!--[if lt IE 9]>
-        <div class="browser-upgrade">You are using an <strong>outdated</strong> browser. Please <a
-                href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
-        </div>
-        <![endif]-->
-
         <div id="authentication">
-            <div id="auth-header">
-                </div>
+            <div id="auth-header"> </div>
             <div id="auth-well">
                 <div id="auth-well-header">
-
                 </div>
                 <div id="auth-well-content">
                     <div id="login">
@@ -31,38 +22,21 @@
                             <div class="form-group">
                                 <label for="email">
                                     {{'login_page.email'|trans}}</label>
-                                {#<label for="inputEmail" class="sr-only">{{ 'login_page.email'|trans }}</label>#}
                                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail" autofocus="autofocus" class="form-control" placeholder="{{ 'login_page.email'|trans }}" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="password">
                                     {{'login_page.password'|trans}}</label>
-
-                                {#<label for="inputPassword" class="sr-only">{{ 'login_page.password'|trans }}</label>#}
                                 <input type="password" name="password" id="password" value="" class="form-control" placeholder="{{ 'login_page.password'|trans }}" required>
                             </div>
 
                             <input type="hidden" name="_csrf_token"
                                    value="{{ csrf_token('authenticate') }}">
-
                             <div class="form-group hp-field">
-
                                 <label for="hp2">
                                     Hp2</label>
                                 <input type="text" name="hp2" id="hp2" value="" class="form-control">
-                            </div>
-                            <div class="form-group remember-me clearfix">
-                                <label class="control checkbox">
-                                    <input type="checkbox" name="remember_me" id="remember_me" value="1" checked="checked">
-                                    <span class="control-indicator">
-
-                            </span>
-                                    {{'login_page.rememberMe'|trans}}</label>
-                                <div class="forgot-password">
-                                    <a href="/password_resets/new">
-                                        {{'login_page.noPassword'|trans}}</a>
-                                </div>
                             </div>
                             <input type="submit" name="commit" value="{{ 'login_page.button'|trans }}" class="ml-btn-success btn-lg disable-on-click">
                         </form>
@@ -75,7 +49,7 @@
             </div>
             <div id="auth-footer">
             
-                {{'login_page.new'|trans}} <a href="/signup">
+                {{'login_page.new'|trans}} <a href="{{path('registration')}}">
                     {{'login_page.signUp'|trans}}</a>
 
             </div>
