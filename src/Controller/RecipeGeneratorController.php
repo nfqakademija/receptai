@@ -7,6 +7,7 @@ use App\Entity\RecipeIngredient;
 use App\Entity\Tag;
 use App\Form\RecipeGeneratorType;
 use App\Repository\RecipeRepository;
+use App\Service\RecipeGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +18,7 @@ class RecipeGeneratorController extends AbstractController
     /**
      * @Route("/recipe/generator", name="recipe_generator")
      */
-    public function index(Request $request, TranslatorInterface $translator)
+    public function index(Request $request, TranslatorInterface $translator, RecipeGenerator $recipeGenerator)
     {
         $tags = $this->getDoctrine()->getRepository(Tag::class)->findAll();
         //$em = $this->getDoctrine()->getManager();
@@ -38,10 +39,7 @@ class RecipeGeneratorController extends AbstractController
                 //if tags lygu titles of tags
                 //Daryt needed recipes id, dabar prasukti cikla pro allrecipes, tada per tagus, jei nors vienas tagas atitinka
                 //Prideti to recepto id i needed receptu id array ir tada findby id recipe padaryt
-                $recipes = $this->getDoctrine()->getRepository(Tag::class)->findBy([
-                    'title' => $titles
-                ]);
-                $titles = iterator_to_array($titles);
+
 
                 //   $goodRecipes = $this->getDoctrine()
                 //       ->getRepository(Recipe::class)
@@ -50,50 +48,11 @@ class RecipeGeneratorController extends AbstractController
                 $allRecipes = $this->getDoctrine()->getRepository(Recipe::class)->findAll();
 
                 //Move to services
-                $neededRecipeId = array();
+                $neededRecipeId = $recipeGenerator->selectedTagsRecipesId($allRecipes, $titles);
 
-                foreach ($titles as $title) {
-                    foreach ($allRecipes as $recipe) {
-                        echo $recipe . '+';
-                        foreach ($recipe->getTags() as $tag) {
-                            if ($title == $tag) {
-                                $neededRecipeId[] = $recipe->getId();
-                                break;
-                            }
-                            echo $tag . ' --- ';
-                        }
-                    }
-                }
-                echo "       ";
-                foreach ($neededRecipeId as $recipeId) {
-                    echo $recipeId . ' ';
-                }
-                echo "    ++++++++   ";
-                $neededRecipeId = array_unique($neededRecipeId);
-                foreach ($neededRecipeId as $recipeId) {
-                    echo $recipeId . ' ';
-                }
+                $randomizedRecipeId = $recipeGenerator->randomizeSelectedTagsRecipesId($neededRecipeId);
 
 
-                $value = $neededRecipeId[array_rand($neededRecipeId)];
-                echo '+++++++++++'. $value . '++++++++++++++';
-
-                $randomRecipeId = array();
-                //Darom cikla, kuris runnina per 7kart, nes 7 dienos, if neededRecipesId count = 0 break;
-                for ($i=0; $i<7; $i++) {
-                    $randomValue = $neededRecipeId[array_rand($neededRecipeId)];
-                    $randomRecipeId[] = $randomValue;
-                    $key = array_search($randomValue, $neededRecipeId);
-                    unset($neededRecipeId[$key]);
-                    echo count($neededRecipeId);
-                    if(count($neededRecipeId) == 0){
-                        break;
-                    }
-                }
-                echo '--------------+++++++++++++++++++--------------';
-                foreach ($randomRecipeId as $needed){
-                    echo $needed . ' ';
-                }
 
 
                 // $selectedTagRecipes
@@ -105,23 +64,17 @@ class RecipeGeneratorController extends AbstractController
                 //Pridet buttona, kuris klausia ar norite kitokiu receptu su tais paciais tagais,
                 // tai tiesiog refreshina puslapi
 
-                //I twiga paduot counta ir padaryk kad for ciklas eitu per counta ir tada jei countas nera 7,
-                // tai tada i recipe paduot kad nebera daugiau receptu
-                //Perduot counta ir 7-countas kiek receptu neturime;
                 $selectedTagRecipes = $this->getDoctrine()->getRepository(Recipe::class)->findBy([
-                    'id' => $randomRecipeId
+                    'id' => $randomizedRecipeId
                 ]);
-                $recipeCount = 7 - count($randomRecipeId) ;
-                echo '+++++++++++++++++++++++++++++++++++++++++++++';
-                echo $recipeCount;
 
                 $summedRecipes = $this->getDoctrine()
                     ->getRepository(RecipeIngredient::class)
-                    ->findSum($randomRecipeId);
+                    ->findSum($randomizedRecipeId);
 
                 return $this->render('recipe_generator/generated.html.twig', [
                     'selectedRecipes' => $selectedTagRecipes,
-                    'recipeCount' => $recipeCount,
+                    'recipeCount' => 7 - count($randomizedRecipeId),
                     'summedRecipes' => $summedRecipes,
                 ]);
             }
