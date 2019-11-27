@@ -22,25 +22,12 @@
 
                     <div id="meal-plan-content" class="clearfix">
                         <div id="meals" class="pad-small">
-                                {{ macros.card(
-                                    'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/38/thumbnail_9d9cdd61-cdf8-47c4-94df-d83c7c326364.jpg',
-                                    'Broccoli, Bell Pepper &amp; Chickpea Salad with Feta &amp; Zesty Lemon Dressing'
-                                ) }}
-
-                                {{ macros.card(
-                                    'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/132/thumbnail_e9d21025-0fa8-4131-90a1-0ce286f89d9e.jpg',
-                                    'Dijon Pork Chops with Roasted Brussels Sprouts &amp; Grapes'
-                                ) }}
-
-                                {{ macros.card(
-                                    'https://cdn-uploads.mealime.com/uploads/recipe/thumbnail/416/thumbnail_0ba70a35-f71b-4240-9e6b-3db810c86589.jpg',
-                                    'Lemon-Garlic Chicken Drumsticks with Zucchini, Corn &amp; Feta Salad'
-                                ) }}
                             {% if recipes is defined %}
                                 {% for recipe in recipes %}
                                     {{ macros.card(
                                         recipe.imageUrl,
-                                        recipe.title) }}
+                                        recipe.title,
+                                        recipe.id) }}
                                 {% endfor %}
                             {% endif %}
                             </div>
