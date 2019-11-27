@@ -25,9 +25,15 @@ easy_admin:
     Recipe:
       class: App\Entity\Recipe
       list:
-        fields: ['id', 'title', 'description', 'imageUrl']
+        fields: ['id', 'title', 'description', 'imageUrl', 'tags']
       form:
-        fields: ['title', 'description', 'imageUrl']
+        fields: ['title', 'description', 'imageUrl', 'tags']
+    Tag:
+      class: App\Entity\Tag
+      list:
+        fields: ['id', 'title']
+      form:
+        fields: ['title']
     Ingredient:
       class: App\Entity\Ingredient
       list:

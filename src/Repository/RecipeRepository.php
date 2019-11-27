@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use mysql_xdevapi\DatabaseObject;
 
 /**
  * @method Recipe|null find($id, $lockMode = null, $lockVersion = null)
@@ -35,5 +37,20 @@ class RecipeRepository extends ServiceEntityRepository
         $query = $qb->getQuery();
 
         return $query->getSingleScalarResult();
+    }
+
+    public function findRecipesWithTags(array $selectedTagTitles)
+    {
+
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb->select('i')
+            ->from('App\Entity\Recipe', 'i')
+            ->where("i.tags IN (:listCat)")
+            ->setParameter('listCat', $selectedTagTitles);
+
+        return $qb->getQuery()->getResult();
+
+
     }
 }
