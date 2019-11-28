@@ -18,9 +18,10 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <div class="container">
+                <a href="{{ path('home') }}"><img src="https://img.icons8.com/dusk/64/000000/restaurant.png"></a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
-                        <a class="navbar-brand" href="{{ path('home') }}">{{ 'base.home'|trans }}</a>
+
                     {% if app.user %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('random_recipe') }}">{{ 'base.random_recipe'|trans }}</a>
@@ -60,4 +61,8 @@
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
 </body>
+
+<footer class="container text-center" id="plain-footer">
+        <img src="https://img.icons8.com/dusk/64/000000/restaurant.png">
+</footer>
 </html>
