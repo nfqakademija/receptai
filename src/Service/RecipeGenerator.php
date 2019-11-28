@@ -13,15 +13,14 @@ class RecipeGenerator
         foreach ($titles as $title) {
             foreach ($allRecipes as $recipe) {
                 foreach ($recipe->getTags() as $tag) {
-                    if ($title == $tag) {
+                    if(strcmp($title, $tag) == 0){
                         $neededRecipeId[] = $recipe->getId();
                         break;
                     }
                 }
             }
         }
-        $neededRecipeId = array_unique($neededRecipeId);
-        return $neededRecipeId;
+        return $neededRecipeId = array_unique($neededRecipeId);
     }
 
     public function randomizeSelectedTagsRecipesId(array $neededRecipeId) :array
