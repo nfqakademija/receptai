@@ -57,8 +57,8 @@ class RecipeRepository extends ServiceEntityRepository
         select  DISTINCT recipe_id
         from
          (SELECT recipe_id,tag_id
-         FROM recipe, tag, recipe_tag
-         where tag.id = recipe_tag.tag_id AND tag.title IN ($tag_params)
+         FROM recipe, tags, recipe_tag
+         where tags.id = recipe_tag.tag_id AND tags.title IN ($tag_params)
          ORDER BY RAND()) as z
         group by z.tag_id
         order by rand()
@@ -87,8 +87,8 @@ class RecipeRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $sql = "
         select  DISTINCT recipe_id
-        from recipe, tag, recipe_tag
-        where tag.id = recipe_tag.tag_id AND recipe_tag.recipe_id NOT IN ($recipeId_params)
+        from recipe, tags, recipe_tag
+        where tags.id = recipe_tag.tag_id AND recipe_tag.recipe_id NOT IN ($recipeId_params)
         order by rand()
         LIMIT $count;
         ";
