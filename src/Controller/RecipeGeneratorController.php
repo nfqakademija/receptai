@@ -28,8 +28,7 @@ class RecipeGeneratorController extends AbstractController
                 return $this->redirect($this->generateUrl(
                     'recipe_generator_generated'
                 ));
-            }
-
+        }
 
         return $this->render('recipe_generator/index.html.twig', [
             'form' => $form->createView(),
