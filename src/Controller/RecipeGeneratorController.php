@@ -51,7 +51,7 @@ class RecipeGeneratorController extends AbstractController
             ->getRepository(Recipe::class)
             ->getNeededId($selectedTags);
 
-        if(count($generatedRecipeId) < 7){
+        if (count($generatedRecipeId) < 7) {
             $remainingRecipeId = $this->getDoctrine()
                 ->getRepository(Recipe::class)
                 ->getRemainingRecipeId($generatedRecipeId, 7 - count($generatedRecipeId));
