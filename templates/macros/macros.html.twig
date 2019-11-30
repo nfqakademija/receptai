@@ -43,17 +43,6 @@
     </li>
 {% endmacro %}
 
-{% macro tags(name) %}
-    <li class="grocery-item">
-        <label class="control checkbox">
-            <input type="checkbox">
-            <span class="control-indicator"></span>
-            <span class="quantity"> {{ name }}</span>
-        </label>
-    </li>
-{% endmacro %}
-
-
 {% macro ingredientInSingleRecipe(name, quantity) %}
     <li class="line-item" >
         <div class="quantity">{{quantity}}</div>

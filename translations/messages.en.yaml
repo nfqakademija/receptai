@@ -38,8 +38,13 @@ registration_form:
              and product updates from Receptai.'
 security_page:
   user: 'User'
+generated_recipe:
+  tags: 'All tags'
+  submit: 'Submit'
+  generatedRecipes: 'Generated recipes for each day'
 flash:
   success: 'Registered successfully'
   failure: 'Please log in before proceeding'
+  select: 'Please select a tag before continuing'
 random_recipe:
   allIngredients: 'Everything needed to make these recipes'

@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 {% import "/macros/macros.html.twig" as macros %}
 
-{% block title %}Hello RecipeGeneratorController!{% endblock %}
-
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -11,14 +9,14 @@
 
     <div class="container">
         <div class="row">
-            <h1>Edit group</h1>
+            <h1>{{ 'generated_recipe.tags'|trans }}</h1>
         </div>
 
         {{ form_start(form) }}
 
         {{ form_row(form.title) }}
 
-        <button type="submit" class="btn btn-success">Edit</button>
+        <button type="submit" class="btn btn-success">{{ 'generated_recipe.submit'|trans }}</button>
 
         {{ form_rest(form) }}
         {{ form_end(form) }}

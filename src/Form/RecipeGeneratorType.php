@@ -17,6 +17,7 @@ class RecipeGeneratorType extends AbstractType
                 'title',
                 EntityType::class,
                 [
+                    'label' => ' ',
                     'class' => Tag::class,
                     'multiple' => true,
                     'expanded' => true,
