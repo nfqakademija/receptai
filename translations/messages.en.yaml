@@ -45,6 +45,5 @@ generated_recipe:
 flash:
   success: 'Registered successfully'
   failure: 'Please log in before proceeding'
-  select: 'Please select a tag before continuing'
 random_recipe:
   allIngredients: 'Everything needed to make these recipes'

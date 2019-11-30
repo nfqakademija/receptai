@@ -30,7 +30,7 @@ class RecipeRepository extends ServiceEntityRepository
 
         $qb
             ->select('count(recipe.id)')
-            ->from('App\Entity\Recipe', 'recipe');
+            ->from(Recipe::class, 'recipe');
 
         $query = $qb->getQuery();
 
