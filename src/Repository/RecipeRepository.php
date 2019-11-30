@@ -6,6 +6,7 @@ use App\Entity\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\ResultSetMapping;
 use mysql_xdevapi\DatabaseObject;
 
 /**
@@ -39,18 +40,84 @@ class RecipeRepository extends ServiceEntityRepository
         return $query->getSingleScalarResult();
     }
 
-    public function findRecipesWithTags(array $selectedTagTitles)
+    public function getNeededId(ArrayCollection $tags)
     {
+        $tags = iterator_to_array($tags);
 
-        $em = $this->getEntityManager();
-        $qb = $em->createQueryBuilder();
-        $qb->select('i')
-            ->from('App\Entity\Recipe', 'i')
-            ->where("i.tags IN (:listCat)")
-            ->setParameter('listCat', $selectedTagTitles);
+        $id_params = array();
+        foreach ($tags as $tag) {
+            // generate a unique name for this parameter
+            $name = "'$tag'"; // ":id_0", ":id_1", etc.
 
-        return $qb->getQuery()->getResult();
+            // set the value
+            $params[$name] = $tag;
+
+            // and keep track of the name
+            $id_params[] = $name;
+        }
+
+// next prepare the parameter names for placement in the query string
+        $id_params = implode(',', $id_params);
 
 
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "
+        select  DISTINCT recipe_id
+from
+     (SELECT recipe_id,tag_id
+         FROM recipe, tag, recipe_tag
+         where tag.id = recipe_tag.tag_id AND tag.title IN ($id_params)
+         ORDER BY RAND()) as z
+group by z.tag_id
+order by rand()
+LIMIT 7;
+        ";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll(\PDO::FETCH_COLUMN);
     }
+
+    public function getRemainingRecipeId(array $neededRecipeId, int $count)
+    {
+     //   var_dump($neededRecipeId);
+        foreach ($neededRecipeId as $needed){
+            echo $needed . ' ++++ ';
+        }
+
+        var_dump($neededRecipeId);
+        $id_params = array();
+        foreach ($neededRecipeId as $tag) {
+            echo  $tag . '+++';
+
+            // generate a unique name for this parameter
+            $name = "$tag"; // ":id_0", ":id_1", etc.
+
+            // set the value
+            $params[$name] = $tag;
+
+            // and keep track of the name
+            $id_params[] = $name;
+        }
+
+
+// next prepare the parameter names for placement in the query string
+        $id_params = implode(',', $id_params);
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "
+select  DISTINCT recipe_id
+from recipe, tag, recipe_tag
+         where tag.id = recipe_tag.tag_id AND recipe_tag.recipe_id NOT IN ($id_params)
+order by rand()
+LIMIT $count;
+
+        ";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll(\PDO::FETCH_COLUMN);
+    }
+
 }
