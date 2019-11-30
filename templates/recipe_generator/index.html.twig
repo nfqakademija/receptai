@@ -21,25 +21,5 @@
         {{ form_rest(form) }}
         {{ form_end(form) }}
     </div>
-<div class="example-wrapper">
 
-    <div>
-        <h3> Produce </h3>
-        <ul>
-
-            {% if tags is defined %}
-                {% for tag in tags %}
-                    {{ macros.tags(
-                        tag.title
-                    )  }}
-                {% endfor %}
-            {% endif %}
-
-        </ul>
-    </div>
-    This friendly message is coming from:
-    <ul>
-
-    </ul>
-</div>
 {% endblock %}
