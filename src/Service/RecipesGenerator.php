@@ -20,7 +20,10 @@ class RecipesGenerator
             $generatedRecipeId = $this->recipeRepository->getNeededId($selectedTags);
 
             if (count($generatedRecipeId) < 7) {
-                $remainingRecipeId = $this->recipeRepository->getRemainingRecipeId($generatedRecipeId, 7 - count($generatedRecipeId));
+                $remainingRecipeId = $this->recipeRepository->getRemainingRecipeId(
+                    $generatedRecipeId,
+                    7 - count($generatedRecipeId)
+                );
                 $generatedRecipeId = array_merge($generatedRecipeId, $remainingRecipeId);
             }
         } else {
