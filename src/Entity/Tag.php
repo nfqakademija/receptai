@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping\Table;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
- * @Table(name="tags",indexes={@Index(name="title_idx", columns={"title"})})
+ * @Table(name="tag",indexes={@Index(name="title_idx", columns={"title"})})
  */
 class Tag
 {
@@ -79,5 +79,10 @@ class Tag
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
     }
 }

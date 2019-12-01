@@ -3,7 +3,7 @@
     <div class="recipe-thumb">
         <div class="content">
             <a href="{{ path('single_recipe', {id: id}) }}">
-                <img class="image" src="{{imageUrl}}">
+                <img class="image" src="{{ asset('uploads/images/' ~ imageUrl)}}">
             </a>
             <div class="details">
                 <h2 class="title">
@@ -57,7 +57,7 @@
                         <div class="description-bar">
                         </div>
                     </div>
-                    <img class="image" src={{recipe.imageUrl}}>
+                    <img class="image" src={{asset('uploads/images/' ~ recipe.imageUrl)}}>
                 </div>
                 <div class="content-right">
                     <ul class="tabs nav nav-tabs">

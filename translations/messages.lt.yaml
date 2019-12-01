@@ -10,6 +10,7 @@ base:
   login: 'Prisijungti'
   register: 'Registracija'
   random_recipe: 'Atsitiktiniai receptai'
+  new_recipe: 'Naujas Receptas'
   user: 'Profilis'
   admin: 'Administracija'
   logout: 'Atsijungti'
