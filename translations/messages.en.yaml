@@ -39,7 +39,7 @@ registration_form:
 security_page:
   user: 'User'
 generated_recipe:
-  tags: 'All tags'
+  tags: 'What would you like?'
   submit: 'Submit'
   generatedRecipes: 'Generated recipes for each day'
 flash:
