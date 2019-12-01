@@ -2,11 +2,6 @@
 {% import "/macros/macros.html.twig" as macros %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
     <div class="container">
         <div class="row">
             <h1>{{ 'generated_recipe.tags'|trans }}</h1>
@@ -14,7 +9,20 @@
 
         {{ form_start(form) }}
 
-        {{ form_row(form.title) }}
+        {% for item in form.title %}
+            <div>
+                {{ form_label(item) }}
+                {{ form_errors(item) }}
+                <div class="grocery-item">
+                    <label class="control checkbox">
+                        <input type="checkbox">
+                        <span class="control-indicator"></span>
+                        <span class="quantity"> {{ form_widget(item) }} </span>
+                    </label>
+                </div>
+                {{ form_help(item) }}
+            </div>
+        {% endfor %}
 
         <button type="submit" class="btn btn-success">{{ 'generated_recipe.submit'|trans }}</button>
 
