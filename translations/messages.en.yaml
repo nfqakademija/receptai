@@ -34,8 +34,7 @@ registration_form:
   whatFirstName: 'What is your First Name?'
   enterEmail: 'Enter your email'
   createPassword: 'Create a password'
-  receive: 'I would like to receive meal planning tips, personalized recipe recommendations,
-             and product updates from Receptai.'
+  receive: 'I would like to receive meal ingredient lists from Receptai'
 security_page:
   user: 'User'
 generated_recipe:
