@@ -12,6 +12,7 @@
         {{ encore_entry_link_tags('login') }}
     {% endblock %}
 </head>
+
 <body>
 
 {% block header %}
@@ -43,6 +44,7 @@
         </nav>
     </header>
 {% endblock %}
+
 {% block flash_messages %}
     {% for type, messages in app.session.flashbag.all() %}
         {% for message in messages %}
@@ -55,14 +57,16 @@
 {% endblock %}
 
 
-{% block body %} {% endblock %}
+{% block body %}
+
+{% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
-</body>
-
-<footer class="container text-center" id="plain-footer">
-        <img src="https://img.icons8.com/dusk/64/000000/restaurant.png">
+<div class="content"> </div>
+<footer class="container text-center mine" id="plain-footer">
+    <img src="https://img.icons8.com/dusk/64/000000/restaurant.png">
 </footer>
+</body>
 </html>

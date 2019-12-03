@@ -8,3 +8,9 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
   line-height: 1.3333333 !important;
   border-radius: 6px !important;
 }
+html, body {
+  height: 100% !important;
+}
+.content {
+  min-height: 60% !important;
+}
