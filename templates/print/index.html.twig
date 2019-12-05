@@ -1,0 +1,27 @@
+{% extends 'baseNoHeader.html.twig' %}
+{% import "/macros/macros.html.twig" as macros %}
+{% block title %}Print{% endblock %}
+
+{% block body %}
+<div id="grocery-list-container">
+    <div id="grocery-list">
+        <div id="success-message">
+            <i class="fa fa-check"></i>
+            <h2>Shopping list</h2>
+        </div>
+        <div>
+            <h3> Ingredients </h3>
+            <ul>
+                {{ macros.ingredient('corn', '1 ear') }}
+                {{ macros.ingredient('zucchini squash', '2 medium') }}
+                {{ macros.ingredient('red grapes', '100 g') }}
+                {{ macros.ingredient('brussels sprouts', '300 g') }}
+                {{ macros.ingredient('broccoli', '1 crown') }}
+                {{ macros.ingredient('red bell pepper', '1') }}
+                {{ macros.ingredient('lemons', '2') }}
+                {{ macros.ingredient('chicken breasts', '300 g') }}
+                {{ macros.ingredient('rice', '500 g') }}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
