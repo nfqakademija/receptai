@@ -9,6 +9,7 @@ base:
   login: 'Login'
   register: 'Register'
   random_recipe: 'Random Recipes'
+  new_recipe: 'New Recipe'
   user: 'Profile'
   admin: 'Administration'
   logout: 'Log out'
