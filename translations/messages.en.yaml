@@ -35,10 +35,15 @@ registration_form:
   whatFirstName: 'What is your First Name?'
   enterEmail: 'Enter your email'
   createPassword: 'Create a password'
-  receive: 'I would like to receive meal planning tips, personalized recipe recommendations,
-             and product updates from Receptai.'
+  receive: 'I would like to receive meal ingredient lists from Receptai'
+  old: 'Already a member?'
+  logIn: 'Log in'
 security_page:
   user: 'User'
+generated_recipe:
+  tags: 'What would you like?'
+  submit: 'Submit'
+  generatedRecipes: 'Generated recipes for each day'
 flash:
   success: 'Registered successfully'
   failure: 'Please log in before proceeding'

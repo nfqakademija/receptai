@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% import "/macros/macros.html.twig" as macros %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h1>{{ 'generated_recipe.tags'|trans }}</h1>
+        </div>
+
+        {{ form_start(form) }}
+
+        {% for item in form.title %}
+            <div>
+                {{ form_label(item) }}
+                {{ form_errors(item) }}
+                <div class="grocery-item">
+                    <label class="control checkbox">
+                        <input type="checkbox">
+                        <span class="control-indicator"></span>
+                        <span class="quantity"> {{ form_widget(item) }} </span>
+                    </label>
+                </div>
+                {{ form_help(item) }}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-success">{{ 'generated_recipe.submit'|trans }}</button>
+
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

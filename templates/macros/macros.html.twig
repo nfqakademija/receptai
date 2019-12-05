@@ -31,8 +31,6 @@
     </li>
 {% endmacro %}
 
-
-
 {% macro ingredientInSingleRecipe(name, quantity) %}
     <li class="line-item" >
         <div class="quantity">{{quantity}}</div>
@@ -40,13 +38,13 @@
     </li>
 {% endmacro %}
 
-{% macro singleRecipe(recipe) %}
+{% macro singleRecipe(recipe, ingredients) %}
     {% import _self as macros %}
     <header class="clearfix" id="main-header"></header>
     <main class="container">
         <div class="recipe">
             <div class="header">
-                <a class="ml-btn-default" href="{{ path('home') }}">← Back</a>
+                <a class="next-plan next-plan-mine" href="{{ path('home') }}">← Back Home</a>
             </div>
             <div class="content">
                 <div class="content-left">
@@ -70,8 +68,9 @@
                     <div class="tab-content">
                         <div class="tab-pane active">
                             <ul>
-                                {% if recipe.ingredients is defined %}
-                                    {% for item in recipe.ingredients %}
+                                {% if ingredients is defined %}
+                                    {{ ingredients[0] }}
+                                    {% for item in ingredients %}
                                         {{ macros.ingredientInSingleRecipe(item.name, item.quantity) }}
                                     {% endfor %}
                                 {% endif %}

@@ -12,6 +12,7 @@
         {{ encore_entry_link_tags('login') }}
     {% endblock %}
 </head>
+
 <body>
 
 {% block header %}
@@ -27,7 +28,7 @@
                             <a class="nav-link" href="{{ path('new_recipe') }}">{{ 'base.new_recipe'|trans }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('random_recipe') }}">{{ 'base.random_recipe'|trans }}</a>
+                            <a class="nav-link" href="{{ path('random_recipe') }}">{{ 'Meal Plan'|trans }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_logout') }}">{{ 'base.logout'|trans }}</a>
@@ -46,6 +47,7 @@
         </nav>
     </header>
 {% endblock %}
+
 {% block flash_messages %}
     {% for type, messages in app.session.flashbag.all() %}
         {% for message in messages %}
@@ -58,14 +60,16 @@
 {% endblock %}
 
 
-{% block body %} {% endblock %}
+{% block body %}
+
+{% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
-</body>
-
-<footer class="container text-center" id="plain-footer">
-        <img src="https://img.icons8.com/dusk/64/000000/restaurant.png">
+<div class="content"> </div>
+<footer class="container text-center mine" id="plain-footer">
+    <img src="https://img.icons8.com/dusk/64/000000/restaurant.png">
 </footer>
+</body>
 </html>

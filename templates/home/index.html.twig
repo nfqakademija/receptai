@@ -3,21 +3,15 @@
 
 {% block body %}
 
-    <body>
     <main class="container">
     <div id="meal-plan" class="meal-plan-app">
                 <div>
-
                     <div id="meal-plan-header" class="pad-small">
-                        <a class="next-plan next-plan-desktop">Start next meal plan</a>
+                        <a href="{{ path('recipe_generator') }}" class="next-plan next-plan-mine">Start next meal plan</a>
 
                         <h1>
                             <span id="meal-plan-title">All our recipes</span>
                         </h1>
-
-                        <a class="next-plan next-plan-mobile">
-                            Next meal plan
-                        </a>
                     </div><!-- meal-plan-header -->
 
                     <div id="meal-plan-content" class="clearfix">

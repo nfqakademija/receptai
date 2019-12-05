@@ -39,6 +39,10 @@ registration_form:
             ir produktų naujienas iš Receptai'
 security_page:
   user: 'Naudotojas'
+generated_recipe:
+  tags: 'Visos etiketės'
+  submit: 'Patvirtinti'
+  generatedRecipes: 'Sugeneruoti receptai kiekvienai dienai'
 flash:
   success: 'Sėkmingai užregistruota'
   failure: 'Prašome prisijungti, prieš naudojantis šia funkcija'

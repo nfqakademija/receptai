@@ -1,16 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseNoHeader.html.twig' %}
 
 {% block body %}
     {{ form_start(registrationForm) }}
 
     <body class="authentication">
-    <!--[if lt IE 9]>
-
-    <div class="browser-upgrade">You are using an <strong>outdated</strong> browser. Please <a
-            href="http://browsehappy.com/">upgrade your browser</a>
-        to improve your experience.
-    </div>
-    <![endif]-->
     <div id="authentication">
         <div id="auth-header">
         </div>
@@ -62,14 +55,17 @@
                         {{ 'registration_form.receive'|trans }}
                     </div>
                 </div>
+
                 <input type="submit" name="commit" value="{{ 'registration_form.register_button'|trans }}"
-                       class="ml-btn-strong-cta disable-on-click">
+                       class="ml-btn-success btn-lg disable-on-click">
             </div>
         </div>
+        <div id="auth-footer">
+            {{'registration_form.old'|trans}} <a href="{{path('login')}}">
+                {{'registration_form.logIn'|trans}}</a>
+        </div>
     </div>
-    <div id="auth-footer">
 
-    </div>
     </body>
 
     {{ form_end(registrationForm) }}
