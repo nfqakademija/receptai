@@ -26,8 +26,10 @@
             <div>
                 <h3>{{ form_label(form.description) }}</h3>
                 {{ form_errors(form.description) }}
-                {{ form_widget(form.description) }}
+                <textarea id="new_recipe_description" name="new_recipe[description]" required="required" class="form-control my-border"></textarea>
+                {% do form.description.setRendered %}
                 {{ form_help(form.description) }}
+
             </div>
             <div>
                 <h3>{{ form_label(form.image) }}</h3>
