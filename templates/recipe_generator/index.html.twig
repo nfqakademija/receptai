@@ -12,84 +12,19 @@
         {% for item in form.title %}
                 {{ form_label(item) }}
                 {{ form_errors(item) }}
-                {#<div class="grocery-item">
-                        <label class="control checkbox">
-                            <input type="checkbox">
-                            <span class="control-indicator"></span>
-                            <span class="quantity"> {{ form_widget(item) }} </span>
-                        </label>
-                    </div>
-                    <div>#}
-                {#<div>
-                    <div class="form-check">
-                        <input type="checkbox" id="recipe_generator_title_1" name="recipe_generator[title][]" class="form-check-input" value="1">
-                        <label class="form-check-label" for="recipe_generator_title_1">food</label>
-                    </div>
-                </div>#}
-                {#
-                <div class="grocery-item form-check">
-                    <label class="control checkbox">
-                        <input type="checkbox" id="recipe_generator_title_1" name="recipe_generator[title][]" class="form-check-input" value="0">
-                        <span class="control-indicator"></span>
-                        <span class="quantity form-check-label" for="recipe_generator_title_1"> food </span>
-                    </label>
-                </div>
-                <div>
-                <div>#}
-                {#<div>
-                    <div class="form-check grocery-item">
-                        <label class="control checkbox">
-
-                        <input type="checkbox" id="recipe_generator_title_1" name="recipe_generator[title][]" class="form-check-input" value="1">
-                            <span class="control-indicator"></span>
-
-                        </label>
-                        <label class="form-check-label" for="recipe_generator_title_1"><h3>{{form_row(item)}} </h3></label>
-                    </div>
-                </div>#}
-                {#<div class="test"> {{ form_widget(item) }} </div>
-                <div>
-                    <div class="test"> <div class="form-check">
-                            <input type="checkbox" id="recipe_generator_title_2" name="recipe_generator[title][]" class="form-check-input" value="2">
-                            <label class="form-check-label" for="recipe_generator_title_2">asd</label></div> </div>
-                </div>#}
-                {#<div>
-
-
-                    <div class="test"> <div class="form-check">        <input type="checkbox" id="recipe_generator_title_2" name="recipe_generator[title][]" class="form-check-input" value="2">
-                            <label class="form-check-label" for="recipe_generator_title_2">asd</label></div> </div>
-
-                </div>#}
-                {# paskutinis
-                <div class="grocery-item">
-                    <label class="control">
-                        <span class="quantity"> {{ form_widget(item) }} </span>
-                    </label>
-                </div>
-
-
-                <span for="chkCheckbox" ~ {{ counter }}>
-                    <input id="chkCheckbox" ~ {{ counter }} type="checkbox" />
-                    <label for="chkCheckbox" ~ {{ counter }}>{{ form_widget(item) }}</label>
-                </span>
-                <div>#}
-
-
                 <div class="form-check">
                     <label class="control checkbox">
-                    <input type="checkbox" id="recipe_generator_title_" ~ {{ counter }}  name="recipe_generator[title][]" class="form-check-input" value="{{ counter }}">
+                    <input type="checkbox" id="{{item.vars.id}}"  name="recipe_generator[title][]" class="form-check-input" value="{{item.vars.value}}">
                         <span class="control-indicator"></span>
-                        <label class="form-check-label" for="recipe_generator_title_ ~ {{ counter }}"></label>
+                        <label class="form-check-label" for="{{item.vars.id}}"></label>
                     </label>
                 </div>
-            <h3 class="my-tag-name">pavadinimas</h3>
-
+            <h3 class="my-tag-name">{{item.vars.label}}</h3>
                 {{ form_help(item) }}
                 {% do item.setRendered %}
-            {% set counter = counter + 1 %}
         {% endfor %}
 
-        <button type="submit" class="btn btn-success">{{ 'generated_recipe.submit'|trans }}</button>
+        <button type="submit" class="next-plan-mine">{{ 'generated_recipe.submit'|trans }}</button>
 
         {{ form_rest(form) }}
         {{ form_end(form) }}
