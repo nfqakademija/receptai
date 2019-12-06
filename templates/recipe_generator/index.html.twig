@@ -8,9 +8,8 @@
         </div>
 
         {{ form_start(form) }}
-{% set counter = 1 %}
+        {% set counter = 1 %}
         {% for item in form.title %}
-            <div>
                 {{ form_label(item) }}
                 {{ form_errors(item) }}
                 {#<div class="grocery-item">
@@ -77,13 +76,16 @@
 
 
                 <div class="form-check">
-                    <input class="tag-choice" type="checkbox" id="recipe_generator_title_" ~ {{ counter }}  name="recipe_generator[title][]" class="form-check-input" value="{{ counter }}">
-                    <label class="form-check-label" for="recipe_generator_title_ ~ {{ counter }}"><h4 class="tag-name">pavadinimas</h4></label>
+                    <label class="control checkbox">
+                    <input type="checkbox" id="recipe_generator_title_" ~ {{ counter }}  name="recipe_generator[title][]" class="form-check-input" value="{{ counter }}">
+                        <span class="control-indicator"></span>
+                        <label class="form-check-label" for="recipe_generator_title_ ~ {{ counter }}"></label>
+                    </label>
                 </div>
+            <h3 class="my-tag-name">pavadinimas</h3>
 
                 {{ form_help(item) }}
                 {% do item.setRendered %}
-            </div>
             {% set counter = counter + 1 %}
         {% endfor %}
 
