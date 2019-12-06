@@ -5,16 +5,6 @@
 {% block body %}
     <div class="container">
         <span id="meal-plan-title"> <h1> Add a new recipe! </h1></span>
-{#
-        {{ form_label(item) }}
-        {{ form_errors(item) }}
-        {{ form_widget(item) }}
-        {{ form_help(item) }}
-
-        {{ form_row(form.title) }}
-#}
-
-
         {{ form_start(form) }}
         <div class="form-group">
             <div>
@@ -27,9 +17,8 @@
                 <h3>{{ form_label(form.description) }}</h3>
                 {{ form_errors(form.description) }}
                 <textarea id="new_recipe_description" name="new_recipe[description]" required="required" class="form-control my-border"></textarea>
-                {% do form.description.setRendered %}
                 {{ form_help(form.description) }}
-
+                {% do form.description.setRendered %}
             </div>
             <div>
                 <h3>{{ form_label(form.image) }}</h3>
@@ -42,19 +31,23 @@
 
 
 
-
-        {{ form_label(form.ingredients, 'Ingredients') }}
-        <ul class="ingredients" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}">
+        <h3 class="sections"> <b> Ingredients</b></h3>
+        <ul class="ingredients list-without-bullets" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}">
             {% for ingredient in form.ingredients %}
                 <li>{{ form_row(ingredient) }}</li>
             {% endfor %}
         </ul>
-        {{ form_label(form.tags, 'Tags') }}
-        <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
+        <h3 class="sections"> <b> Tags </b></h3>
+        <ul class="tags list-without-bullets" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
             {% for tag in form.tags %}
                 <li>{{ form_row(tag) }}</li>
             {% endfor %}
         </ul>
+
+        <div class="wrapper">
+            <button type="submit" class="next-plan-mine align-content-center">{{ 'generated_recipe.submit'|trans }}</button>
+        </div>
+        {% do form.save.setRendered %}
         {{ form_end(form) }}
     </div>
 {% endblock %}
