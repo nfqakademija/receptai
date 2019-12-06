@@ -77,8 +77,8 @@
 
 
                 <div class="form-check">
-                    <input type="checkbox" id="recipe_generator_title_" ~ {{ counter }}  name="recipe_generator[title][]" class="form-check-input" value="{{ counter }}">
-                    <label class="form-check-label" for="recipe_generator_title_ ~ {{ counter }}">{{item}}</label>
+                    <input class="tag-choice" type="checkbox" id="recipe_generator_title_" ~ {{ counter }}  name="recipe_generator[title][]" class="form-check-input" value="{{ counter }}">
+                    <label class="form-check-label" for="recipe_generator_title_ ~ {{ counter }}"><h4 class="tag-name">pavadinimas</h4></label>
                 </div>
 
                 {{ form_help(item) }}
