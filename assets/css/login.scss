@@ -15,7 +15,6 @@ html, body {
 .content {
   min-height: 60% !important;
 }
-
 .my-border:focus {
   outline: none !important;
   border:1px solid #6ecd31 !important;
@@ -30,4 +29,11 @@ html, body {
 }
 .wrapper {
   text-align: center;
+}
+.my-tag-name {
+  margin-top: -40px;
+  margin-left: 50px;
+}
+.tag-choice {
+  margin-top: 20px;
 }
