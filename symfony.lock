@@ -88,6 +88,9 @@
             "config/routes/easy_admin.yaml"
         ]
     },
+    "imagine/imagine": {
+        "version": "1.2.3"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -96,6 +99,19 @@
     },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.0.0"
+    },
+    "liip/imagine-bundle": {
+        "version": "1.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.8",
+            "ref": "1d42bc3f713130582e6e0c475c49bc327ab0a2a2"
+        },
+        "files": [
+            "config/packages/liip_imagine.yaml",
+            "config/routes/liip_imagine.yaml"
+        ]
     },
     "nikic/php-parser": {
         "version": "v4.2.4"
@@ -264,6 +280,9 @@
     "symfony/polyfill-php73": {
         "version": "v1.12.0"
     },
+    "symfony/process": {
+        "version": "v4.3.9"
+    },
     "symfony/profiler-pack": {
         "version": "v1.0.4"
     },
@@ -314,6 +333,9 @@
     },
     "symfony/stopwatch": {
         "version": "v4.3.5"
+    },
+    "symfony/templating": {
+        "version": "v4.3.9"
     },
     "symfony/translation": {
         "version": "3.3",

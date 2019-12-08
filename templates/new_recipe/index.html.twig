@@ -23,13 +23,14 @@
             <div>
                 <h3>{{ form_label(form.image) }}</h3>
                 {{ form_errors(form.image) }}
-                {{ form_widget(form.image) }}
+                {{ form_widget(form.image, {
+                    attr: {
+                        'placeholder': 'Select a recipe image',
+                    }
+                }) }}
                 {{ form_help(form.image) }}
             </div>
         </div>
-
-
-
 
         <h3 class="sections"> <b> Ingredients</b></h3>
         <ul class="ingredients list-without-bullets" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}">
@@ -55,6 +56,14 @@
 {% block javascripts %}
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script>
+
+        $('.custom-file-input').on('change', function(event) {
+            var inputFile = event.currentTarget;
+            $(inputFile).parent()
+                .find('.custom-file-label')
+                .html(inputFile.files[0].name);
+        });
+
         var $collectionHolder;
 
         // setup an "add a tag" link
