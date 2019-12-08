@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
@@ -37,10 +36,8 @@ class RecipeRepository extends ServiceEntityRepository
         return $query->getSingleScalarResult();
     }
 
-    public function getNeededId(ArrayCollection $tags)
+    public function getNeededId(array $tags)
     {
-        $tags = iterator_to_array($tags);
-
         $tag_params = array();
         foreach ($tags as $tag) {
             $name = "'$tag'"; // "'Breakfast'", "'Beef", etc.
@@ -71,6 +68,50 @@ class RecipeRepository extends ServiceEntityRepository
         return $stmt->fetchAll(\PDO::FETCH_COLUMN);
     }
 
+    public function getNeededVeganId()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "
+        select  DISTINCT recipe_id
+        from recipe, tag, recipe_tag
+        where tag.id = recipe_tag.tag_id AND tag.title = 'Vegetarian'
+        order by rand()
+        LIMIT 7;
+        ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_COLUMN);
+    }
+//where tag.id = recipe_tag.tag_id AND recipe_tag.recipe_id NOT IN ($recipeId_params) AND tag.title = 'Vegetarian'
+    public function getRemainingVeganRecipeId(array $neededRecipeId, int $count)
+    {
+        $recipeId_params = array();
+        foreach ($neededRecipeId as $recipeId) {
+            $id = "$recipeId"; // "8", "4", etc.
+
+            $params[$id] = $recipeId;
+
+            $recipeId_params[] = $id;
+        }
+
+        $recipeId_params = implode(',', $recipeId_params);
+
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "
+        select  DISTINCT recipe_id
+        from recipe, tag, recipe_tag
+        where tag.id = recipe_tag.tag_id AND recipe_tag.recipe_id NOT IN ($recipeId_params) AND tag.title = 'Vegetarian'
+        order by rand()
+        LIMIT $count;
+        ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_COLUMN);
+    }
     public function getRemainingRecipeId(array $neededRecipeId, int $count)
     {
         $recipeId_params = array();

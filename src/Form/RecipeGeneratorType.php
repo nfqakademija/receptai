@@ -21,7 +21,8 @@ class RecipeGeneratorType extends AbstractType
                     'class' => Tag::class,
                     'multiple' => true,
                     'expanded' => true,
-                    'required' => false
+                    'required' => false,
+
                 ]
             );
     }

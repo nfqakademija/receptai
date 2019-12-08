@@ -22,12 +22,11 @@ class RecipeGeneratorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $selectedTags = $form['title']->getData();
+            $this->container->get('session')->set('titles', $selectedTags);
 
-                $this->container->get('session')->set('titles', $selectedTags);
-
-                return $this->redirect($this->generateUrl(
-                    'recipe_generator_generated'
-                ));
+            return $this->redirect($this->generateUrl(
+                'recipe_generator_generated'
+            ));
         }
 
         return $this->render('recipe_generator/index.html.twig', [
@@ -36,10 +35,11 @@ class RecipeGeneratorController extends AbstractController
     }
 
     /**
-     * @Route("/recipe/generator/generated", name="recipe_generator_generated", methods="GET")
+     * @Route("/recipe/generator/generated", name="recipe_generator_generated")
      */
     public function generate(RecipesGenerator $generator)
     {
+
         $selectedTags = $this->container->get('session')->get('titles');
 
         $generatedRecipeId = $generator->getGeneratedRecipesId($selectedTags);
