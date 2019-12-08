@@ -110,7 +110,7 @@
         },
         "files": [
             "config/packages/liip_imagine.yaml",
-            "config/routes/liip_imagine.yaml",
+            "config/routes/liip_imagine.yaml"
         ]
     },
     "nikic/php-parser": {
