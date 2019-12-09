@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% import "/macros/macros.html.twig" as macros %}
+
+{% block body %}
+
+    <main class="container">
+    <div id="meal-plan" class="meal-plan-app">
+        <div>
+            <div id="meal-plan-header" class="pad-small">
+                <h1>
+                    <span id="meal-plan-title">My Created Recipes</span>
+                </h1>
+            </div><!-- meal-plan-header -->
+
+            <div id="meal-plan-content" class="clearfix">
+                <div id="meals" class="pad-small">
+                    {% if recipes is defined %}
+                        {% for recipe in recipes %}
+                            {{ macros.card(
+                                recipe.imageUrl,
+                                recipe.title,
+                                recipe.id)
+                            }}
+                            <div class="recipe-thumb">
+                                <a class="btn btn-secondary" href="{{ path('edit_recipe', {id: recipe.id}) }}">Edit</a>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <h3>You haven't created any recipes yet.</h3>
+                        <a href="{{ path('new_recipe') }}" class="next-plan-mine">Add new recipe</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div >
+            {% if recipes is defined %}
+                {{ knp_pagination_render(recipes) }}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

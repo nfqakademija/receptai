@@ -4,11 +4,11 @@
 
 {% block body %}
     <div class="container">
-        <span id="meal-plan-title"> <h1> Add a new recipe! </h1></span>
+        <span id="meal-plan-title"> <h1> Edit this recipe! </h1></span>
         {{ form_start(form) }}
         <div class="form-group">
             <div>
-            <h3>{{ form_label(form.title) }}</h3>
+                <h3>{{ form_label(form.title) }}</h3>
                 {{ form_errors(form.title) }}
                 {{ form_widget(form.title) }}
                 {{ form_help(form.title) }}
@@ -20,15 +20,20 @@
                 {{ form_help(form.description) }}
                 {% do form.description.setRendered %}
             </div>
-            <div>
-                <h3>{{ form_label(form.image) }}</h3>
-                {{ form_errors(form.image) }}
-                {{ form_widget(form.image, {
-                    attr: {
-                        'placeholder': 'Select a recipe image',
-                    }
-                }) }}
-                {{ form_help(form.image) }}
+            <h3>{{ form_label(form.image) }}</h3>
+            <div class="row">
+                <div class="col-sm-9">
+                    {{ form_widget(form.image, {
+                        attr: {
+                            'placeholder': 'Select an article image'
+                        }
+                    }) }}
+                </div>
+                <div class="col-sm-3">
+                    {% if form.vars.data.imageUrl|default %}
+                        <img src="{{ uploaded_asset(form.vars.data.imageUrl) }}" height="100">
+                    {% endif %}
+                </div>
             </div>
         </div>
 
