@@ -22,13 +22,15 @@
                 <a href="{{ path('home') }}"><img src="https://img.icons8.com/dusk/64/000000/restaurant.png"></a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
-
                     {% if app.user %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('new_recipe') }}">{{ 'base.new_recipe'|trans }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('random_recipe') }}">{{ 'Meal Plan'|trans }}</a>
+                            <a class="nav-link" href="{{ path('user_created_recipes') }}">{{ 'base.created_recipe'|trans }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('random_recipe') }}">{{ 'base.meal_plan'|trans }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_logout') }}">{{ 'base.logout'|trans }}</a>

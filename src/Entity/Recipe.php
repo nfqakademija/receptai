@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Service\UploaderHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -43,7 +44,7 @@ class Recipe
      */
     public function getImageUrl()
     {
-        return $this->imageUrl;
+        return UploaderHelper::RECIPE_IMAGE.'/'.$this->imageUrl;
     }
 
     /**
@@ -58,6 +59,12 @@ class Recipe
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="recipes")
      */
     private $tags;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="recipes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $created_user;
 
     public function __construct()
     {
@@ -154,5 +161,17 @@ class Recipe
     public function __toString()
     {
         return (string)$this->title;
+    }
+
+    public function getCreatedUser(): ?User
+    {
+        return $this->created_user;
+    }
+
+    public function setCreatedUser(?User $created_user): self
+    {
+        $this->created_user = $created_user;
+
+        return $this;
     }
 }

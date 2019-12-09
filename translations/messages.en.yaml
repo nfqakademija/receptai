@@ -10,6 +10,8 @@ base:
   register: 'Register'
   random_recipe: 'Random Recipes'
   new_recipe: 'New Recipe'
+  meal_plan: 'Meal Plan'
+  created_recipe: 'My Created Recipes'
   user: 'Profile'
   admin: 'Administration'
   logout: 'Log out'
