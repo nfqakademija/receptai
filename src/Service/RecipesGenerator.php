@@ -19,6 +19,8 @@ class RecipesGenerator
         if (count($selectedTags) != 0) {
             $selectedTags = iterator_to_array($selectedTags);
 
+            $dayCount = 7;
+
             if (in_array('Meat', $selectedTags) == false && in_array('Vegetarian', $selectedTags)) {
                 // Get only vegan recipes
                 if (count($selectedTags) == 1) {
@@ -28,7 +30,7 @@ class RecipesGenerator
                     $generatedRecipeId = $this->recipeRepository->getNeededId($selectedTags);
                     $remainingRecipeId = $this->recipeRepository->getRemainingVeganRecipeId(
                         $generatedRecipeId,
-                        7 - count($generatedRecipeId)
+                        $dayCount - count($generatedRecipeId)
                     );
                     $generatedRecipeId = array_merge($generatedRecipeId, $remainingRecipeId);
                     return $generatedRecipeId;
@@ -36,16 +38,16 @@ class RecipesGenerator
             } else {
                 $generatedRecipeId = $this->recipeRepository->getNeededId($selectedTags);
 
-                if (count($generatedRecipeId) < 7) {
+                if (count($generatedRecipeId) < $dayCount) {
                     $remainingRecipeId = $this->recipeRepository->getRemainingRecipeId(
                         $generatedRecipeId,
-                        7 - count($generatedRecipeId)
+                        $dayCount - count($generatedRecipeId)
                     );
                     $generatedRecipeId = array_merge($generatedRecipeId, $remainingRecipeId);
                 }
             }
         } else {
-            $remainingRecipeId =$this->recipeRepository->getRemainingRecipeId(array(0), 7);
+            $remainingRecipeId =$this->recipeRepository->getRemainingRecipeId(array(0), $dayCount);
             $generatedRecipeId = $remainingRecipeId;
         }
 
