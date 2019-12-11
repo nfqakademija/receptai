@@ -45,6 +45,7 @@ generated_recipe:
   tags: 'Visos etiketės'
   submit: 'Patvirtinti'
   generatedRecipes: 'Sugeneruoti receptai kiekvienai dienai'
+  saved: 'Receptai buvo išsaugoti'
 flash:
   success: 'Sėkmingai užregistruota'
   failure: 'Prašome prisijungti, prieš naudojantis šia funkcija'

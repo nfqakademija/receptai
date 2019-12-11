@@ -43,6 +43,11 @@ class RecipeGeneratorController extends AbstractController
      */
     public function generate(RecipesGenerator $generator, Request $request)
     {
+        $recipesWereSaved = false;
+
+        $form = $this->createForm(SaveType::class);
+        $form->handleRequest($request);
+
         $generatedRecipeIds = $this->container->get('session')->get('generatedRecipeIds');
 
         $selectedTagRecipes = $generator->getGeneratedRecipes($generatedRecipeIds);
@@ -51,22 +56,20 @@ class RecipeGeneratorController extends AbstractController
             ->getRepository(RecipeIngredient::class)
             ->findSum($generatedRecipeIds);
 
-        $form = $this->createForm(SaveType::class);
-        $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
             $user->setRecipeIds($generatedRecipeIds);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-
+            $recipesWereSaved = true;
         }
 
         return $this->render('recipe_generator/generated.html.twig', [
             'selectedRecipes' => $selectedTagRecipes,
             'summedRecipes' => $summedRecipes,
-            'saveForm' => $form->createView()
+            'saveForm' => $form->createView(),
+            'recipesWereSaved' => $recipesWereSaved
         ]);
     }
 }

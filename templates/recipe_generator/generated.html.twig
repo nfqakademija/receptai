@@ -12,11 +12,10 @@
                     {{ form_start(saveForm) }}
                     <input type="submit" name="commit" value="Save"
                            class="ml-btn-success btn-lg disable-on-click">
+                    {% if recipesWereSaved == true %}
+                        <a href="{{ path('saved_recipe') }}">{{ 'generated_recipe.saved'|trans }}</a>
+                    {% endif %}
                     {{ form_end(saveForm) }}
-
-                    <a id="grocery-list-toggle" class="ml-btn-default">
-                        Save
-                    </a>
                 </div><!-- meal-plan-header -->
                 <div id="meal-plan-content" class="clearfix">
                     <div id="grocery-list-container">
