@@ -60,7 +60,7 @@ class RecipesGenerator
             'id' => $generatedRecipeId
         ]);
 
-        shuffle($selectedTagRecipes);
+       // shuffle($selectedTagRecipes);
 
         return $selectedTagRecipes;
     }
