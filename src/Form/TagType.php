@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Tag;
+use App\Repository\TagRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +16,8 @@ class TagType extends AbstractType
         $builder
             ->add('title', EntityType::class, [
                 'class' => Tag::class,
-                'label' => 'Tag',
+                'label' => false,
+                'mapped' => false,
             ])
         ;
     }

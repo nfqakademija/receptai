@@ -7,6 +7,7 @@ use App\Entity\Recipe;
 use App\Entity\RecipeIngredient;
 use App\Form\NewRecipeType;
 use App\Service\UploaderHelper;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +16,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\File;
 
 class NewRecipeController extends AbstractController
 {
@@ -45,8 +48,9 @@ class NewRecipeController extends AbstractController
                 /** @var UploadedFile $imageUrl */
                 $imageUrl = $form['image']->getData();
 
-                $recipe->setTitle($form['title']->getData());
-                $recipe->setDescription($form['description']->getData());
+                $recipe->setTitle(ucfirst($form['title']->getData()));
+                $recipe->setDescription(ucfirst($form['description']->getData()));
+
                 $recipe->setCreatedUser($user);
 
                 if ($imageUrl) {
@@ -67,7 +71,7 @@ class NewRecipeController extends AbstractController
                     $amount = $ingredientForm['amount']->getData();
 
                     $ingredient = new Ingredient();
-                    $ingredient->setTitle($title);
+                    $ingredient->setTitle(ucfirst($title));
 
                     $recipeIngredient = new RecipeIngredient();
                     $recipeIngredient->setRecipe($recipe);
@@ -107,13 +111,30 @@ class NewRecipeController extends AbstractController
         if ($this->getUser()) {
             $entityManager = $this->getDoctrine()->getManager();
             $recipe = $entityManager->getRepository(Recipe::class)->find($id);
-            $tags = $recipe->getTags();
-            $recipeIngredients = $entityManager->getRepository(RecipeIngredient::class)
-                ->findBy([
-                    'recipe' => $recipe
-                ]);
 
-            $form = $this->createForm(NewRecipeType::class);
+            $recipeIngredients = $recipe->getRecipeIngredients();
+
+            $data = [];
+            $measures = [];
+            foreach ($recipeIngredients as $ri) {
+                $tempData = [
+                    'title' => $ri->getIngredient()->getTitle(),
+                    'amount' => $ri->getAmount(),
+                ];
+                array_push($data, $tempData);
+                array_push($measures, $ri->getMeasure());
+            }
+
+            $form = $this->createForm(NewRecipeType::class, $recipe);
+
+            $tags = $recipe->getTags();
+
+            $form['ingredients']->setData($data);
+
+            foreach ($form['ingredients'] as $key => $ingredientForm) {
+                $ingredientForm['title']->setData($recipeIngredients[$key]->getIngredient()->getTitle());
+                $ingredientForm['amount']->setData($recipeIngredients[$key]->getAmount());
+            }
 
             $form->handleRequest($request);
 
@@ -129,9 +150,17 @@ class NewRecipeController extends AbstractController
                     $recipe->setImageUrl($imageFileName);
                 }
 
+                foreach ($tags as $tag) {
+                    $recipe->removeTag($tag);
+                }
+
                 foreach ($form['tags'] as $tagForm) {
                     $tag = $tagForm['title']->getData();
                     $recipe->addTag($tag);
+                }
+
+                foreach ($recipeIngredients as $ri) {
+                    $entityManager->remove($ri);
                 }
 
                 foreach ($form['ingredients'] as $ingredientForm) {
@@ -139,26 +168,35 @@ class NewRecipeController extends AbstractController
                     $measure = $ingredientForm['measure']->getData();
                     $amount = $ingredientForm['amount']->getData();
 
-                    $ingredient = new Ingredient();
-                    $ingredient->setTitle($title);
+                    $persistedIngredient = $entityManager->getRepository(Ingredient::class)
+                        ->findOneBy(['title' => $title]);
+                    if ($persistedIngredient == null) {
+                        $persistedIngredient = new Ingredient();
+                        $persistedIngredient->setTitle($title);
+                        $entityManager->persist($persistedIngredient);
+                    }
 
                     $recipeIngredient = new RecipeIngredient();
                     $recipeIngredient->setRecipe($recipe);
-                    $recipeIngredient->setIngredient($ingredient);
+                    $recipeIngredient->setIngredient($persistedIngredient);
                     $recipeIngredient->setMeasure($measure);
 
                     if ($amount != null) {
                         $recipeIngredient->setAmount($amount);
                     }
+
+                    $entityManager->persist($recipeIngredient);
                 }
 
                 $entityManager->flush();
 
-                return $this->redirect($this->generateUrl('user_created_recipes'));
+                return $this->redirectToRoute('user_created_recipes');
             }
 
             return $this->render('new_recipe/edit.html.twig', [
                 'form' => $form->createView(),
+                'tags' => $tags,
+                'measures' => $measures,
             ]);
         }
         return $this->redirectToRoute('login');
