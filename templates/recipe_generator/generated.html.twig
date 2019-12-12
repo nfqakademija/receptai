@@ -60,46 +60,6 @@
 
                     <button class="ajax" onclick="iskvietimas()">click me!</button>
                     <div id="ajax-results">here comes the result</div>
-
-
-                    <script>
-
-                        /*$(document).on('click', 'button.ajax', function(){
-                            console.log("hello");
-                            $.ajax({
-                                url:'{{ (path('ajax')) }}',
-                                type: "POST",
-                                dataType: "json",
-                                data: {
-                                    "some_var_name": "some_var_value"
-                                },
-                                async: true,
-                                success: function (data)
-                                {
-                                    console.log(data)
-                                    $('div#ajax-results').html(data.output);
-
-                                }
-                            });
-                            return false;
-
-                        });*/
-                        function iskvietimas() {
-                            console.log("veikia");
-                            $.ajax({
-                                url: '{{ (path('ajax')) }}',
-                                data: {
-                                    text: "hi"
-                                },
-                                success: function( result ) {
-                                    console.log(result);
-                                    $( "#ajax-results" ).html( "<strong>" + result + "</strong> degrees" );
-                                }
-                            });
-                        }
-
-                    </script>
-
                     <div id="meals" class="pad-small">
                         {% if selectedRecipes is defined %}
                             {% for recipe in selectedRecipes %}
@@ -112,3 +72,12 @@
         </div>
      </main>
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            console.log("Script working properly");
+        });
+    </script>
+{% endblock %}
+
