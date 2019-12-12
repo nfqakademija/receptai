@@ -5,28 +5,25 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AjaxController extends AbstractController
 {
     /**
      * @Route("/ajax", name="ajax")
+     * @param Request $request
+     * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->render('ajax/index.html.twig', [
-            'controller_name' => 'AjaxController',
+        $id = $request->get('id');
+
+        
+        return $this->render('card/index.html.twig', [
+            'imageUrl' => "something",
+            'name' => "chicken magic",
+            'id' => 2,
         ]);
     }
-
-    /*public function indexAction(Request $request)
-    {
-        if($request->request->get('some_var_name')){
-            //make something curious, get some unbelieveable data
-            $arrData = ['output' => 'here the result which will appear in div'];
-            return new JsonResponse($arrData);
-        }
-
-        return $this->render('recipe_generator/generated.html.twig');
-    }*/
 }
