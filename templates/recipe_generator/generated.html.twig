@@ -60,10 +60,7 @@
                     <div id="meals" class="pad-small">
                         {% if selectedRecipes is defined %}
                             {% for recipe in selectedRecipes %}
-                                {{ macros.card(
-                                    recipe.imageUrl,
-                                    recipe.title,
-                                    recipe.id) }}
+                                {% include "/card/card.html.twig" with {'imageUrl': recipe.imageUrl, 'name': recipe.title, 'id':recipe.id} %}
                             {% endfor %}
                         {% endif %}
                     </div>
