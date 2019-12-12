@@ -18,15 +18,6 @@
                     <h1>
                         <span id="meal-plan-title">My Meal Plan</span>
                     </h1>
-                    {% if app.user %}
-                    {{ form_start(saveForm) }}
-                    <input type="submit" name="commit" value="Save"
-                           class="ml-btn-success btn-lg disable-on-click">
-                    {% if recipesWereSaved == true %}
-                        <a href="{{ path('saved_recipe') }}">{{ 'generated_recipe.saved'|trans }}</a>
-                    {% endif %}
-                    {{ form_end(saveForm) }}
-                    {% endif %}
                 </div><!-- meal-plan-header -->
                 <div id="meal-plan-content" class="clearfix">
                     <div id="grocery-list-container">
@@ -70,5 +61,5 @@
                 </div>
             </div>
         </div>
-     </main>
+    </main>
 {% endblock %}

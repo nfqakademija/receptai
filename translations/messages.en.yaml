@@ -46,6 +46,7 @@ generated_recipe:
   tags: 'What would you like?'
   submit: 'Submit'
   generatedRecipes: 'Generated recipes for each day'
+  saved: 'Recipe was saved'
 flash:
   success: 'Registered successfully'
   failure: 'Please log in before proceeding'

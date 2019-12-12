@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class RecipesGenerator
 {
+    const DAY_COUNT = 7;
+
     private $recipeRepository;
 
     public function __construct(RecipeRepository $recipeRepository)
@@ -28,7 +30,7 @@ class RecipesGenerator
                     $generatedRecipeId = $this->recipeRepository->getNeededId($selectedTags);
                     $remainingRecipeId = $this->recipeRepository->getRemainingVeganRecipeId(
                         $generatedRecipeId,
-                        7 - count($generatedRecipeId)
+                        self::DAY_COUNT - count($generatedRecipeId)
                     );
                     $generatedRecipeId = array_merge($generatedRecipeId, $remainingRecipeId);
                     return $generatedRecipeId;
@@ -36,16 +38,16 @@ class RecipesGenerator
             } else {
                 $generatedRecipeId = $this->recipeRepository->getNeededId($selectedTags);
 
-                if (count($generatedRecipeId) < 7) {
+                if (count($generatedRecipeId) < self::DAY_COUNT) {
                     $remainingRecipeId = $this->recipeRepository->getRemainingRecipeId(
                         $generatedRecipeId,
-                        7 - count($generatedRecipeId)
+                        self::DAY_COUNT - count($generatedRecipeId)
                     );
                     $generatedRecipeId = array_merge($generatedRecipeId, $remainingRecipeId);
                 }
             }
         } else {
-            $remainingRecipeId =$this->recipeRepository->getRemainingRecipeId(array(0), 7);
+            $remainingRecipeId =$this->recipeRepository->getRemainingRecipeId(array(0), self::DAY_COUNT);
             $generatedRecipeId = $remainingRecipeId;
         }
 
@@ -58,7 +60,7 @@ class RecipesGenerator
             'id' => $generatedRecipeId
         ]);
 
-        shuffle($selectedTagRecipes);
+       // shuffle($selectedTagRecipes);
 
         return $selectedTagRecipes;
     }

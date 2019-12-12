@@ -47,6 +47,11 @@ class User implements UserInterface
      */
     private $recipes;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $recipeIds = [];
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
@@ -181,6 +186,18 @@ class User implements UserInterface
                 $recipe->setCreatedUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRecipeIds(): ?array
+    {
+        return $this->recipeIds;
+    }
+
+    public function setRecipeIds(?array $recipeIds): self
+    {
+        $this->recipeIds = $recipeIds;
 
         return $this;
     }

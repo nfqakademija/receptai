@@ -3,24 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Ingredient;
-use App\Entity\Measure;
 use App\Entity\Recipe;
 use App\Entity\RecipeIngredient;
-use App\Entity\Tag;
-use App\Form\IngredientType;
 use App\Form\NewRecipeType;
-use App\Form\TagType;
 use App\Service\UploaderHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,6 +50,7 @@ class NewRecipeController extends AbstractController
 
                 $recipe->setTitle(ucfirst($form['title']->getData()));
                 $recipe->setDescription(ucfirst($form['description']->getData()));
+
                 $recipe->setCreatedUser($user);
 
                 if ($imageUrl) {
@@ -120,6 +111,7 @@ class NewRecipeController extends AbstractController
         if ($this->getUser()) {
             $entityManager = $this->getDoctrine()->getManager();
             $recipe = $entityManager->getRepository(Recipe::class)->find($id);
+
             $recipeIngredients = $recipe->getRecipeIngredients();
 
             $data = [];
