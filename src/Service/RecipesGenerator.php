@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class RecipesGenerator
 {
+    const DAY_COUNT = 7;
+
     private $recipeRepository;
 
     public function __construct(RecipeRepository $recipeRepository)
@@ -19,8 +21,6 @@ class RecipesGenerator
         if (count($selectedTags) != 0) {
             $selectedTags = iterator_to_array($selectedTags);
 
-            $dayCount = 7;
-
             if (in_array('Meat', $selectedTags) == false && in_array('Vegetarian', $selectedTags)) {
                 // Get only vegan recipes
                 if (count($selectedTags) == 1) {
@@ -30,7 +30,7 @@ class RecipesGenerator
                     $generatedRecipeId = $this->recipeRepository->getNeededId($selectedTags);
                     $remainingRecipeId = $this->recipeRepository->getRemainingVeganRecipeId(
                         $generatedRecipeId,
-                        $dayCount - count($generatedRecipeId)
+                        self::DAY_COUNT - count($generatedRecipeId)
                     );
                     $generatedRecipeId = array_merge($generatedRecipeId, $remainingRecipeId);
                     return $generatedRecipeId;
@@ -38,16 +38,16 @@ class RecipesGenerator
             } else {
                 $generatedRecipeId = $this->recipeRepository->getNeededId($selectedTags);
 
-                if (count($generatedRecipeId) < $dayCount) {
+                if (count($generatedRecipeId) < self::DAY_COUNT) {
                     $remainingRecipeId = $this->recipeRepository->getRemainingRecipeId(
                         $generatedRecipeId,
-                        $dayCount - count($generatedRecipeId)
+                        self::DAY_COUNT - count($generatedRecipeId)
                     );
                     $generatedRecipeId = array_merge($generatedRecipeId, $remainingRecipeId);
                 }
             }
         } else {
-            $remainingRecipeId =$this->recipeRepository->getRemainingRecipeId(array(0), $dayCount);
+            $remainingRecipeId =$this->recipeRepository->getRemainingRecipeId(array(0), self::DAY_COUNT);
             $generatedRecipeId = $remainingRecipeId;
         }
 
