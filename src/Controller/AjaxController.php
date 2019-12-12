@@ -19,7 +19,7 @@ class AjaxController extends AbstractController
     {
         $id = $request->get('id');
 
-        
+
         return $this->render('card/index.html.twig', [
             'imageUrl' => "something",
             'name' => "chicken magic",
