@@ -7,6 +7,7 @@ use App\Entity\Measure;
 use App\Entity\Recipe;
 use App\Entity\RecipeIngredient;
 use App\Entity\Tag;
+use App\Entity\User;
 use mysql_xdevapi\Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -68,6 +69,7 @@ class FetchMealdbCommand extends Command
             $rec->setTitle($newRecipe->name);
             $rec->setDescription($newRecipe->description);
             $rec->setImageUrl($newRecipe->image);
+            $rec->setCreatedUser($entityManager->find(User::class, 1));
 
             if (property_exists($newRecipe, 'tag')) {
                 if (count($newRecipe->ingredient) !== 0) {
@@ -77,8 +79,8 @@ class FetchMealdbCommand extends Command
                         if ($persistedTag == null) {
                             $persistedTag = new Tag();
                             $persistedTag->setTitle($newTag);
+                            $entityManager->persist($persistedTag);
                         }
-                        $entityManager->persist($persistedTag);
                         $rec->addTag($persistedTag);
                     }
                 }

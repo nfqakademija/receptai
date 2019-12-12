@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Add New Recipe{% endblock %}
+{% block title %}Edit Recipe{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -37,16 +37,21 @@
             </div>
         </div>
 
-        <h3 class="sections"> <b> Ingredients</b></h3>
+        <h3 class="sections"><b>Ingredients</b></h3>
         <ul class="ingredients list-without-bullets" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}">
             {% for ingredient in form.ingredients %}
-                <li>{{ form_row(ingredient) }}</li>
+                <li>
+                    {{ form_row(ingredient.title) }}
+                    {{ form_row(ingredient.measure, {value: measures[loop.index0].id|trim}) }}
+                    {{ form_row(ingredient.amount) }}
+                </li>
             {% endfor %}
         </ul>
-        <h3 class="sections"> <b> Tags </b></h3>
+
+        <h3 class="sections"><b>Tags</b></h3>
         <ul class="tags list-without-bullets" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
             {% for tag in form.tags %}
-                <li>{{ form_row(tag) }}</li>
+                <li>{{ form_row(tag.title, {value: tags[loop.index0].id|trim}) }}</li>
             {% endfor %}
         </ul>
 
@@ -61,7 +66,6 @@
 {% block javascripts %}
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script>
-
         $('.custom-file-input').on('change', function(event) {
             var inputFile = event.currentTarget;
             $(inputFile).parent()
