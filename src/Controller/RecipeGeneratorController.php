@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\RecipeIngredient;
 use App\Form\RecipeGeneratorType;
+use App\Form\SaveType;
 use App\Service\RecipesGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ class RecipeGeneratorController extends AbstractController
     /**
      * @Route("/recipe/generator", name="recipe_generator", )
      */
-    public function index(Request $request)
+    public function index(Request $request, RecipesGenerator $generator)
     {
 
         $form = $this->createForm(RecipeGeneratorType::class);
@@ -22,7 +23,10 @@ class RecipeGeneratorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $selectedTags = $form['title']->getData();
-            $this->container->get('session')->set('titles', $selectedTags);
+
+            $generatedRecipeIds = $generator->getGeneratedRecipesId($selectedTags);
+
+            $this->container->get('session')->set('generatedRecipeIds', $generatedRecipeIds);
 
             return $this->redirect($this->generateUrl(
                 'recipe_generator_generated'
@@ -37,21 +41,35 @@ class RecipeGeneratorController extends AbstractController
     /**
      * @Route("/recipe/generator/generated", name="recipe_generator_generated")
      */
-    public function generate(RecipesGenerator $generator)
+    public function generate(RecipesGenerator $generator, Request $request)
     {
+        $recipesWereSaved = false;
 
-        $selectedTags = $this->container->get('session')->get('titles');
+        $form = $this->createForm(SaveType::class);
+        $form->handleRequest($request);
 
-        $generatedRecipeId = $generator->getGeneratedRecipesId($selectedTags);
+        $generatedRecipeIds = $this->container->get('session')->get('generatedRecipeIds');
 
-        $selectedTagRecipes = $generator->getGeneratedRecipes($generatedRecipeId);
+        $selectedTagRecipes = $generator->getGeneratedRecipes($generatedRecipeIds);
 
         $summedRecipes = $this->getDoctrine()
             ->getRepository(RecipeIngredient::class)
-            ->findSum($generatedRecipeId);
+            ->findSum($generatedRecipeIds);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $user->setRecipeIds($generatedRecipeIds);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $recipesWereSaved = true;
+        }
+
         return $this->render('recipe_generator/generated.html.twig', [
             'selectedRecipes' => $selectedTagRecipes,
             'summedRecipes' => $summedRecipes,
+            'saveForm' => $form->createView(),
+            'recipesWereSaved' => $recipesWereSaved
         ]);
     }
 }

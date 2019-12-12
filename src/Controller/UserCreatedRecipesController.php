@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserCreatedRecipesController extends AbstractController
 {
+    const USER_CREATED_RECIPES_PER_PAGE = 4;
     /**
      * @Route("/user/created/recipes", name="user_created_recipes")
      */
@@ -24,7 +25,7 @@ class UserCreatedRecipesController extends AbstractController
         $pagination = $paginator->paginate(
             $recipes,
             $request->query->getInt('page', 1),
-            4
+            self::USER_CREATED_RECIPES_PER_PAGE
         );
 
         return $this->render('user_created_recipes/index.html.twig', [

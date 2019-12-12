@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    const RECIPES_PER_PAGE = 12;
     /**
      * @Route("/", name="home")
      */
@@ -20,7 +21,7 @@ class HomeController extends AbstractController
         $pagination = $paginator->paginate(
             $recipes,
             $request->query->getInt('page', 1),
-            8
+            self::RECIPES_PER_PAGE
         );
 
         return $this->render('home/index.html.twig', [
