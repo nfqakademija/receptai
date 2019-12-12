@@ -63,7 +63,7 @@
                     <div id="meals" class="pad-small">
                         {% if selectedRecipes is defined %}
                             {% for recipe in selectedRecipes %}
-                                <button class="ajax" onclick="kviesti('5.jpeg', 'chicken magic', '2')">click me!</button>
+                                <button class="ajax" onclick="kviesti(2)">click me!</button>
                                 <div id="ajax-results">here comes the result</div>
                                 {% include "/card/index.html.twig" with {'imageUrl': recipe.imageUrl, 'name': recipe.title, 'id':recipe.id} %}
                             {% endfor %}
@@ -77,18 +77,12 @@
 
 {% block javascripts %}
     <script>
-        function kviesti($imageUrl, $name, $id) {
+        function kviesti(id) {
             $.ajax({
-                url: "/ajax",
-                data: {
-                    imageUrl: $imageUrl,
-                    name: $name,
-                    id: $id,
-
-                },
+                url: "/ajax/".concat(id),
                 success: function (result) {
                     console.log(result);
-                    //$("#ajax-results").html("<strong>" + result + "</strong> degrees");
+                    //$("#ajax-results").html(result);
                 }
             });
         }
