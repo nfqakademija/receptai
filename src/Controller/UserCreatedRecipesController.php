@@ -16,20 +16,23 @@ class UserCreatedRecipesController extends AbstractController
      */
     public function index(PaginatorInterface $paginator, Request $request)
     {
-        $user = $this->getUser();
-        $recipes = $this->getDoctrine()->getRepository(Recipe::class)
-            ->findBy([
-                'created_user' => $user
+        if ($this->getUser()) {
+            $user = $this->getUser();
+            $recipes = $this->getDoctrine()->getRepository(Recipe::class)
+                ->findBy([
+                    'created_user' => $user
+                ]);
+
+            $pagination = $paginator->paginate(
+                $recipes,
+                $request->query->getInt('page', 1),
+                self::USER_CREATED_RECIPES_PER_PAGE
+            );
+
+            return $this->render('user_created_recipes/index.html.twig', [
+                'recipes' => $pagination,
             ]);
-
-        $pagination = $paginator->paginate(
-            $recipes,
-            $request->query->getInt('page', 1),
-            self::USER_CREATED_RECIPES_PER_PAGE
-        );
-
-        return $this->render('user_created_recipes/index.html.twig', [
-            'recipes' => $pagination,
-        ]);
+        }
+        return $this->redirectToRoute('login');
     }
 }

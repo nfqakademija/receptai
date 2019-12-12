@@ -14,19 +14,22 @@ class SavedRecipeController extends AbstractController
      */
     public function index(RecipesGenerator $generator)
     {
-        $user = $this->getUser();
+        if ($this->getUser()) {
+            $user = $this->getUser();
 
-        $savedRecipeIds = json_decode(json_encode($user->getRecipeIds()), true);
+            $savedRecipeIds = json_decode(json_encode($user->getRecipeIds()), true);
 
-        $selectedTagRecipes = $generator->getGeneratedRecipes($savedRecipeIds);
+            $selectedTagRecipes = $generator->getGeneratedRecipes($savedRecipeIds);
 
-        $summedRecipes = $this->getDoctrine()
-            ->getRepository(RecipeIngredient::class)
-            ->findSum($savedRecipeIds);
+            $summedRecipes = $this->getDoctrine()
+                ->getRepository(RecipeIngredient::class)
+                ->findSum($savedRecipeIds);
 
-        return $this->render('saved_recipe/index.html.twig', [
-            'selectedRecipes' => $selectedTagRecipes,
-            'summedRecipes' => $summedRecipes,
-        ]);
+            return $this->render('saved_recipe/index.html.twig', [
+                'selectedRecipes' => $selectedTagRecipes,
+                'summedRecipes' => $summedRecipes,
+            ]);
+        }
+        return $this->redirectToRoute('login');
     }
 }
