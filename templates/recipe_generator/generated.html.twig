@@ -57,15 +57,12 @@
                             </div>
                         </div>
                     </div>
-
-
-
                     <div id="meals" class="pad-small">
                         {% if selectedRecipes is defined %}
                             {% for recipe in selectedRecipes %}
-                                <button class="ajax" onclick="kviesti(2)">click me!</button>
-                                <div id="ajax-results">here comes the result</div>
-                                {% include "/card/index.html.twig" with {'imageUrl': recipe.imageUrl, 'name': recipe.title, 'id':recipe.id} %}
+                                <div class="recipe-thumb">
+                                    {% include "/card/index.html.twig" with {'imageUrl': recipe.imageUrl, 'name': recipe.title, 'id':recipe.id} %}
+                                </div>
                             {% endfor %}
                         {% endif %}
                     </div>
@@ -77,12 +74,13 @@
 
 {% block javascripts %}
     <script>
-        function kviesti(id) {
+        function callAjax(id) {
             $.ajax({
                 url: "/ajax/".concat(id),
                 success: function (result) {
                     console.log(result);
-                    $("#ajax-results").html(result);
+                    const divID = "#ajax-results".concat(id);
+                    $(divID).html(result);
                 }
             });
         }
