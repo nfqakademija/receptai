@@ -28,6 +28,7 @@ class NewRecipeController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @param LoggerInterface $logger
      * @param UploaderHelper $uploaderHelper
+     * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
     public function new(
@@ -110,10 +111,16 @@ class NewRecipeController extends AbstractController
      * @param $id
      * @param UploaderHelper $uploaderHelper
      * @param LoggerInterface $logger
+     * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
-    public function edit(Request $request, $id, UploaderHelper $uploaderHelper, LoggerInterface $logger, TranslatorInterface $translator)
-    {
+    public function edit(
+        Request $request,
+        $id,
+        UploaderHelper $uploaderHelper,
+        LoggerInterface $logger,
+        TranslatorInterface $translator
+    ) {
         if ($this->getUser() && $this->getUser()->getRecipes()->contains($this->getDoctrine()->
             getRepository(Recipe::class)->find($id))
         ) {
