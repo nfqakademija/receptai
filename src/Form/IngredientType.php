@@ -27,7 +27,7 @@ class IngredientType extends AbstractType
             ])
             ->add('amount', NumberType::class, [
                 'attr' => [
-                    'placeholder' => 'Enter measure amount or leave it empty if doesn\'t apply'
+                    'placeholder' => 'Enter measure amount'
                 ],
                 'mapped' => false,
                 'required' => false,
