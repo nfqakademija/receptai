@@ -19,7 +19,7 @@ class AjaxController extends AbstractController
         $generatedRecipeIds = $this->container->get('session')->get('generatedRecipeIds');
 
         $key = array_search($id, $generatedRecipeIds);
-  ;
+
         $recipe = $this->getDoctrine()->getRepository(Recipe::class)
             ->find($id);
 
