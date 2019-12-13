@@ -167,7 +167,8 @@ class RecipeRepository extends ServiceEntityRepository
         $sql = "
         select  DISTINCT recipe_id
         from recipe, tag, recipe_tag
-        where tag.id = recipe_tag.tag_id AND recipe_tag.recipe_id NOT IN ($recipeId_params) AND tag.title IN ($tag_params)
+        where tag.id = recipe_tag.tag_id
+        AND recipe_tag.recipe_id NOT IN ($recipeId_params) AND tag.title IN ($tag_params)
         order by rand()
         LIMIT 1;
         ";

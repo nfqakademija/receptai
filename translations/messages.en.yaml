@@ -46,7 +46,7 @@ generated_recipe:
   tags: 'What would you like?'
   submit: 'Submit'
   generatedRecipes: 'Generated recipes for each day'
-  saved: 'Recipe was saved'
+  saved: 'Saved here'
 flash:
   success: 'Registered successfully'
   failure: 'Please log in before proceeding'
@@ -54,5 +54,6 @@ flash:
   editrecipe_success: 'Congratulations! You successfully edited your recipe!'
   newrecipe_failure: 'Unfortunately new recipe addition was unsuccessful'
   editrecipe_failure: 'Unfortunately you cannot edit this recipe'
+  saved: 'Meal plan was saved'
 random_recipe:
   allIngredients: 'Everything needed to make these recipes'

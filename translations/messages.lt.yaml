@@ -45,7 +45,7 @@ generated_recipe:
   tags: 'Visos etiketės'
   submit: 'Patvirtinti'
   generatedRecipes: 'Sugeneruoti receptai kiekvienai dienai'
-  saved: 'Receptai buvo išsaugoti'
+  saved: 'Išsaugota čia'
 flash:
   success: 'Sėkmingai užregistruota'
   failure: 'Prašome prisijungti, prieš naudojantis šia funkcija'
@@ -53,5 +53,6 @@ flash:
   editrecipe_success: 'Sveikiname! Jūs sėkmingai paredagavote savo receptą!'
   newrecipe_failure: 'Deja, nepavyko pridėti naujo recepto'
   editrecipe_failure: 'Deja naujo recepto redagavimas buvo nesėkmingas'
+  saved: 'Receptai išsaugoti'
 random_recipe:
   allIngredients: 'Visi ingredientai, kurie reikia pasigaminti šiuos receptus'
