@@ -49,5 +49,9 @@ generated_recipe:
 flash:
   success: 'Sėkmingai užregistruota'
   failure: 'Prašome prisijungti, prieš naudojantis šia funkcija'
+  newrecipe_success: 'Sveikiname! Jūs sėkmingai pridėjote naują receptą!'
+  editrecipe_success: 'Sveikiname! Jūs sėkmingai paredagavote savo receptą!'
+  newrecipe_failure: 'Deja, nepavyko pridėti naujo recepto'
+  editrecipe_failure: 'Deja naujo recepto redagavimas buvo nesėkmingas'
 random_recipe:
   allIngredients: 'Visi ingredientai, kurie reikia pasigaminti šiuos receptus'

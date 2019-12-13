@@ -14,7 +14,7 @@
 
             <div id="meal-plan-content" class="clearfix">
                 <div id="meals" class="pad-small">
-                    {% if recipes is defined %}
+                    {% if recipes is defined and recipes|length > 0 %}
                         {% for recipe in recipes %}
                             {{ macros.card(
                                 recipe.imageUrl,
