@@ -108,7 +108,9 @@ class NewRecipeController extends AbstractController
      */
     public function edit(Request $request, $id, UploaderHelper $uploaderHelper, LoggerInterface $logger)
     {
-        if ($this->getUser()) {
+        if ($this->getUser() && $this->getUser()->getRecipes()->contains($this->getDoctrine()->
+            getRepository(Recipe::class)->find($id))
+        ) {
             $entityManager = $this->getDoctrine()->getManager();
             $recipe = $entityManager->getRepository(Recipe::class)->find($id);
 
