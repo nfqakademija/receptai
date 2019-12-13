@@ -60,10 +60,9 @@
                     <div id="meals" class="pad-small">
                         {% if selectedRecipes is defined %}
                             {% for recipe in selectedRecipes %}
-                                {{ macros.card(
-                                    recipe.imageUrl,
-                                    recipe.title,
-                                    recipe.id) }}
+                                <div class="recipe-thumb">
+                                    {% include "/card/index.html.twig" with {'imageUrl': recipe.imageUrl, 'name': recipe.title, 'id':recipe.id} %}
+                                </div>
                             {% endfor %}
                         {% endif %}
                     </div>
@@ -72,3 +71,19 @@
         </div>
      </main>
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        function callAjax(id) {
+            $.ajax({
+                url: "/ajax/".concat(id),
+                success: function (result) {
+                    console.log(result);
+                    const divID = "#ajax-results".concat(id);
+                    $(divID).html(result);
+                }
+            });
+        }
+    </script>
+{% endblock %}
+

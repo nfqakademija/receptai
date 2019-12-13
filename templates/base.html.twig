@@ -50,27 +50,27 @@
     </header>
 {% endblock %}
 
-{% block flash_messages %}
-    {% for type, messages in app.session.flashbag.all() %}
-        {% for message in messages %}
-            <div class="alert alert-{{ type }} alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans %}Close{% endtrans %}</span></button>
-                {{ message | raw }}
-            </div>
+    {% block flash_messages %}
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans %}Close{% endtrans %}</span></button>
+                    {{ message | raw }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-{% endblock %}
+    {% endblock %}
 
 
-{% block body %}
+    {% block body %}{% endblock %}
 
-{% endblock %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-{% endblock %}
-<footer class="container text-center mine" id="plain-footer">
-    <img src="https://img.icons8.com/dusk/64/000000/restaurant.png">
-</footer>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    <footer class="container text-center mine" id="plain-footer">
+        <img src="https://img.icons8.com/dusk/64/000000/restaurant.png">
+    </footer>
 </body>
 </html>
