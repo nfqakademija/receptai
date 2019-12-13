@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,18 +16,31 @@ class AjaxController extends AbstractController
      */
     public function index(int $id)
     {
+        $generatedRecipeIds = $this->container->get('session')->get('generatedRecipeIds');
+
+        $key = array_search($id, $generatedRecipeIds);
+  ;
         $recipe = $this->getDoctrine()->getRepository(Recipe::class)
             ->find($id);
+
         $tags = $recipe->getTags();
-        $tagObject = $this->getDoctrine()->getRepository(Tag::class)
-            ->find($tags[0]);
-        $recipes = $tagObject->getRecipes();
-        $random = random_int(0, sizeof($recipes) - 1);
+
+        $rerolledRecipeId = $this->getDoctrine()
+            ->getRepository(Recipe::class)
+            ->getRerolledAJaxId($tags, $generatedRecipeIds);
+
+        $ids = array_shift($rerolledRecipeId);
+
+        $neededRecipe = $this->getDoctrine()->getRepository(Recipe::class)->find($ids);
+
+        $generatedRecipeIds[$key] = $ids;
+
+        $this->container->get('session')->set('generatedRecipeIds', $generatedRecipeIds);
 
         return $this->render('card/index.html.twig', [
-            'imageUrl' => $recipes[$random]->getImageUrl(),
-            'name' => $recipes[$random]->getTitle(),
-            'id' => $recipes[$random]->getId(),
+            'imageUrl' => $neededRecipe->getImageUrl(),
+            'name' => $neededRecipe->getTitle(),
+            'id' => $neededRecipe->getId(),
         ]);
     }
 }

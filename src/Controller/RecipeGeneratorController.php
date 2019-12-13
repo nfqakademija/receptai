@@ -50,6 +50,10 @@ class RecipeGeneratorController extends AbstractController
 
         $generatedRecipeIds = $this->container->get('session')->get('generatedRecipeIds');
 
+        if($generatedRecipeIds == null) {
+            return $this->redirectToRoute('recipe_generator');
+        }
+
         $selectedTagRecipes = $generator->getGeneratedRecipes($generatedRecipeIds);
 
         $summedRecipes = $this->getDoctrine()
@@ -63,6 +67,10 @@ class RecipeGeneratorController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $recipesWereSaved = true;
+        }
+
+        foreach($generatedRecipeIds as $generatedRecipeId){
+            echo $generatedRecipeId . ' ';
         }
 
         return $this->render('recipe_generator/generated.html.twig', [
