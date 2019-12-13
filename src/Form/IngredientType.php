@@ -16,12 +16,19 @@ class IngredientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class)
+            ->add('title', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Enter ingredient title'
+                ],
+            ])
             ->add('measure', EntityType::class, [
                 'class' => Measure::class,
                 'mapped' => false,
             ])
             ->add('amount', NumberType::class, [
+                'attr' => [
+                    'placeholder' => 'Enter measure amount or leave it empty if doesn\'t apply'
+                ],
                 'mapped' => false,
                 'required' => false,
             ])
