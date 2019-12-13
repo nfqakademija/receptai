@@ -50,5 +50,9 @@ generated_recipe:
 flash:
   success: 'Registered successfully'
   failure: 'Please log in before proceeding'
+  newrecipe_success: 'Congratulations! You successfully added a new recipe!'
+  editrecipe_success: 'Congratulations! You successfully edited your recipe!'
+  newrecipe_failure: 'Unfortunately new recipe addition was unsuccessful'
+  editrecipe_failure: 'Unfortunately you cannot edit this recipe'
 random_recipe:
   allIngredients: 'Everything needed to make these recipes'

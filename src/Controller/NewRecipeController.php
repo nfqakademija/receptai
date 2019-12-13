@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NewRecipeController extends AbstractController
 {
@@ -33,7 +34,8 @@ class NewRecipeController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         LoggerInterface $logger,
-        UploaderHelper $uploaderHelper
+        UploaderHelper $uploaderHelper,
+        TranslatorInterface $translator
     ) {
         if ($this->getUser()) {
             $recipe = new Recipe();
@@ -87,6 +89,8 @@ class NewRecipeController extends AbstractController
                 }
 
                 $entityManager->flush();
+                $this->addFlash('success', $translator->trans('flash.newrecipe_success'));
+
 
                 return $this->redirect($this->generateUrl('home'));
             }
@@ -95,6 +99,8 @@ class NewRecipeController extends AbstractController
                 'form' => $form->createView(),
             ]);
         }
+        $this->addFlash('danger', $translator->trans('flash.newrecipe_failure'));
+
         return $this->redirectToRoute('login');
     }
 
@@ -106,7 +112,7 @@ class NewRecipeController extends AbstractController
      * @param LoggerInterface $logger
      * @return RedirectResponse|Response
      */
-    public function edit(Request $request, $id, UploaderHelper $uploaderHelper, LoggerInterface $logger)
+    public function edit(Request $request, $id, UploaderHelper $uploaderHelper, LoggerInterface $logger, TranslatorInterface $translator)
     {
         if ($this->getUser() && $this->getUser()->getRecipes()->contains($this->getDoctrine()->
             getRepository(Recipe::class)->find($id))
@@ -191,6 +197,7 @@ class NewRecipeController extends AbstractController
                 }
 
                 $entityManager->flush();
+                $this->addFlash('success', $translator->trans('flash.editrecipe_success'));
 
                 return $this->redirectToRoute('user_created_recipes');
             }
@@ -201,6 +208,8 @@ class NewRecipeController extends AbstractController
                 'measures' => $measures,
             ]);
         }
+        $this->addFlash('danger', $translator->trans('flash.editrecipe_failure'));
+
         return $this->redirectToRoute('login');
     }
 }
