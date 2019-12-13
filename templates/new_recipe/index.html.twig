@@ -8,20 +8,28 @@
         {{ form_start(form) }}
         <div class="form-group">
             <div>
-            <h3>{{ form_label(form.title) }}</h3>
+                {{ form_label(form.title) }}
                 {{ form_errors(form.title) }}
-                {{ form_widget(form.title) }}
+                {{ form_widget(form.title, {
+                    attr: {
+                        'placeholder': 'Enter recipe title',
+                    }
+                }) }}
                 {{ form_help(form.title) }}
             </div>
             <div>
-                <h3>{{ form_label(form.description) }}</h3>
+                {{ form_label(form.description) }}
                 {{ form_errors(form.description) }}
-                {{ form_widget(form.description) }}
+                {{ form_widget(form.description, {
+                    attr: {
+                        'placeholder': 'Enter recipe description',
+                    }
+                }) }}
                 {{ form_help(form.description) }}
                 {% do form.description.setRendered %}
             </div>
             <div>
-                <h3>{{ form_label(form.image) }}</h3>
+                {{ form_label(form.image) }}
                 {{ form_errors(form.image) }}
                 {{ form_widget(form.image, {
                     attr: {
@@ -32,13 +40,13 @@
             </div>
         </div>
 
-        <h3 class="sections"> <b> Ingredients</b></h3>
+        <label class="sections"> <b> Ingredients</b></label>
         <ul class="ingredients list-without-bullets" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}">
             {% for ingredient in form.ingredients %}
                 <li>{{ form_row(ingredient) }}</li>
             {% endfor %}
         </ul>
-        <h3 class="sections"> <b> Tags </b></h3>
+        <label class="sections"> <b> Tags </b></label>
         <ul class="tags list-without-bullets" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
             {% for tag in form.tags %}
                 <li>{{ form_row(tag) }}</li>
