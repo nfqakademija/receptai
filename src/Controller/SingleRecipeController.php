@@ -32,7 +32,8 @@ class SingleRecipeController extends AbstractController
         foreach ($objects as $item) {
             $temp = new Ingredient();
             $temp->name = $item->getIngredient()->getTitle();
-            $temp->quantity = $item->getAmount() . $item->getMeasure()->getTitle();
+            $temp->quantity = $item->getAmount() == null ? '-' : $item->getAmount() . ' '
+                . $item->getMeasure()->getTitle() . '(s)';
             array_push($ingredients, $temp);
         }
 
