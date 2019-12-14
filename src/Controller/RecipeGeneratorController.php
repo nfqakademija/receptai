@@ -9,6 +9,7 @@ use App\Service\RecipesGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RecipeGeneratorController extends AbstractController
 {
@@ -41,7 +42,7 @@ class RecipeGeneratorController extends AbstractController
     /**
      * @Route("/recipe/generator/generated", name="recipe_generator_generated")
      */
-    public function generate(RecipesGenerator $generator, Request $request)
+    public function generate(RecipesGenerator $generator, Request $request, TranslatorInterface $translator)
     {
         $recipesWereSaved = false;
 
@@ -49,6 +50,10 @@ class RecipeGeneratorController extends AbstractController
         $form->handleRequest($request);
 
         $generatedRecipeIds = $this->container->get('session')->get('generatedRecipeIds');
+
+        if ($generatedRecipeIds == null) {
+            return $this->redirectToRoute('recipe_generator');
+        }
 
         $selectedTagRecipes = $generator->getGeneratedRecipes($generatedRecipeIds);
 
@@ -63,6 +68,7 @@ class RecipeGeneratorController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             $recipesWereSaved = true;
+            $this->addFlash('success', $translator->trans('flash.saved'));
         }
 
         return $this->render('recipe_generator/generated.html.twig', [
