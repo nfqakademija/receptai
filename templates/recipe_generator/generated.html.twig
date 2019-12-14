@@ -28,7 +28,7 @@
                     {% endif %}
                 </div><!-- meal-plan-header -->
                 <div id="meal-plan-content" class="clearfix">
-                    <div id="test">
+                    <div id="list">
                         {% include "/ingredient_list/index.html.twig" with {'ingredientList': summedRecipes}%}
                     </div>
                     <div id="meals" class="pad-small">
@@ -62,7 +62,7 @@
             $.ajax({
                 url: "/ajax/list",
                 success: function (result) {
-                    $(test).html(result);
+                    $(list).html(result);
                 }
             });
         }
