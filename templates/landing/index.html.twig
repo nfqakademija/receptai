@@ -1,8 +1,9 @@
-{% extends 'baseNoHeader.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
     <main class="page-content">
-        <section class="container">
+        <div class="container">
+            <div>
                 <div class="d-none d-md-block col-md-6 position-relative">
                     <div class="hero-background-md">
                         <svg width="724" height="636" viewBox="0 0 724 636" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -152,6 +153,15 @@
                     </div>
                 </div>
             </div>
+
+            <div class="float-right landing">
+                <h1> Receptai </h1>
+
+                <p>"What should I cook for lunch or dinner?"
+                    Receptai is here to answer that question</p>
+
+            </div>
+        </div>
         </section>
     </main>
 {% endblock %}
