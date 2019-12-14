@@ -17,6 +17,26 @@
     </div>
 {% endmacro %}
 
+{% macro cardWithEdit(imageUrl, name, id) %}
+    <div class="recipe-thumb">
+        <a class="ajax ml-btn-default" href="{{ path('edit_recipe', {id: id}) }}">Edit</a>
+        <div class="content">
+            <a href="{{ path('single_recipe', {id: id}) }}">
+                <img class="image" src="{{ uploaded_asset(imageUrl)}}">
+            </a>
+            <div class="details">
+                <h2 class="title">
+                    <a href="{{ path('single_recipe', {id: id}) }}">{{ name }} </a>
+                </h2>
+
+                <div class="details">
+                    <div class="action-bar-right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
 {% macro ingredient(name, quantity) %}
     <li class="grocery-item">
         <label class="control checkbox">

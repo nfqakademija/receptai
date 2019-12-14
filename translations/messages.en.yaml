@@ -15,7 +15,7 @@ base:
   user: 'Profile'
   admin: 'Administration'
   logout: 'Log out'
-  title: 'Recipes'
+  title: 'Receptai'
 login_page:
   sign_in: 'Please sign in'
   login: 'Log in'

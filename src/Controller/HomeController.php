@@ -12,7 +12,7 @@ class HomeController extends AbstractController
 {
     const RECIPES_PER_PAGE = 12;
     /**
-     * @Route("/", name="home")
+     * @Route("/home", name="home")
      */
     public function index(PaginatorInterface $paginator, Request $request)
     {
