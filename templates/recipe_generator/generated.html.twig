@@ -53,7 +53,7 @@
                 url: "/ajax/".concat(id),
                 success: function (result) {
                     const divID = "#ajax-results".concat(id);
-                    $(divID).html(result);
+                    $(divID).replaceWith(result);
                     callAjaxList();
                 }
             });
