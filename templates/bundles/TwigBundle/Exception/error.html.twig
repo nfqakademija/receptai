@@ -1,5 +1,56 @@
+<html><head>
+    <title>Error occurred</title>
+    <style>
+        body {
+            background-color: #f8f8f3;
+            color: #2E2F30;
+            text-align: center;
+            font-family: arial, sans-serif;
+            padding-top: 20px;
+        }
 
-{% block body %}
-    <h1>Error occurred</h1>
+        div.dialog {
+            width: 25em;
+            margin: 2em auto 0 auto;
+            border: 1px solid #CCC;
+            border-top-left-radius: 9px;
+            border-top-right-radius: 9px;
 
-{% endblock %}
+            background-color: white;
+            padding: 7px 4em 0 4em;
+        }
+
+        h1 {
+            font-size: 100%;
+            color: #730E15;
+            line-height: 1.5em;
+        }
+
+        body > p {
+            width: 33em;
+            margin: 0 auto 1em;
+            padding: 1em 0;
+            background-color: #F7F7F7;
+            border: 1px solid #CCC;
+            border-bottom-left-radius: 9px;
+            border-bottom-right-radius: 9px;
+            border-top: none;
+            color: #666;
+            box-shadow:0 3px 8px rgba(50, 50, 50, 0.17);
+        }
+
+        a {
+            color: rgb(85, 26, 139);
+        }
+    </style>
+</head>
+
+<body>
+<a href="{{ path('home') }}"><img src="https://img.icons8.com/dusk/64/000000/restaurant.png"></a>
+<div class="dialog">
+    <h1>An error has occurred.</h1>
+</div>
+<p><a href="{{ path('home') }}">Take me back to Receptai</a></p>
+
+
+</body></html>
