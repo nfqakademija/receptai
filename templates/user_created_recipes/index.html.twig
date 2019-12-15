@@ -16,14 +16,11 @@
                 <div id="meals" class="pad-small">
                     {% if recipes is defined and recipes|length > 0 %}
                         {% for recipe in recipes %}
-                            {{ macros.card(
+                            {{ macros.cardWithEdit(
                                 recipe.imageUrl,
                                 recipe.title,
                                 recipe.id)
                             }}
-                            <div class="recipe-thumb">
-                                <a class="btn btn-secondary" href="{{ path('edit_recipe', {id: recipe.id}) }}">Edit</a>
-                            </div>
                         {% endfor %}
                     {% else %}
                         <h3>You haven't created any recipes yet.</h3>
