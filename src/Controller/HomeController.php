@@ -12,10 +12,14 @@ class HomeController extends AbstractController
 {
     const RECIPES_PER_PAGE = 12;
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="home")
      */
     public function index(PaginatorInterface $paginator, Request $request)
     {
+        if ($this->isGranted('ROLE_USER') == false) {
+            return $this->render('landing/index.html.twig', [
+            ]);
+        }
         $recipes = $this->getDoctrine()->getRepository(Recipe::class)->findAll();
 
         $pagination = $paginator->paginate(
