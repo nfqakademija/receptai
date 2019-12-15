@@ -93,6 +93,10 @@
             // index when inserting a new item (e.g. 2)
             $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
+            if ($collectionHolder.data('index') === 1) {
+                addIngredientForm($collectionHolder, $newLinkLi);
+            }
+
             $addIngredientButton.on('click', function(e) {
                 // add a new tag form (see next code block)
                 addIngredientForm($collectionHolder, $newLinkLi);
@@ -123,7 +127,9 @@
             var $newFormLi = $('<li></li>').append(newForm);
             $newLinkLi.before($newFormLi);
 
-            addIngredientFormDeleteLink($newFormLi);
+            if (index !== 1) {
+                addIngredientFormDeleteLink($newFormLi);
+            }
         }
 
         function addIngredientFormDeleteLink($ingredientFormLi) {
@@ -158,6 +164,10 @@
             // index when inserting a new item (e.g. 2)
             $tagsCollectionHolder.data('index', $tagsCollectionHolder.find(':input').length);
 
+            if ($tagsCollectionHolder.data('index') === 1) {
+                addTagForm($tagsCollectionHolder, $newTagLinkLi);
+            }
+
             $addTagButton.on('click', function(e) {
                 // add a new tag form (see next code block)
                 addTagForm($tagsCollectionHolder, $newTagLinkLi);
@@ -187,7 +197,9 @@
             var $newFormLi = $('<li></li>').append(newForm);
             $newTagLinkLi.before($newFormLi);
 
-            addTagFormDeleteLink($newFormLi);
+            if (index !== 1) {
+                addTagFormDeleteLink($newFormLi);
+            }
         }
 
         function addTagFormDeleteLink($tagFormLi) {
