@@ -21,7 +21,7 @@ class RecipesGenerator
         if (count($selectedTags) != 0) {
             $selectedTags = iterator_to_array($selectedTags);
 
-            if (in_array('Meat', $selectedTags) == false && in_array('Vegetarian', $selectedTags)) {
+            if (in_array('Vegetarian', $selectedTags)) {
                 // Get only vegan recipes
                 if (count($selectedTags) == 1) {
                     return $this->recipeRepository->getNeededVeganId();

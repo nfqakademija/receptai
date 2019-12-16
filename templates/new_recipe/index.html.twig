@@ -8,7 +8,7 @@
         {{ form_start(form) }}
         <div class="form-group">
             <div>
-                <label for="registration_first_name">
+                <label for="add_title">
                     Title</label>
                 {{ form_errors(form.title) }}
                 {{ form_widget(form.title, {
@@ -21,7 +21,7 @@
 
 
             <div>
-                <label for="registration_first_name">
+                <label for="add_description">
                     Description</label>
                 {{ form_errors(form.description) }}
                 {{ form_widget(form.description, {
@@ -33,7 +33,7 @@
                 {% do form.description.setRendered %}
             </div>
             <div>
-                <label for="image_url">
+                <label for="add_image_url">
                     Image</label>
                 {{ form_errors(form.image) }}
                 {{ form_widget(form.image, {
