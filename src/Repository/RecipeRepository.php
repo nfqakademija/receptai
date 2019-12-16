@@ -150,7 +150,7 @@ class RecipeRepository extends ServiceEntityRepository
 
             $recipeId_params[] = $id;
         }
-
+        $tag_params = array();
         foreach ($tags as $tag) {
             $name = "'$tag'"; // "'Breakfast'", "'Beef", etc.
 

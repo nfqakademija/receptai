@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\RecipeIngredient;
+use App\Repository\RecipeIngredientRepository;
 use App\Service\RecipesGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,8 +13,11 @@ class SavedRecipeController extends AbstractController
     /**
      * @Route("/saved/recipe", name="saved_recipe")
      */
-    public function index(RecipesGenerator $generator, TranslatorInterface $translator)
-    {
+    public function index(
+        RecipesGenerator $generator,
+        TranslatorInterface $translator,
+        RecipeIngredientRepository $ingredientRepository
+    ) {
         if ($this->getUser()) {
             $user = $this->getUser();
 
@@ -26,9 +29,7 @@ class SavedRecipeController extends AbstractController
 
             $selectedTagRecipes = $generator->getGeneratedRecipes($savedRecipeIds);
 
-            $summedRecipes = $this->getDoctrine()
-                ->getRepository(RecipeIngredient::class)
-                ->findSum($savedRecipeIds);
+            $summedRecipes = $ingredientRepository->findSum($savedRecipeIds);
 
             return $this->render('saved_recipe/index.html.twig', [
                 'selectedRecipes' => $selectedTagRecipes,

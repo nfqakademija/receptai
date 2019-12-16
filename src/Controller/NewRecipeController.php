@@ -118,7 +118,6 @@ class NewRecipeController extends AbstractController
     /**
      * @Route("/recipe/edit/{id}", name="edit_recipe")
      * @param Request $request
-     * @param $id
      * @param UploaderHelper $uploaderHelper
      * @param LoggerInterface $logger
      * @param TranslatorInterface $translator
@@ -181,6 +180,7 @@ class NewRecipeController extends AbstractController
                     $recipe->removeTag($tag);
                 }
 
+                $tagArray = array();
                 foreach ($form['tags'] as $tagForm) {
                     $tagArray[] = $tagForm['title']->getData();
                 }

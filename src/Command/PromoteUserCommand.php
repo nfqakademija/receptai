@@ -2,8 +2,7 @@
 
 namespace App\Command;
 
-use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UserRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,17 +14,17 @@ class PromoteUserCommand extends Command
 {
     protected static $defaultName = 'app:promote-user';
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    /** @var UserRepository */
+    private $userRepository;
     private $adminRole;
 
     /**
      * PromoteUserCommand constructor.
-     * @param EntityManagerInterface $entityManager
+     * @param UserRepository $userRepository
      */
-    public function __construct(EntityManagerInterface $entityManager, $adminRole = 'ROLE_ADMIN')
+    public function __construct(UserRepository $userRepository, $adminRole = 'ROLE_ADMIN')
     {
-        $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
         $this->adminRole = $adminRole;
 
         parent::__construct();
@@ -49,7 +48,7 @@ class PromoteUserCommand extends Command
 
         // Getting user
         $this->info("Searching for user", $email, $io);
-        $user = $this->entityManager->getRepository(User::class)->findByEmail($email);
+        $user = $this->userRepository->findByEmail($email);
         if (!$user) {
             $io->error("Cannot find user by e-mail: " . $email);
             return;
@@ -68,8 +67,7 @@ class PromoteUserCommand extends Command
         $user->setRoles(array_unique($roles));
 
         // Storing user
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $this->userRepository->save($user);
 
         $this->printUserRoles($user, $output);
         $io->success('Admin role successfully added');

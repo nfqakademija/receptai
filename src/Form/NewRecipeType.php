@@ -2,9 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Recipe;
-use App\Entity\Tag;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -12,16 +9,47 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class NewRecipeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, ['required' => true])
-            ->add('description', TextareaType::class, ['required' => true])
+            ->add('title', TextType::class, [
+                // instead of being set onto the object directly,
+                // this is read and encoded in the controller
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a title',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'recipeTitle.short',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 255,
+                        'maxMessage' => 'recipeTitle.long',
+                    ]),
+                ],
+            ])
+            ->add('description', TextareaType::class, [
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a title',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'description.short',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 255,
+                        'maxMessage' => 'description.long',
+                    ]),
+                ],
+            ])
             ->add('image', FileType::class, [
                 'label' => 'Image',
 
