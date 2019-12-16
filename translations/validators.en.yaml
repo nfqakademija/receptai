@@ -3,5 +3,14 @@ email:
   notFound: 'Email could not be found'
   invalid: 'Make sure your email contains "@" and "."'
 password:
-  short: 'Your password should be at least {{ limit }} character'
+  short: 'Your password should be at least {{ limit }} characters'
   long: 'Your password should not be more than {{limit}} characters'
+recipeTitle:
+  short: 'The recipe title should be at least {{ limit }} characters'
+  long: 'The recipe title can not be more than {{limit}} characters'
+description:
+  short: 'The recipe description should be at least {{ limit }} characters'
+  long: 'The recipe description can not be more than {{limit}} characters'
+ingredientTitle:
+  short: 'The ingredient title should be at least {{ limit }} characters'
+  long: 'The ingredient title can not be more than {{limit}} characters'

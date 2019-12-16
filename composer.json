@@ -26,7 +26,9 @@
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
+        "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.2",
+        "phpstan/phpstan-symfony": "^0.12.1",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/maker-bundle": "^1.13",
         "symfony/profiler-pack": "^1.0",

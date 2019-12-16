@@ -31,6 +31,7 @@ class SingleRecipeController extends AbstractController
         $ingredients =[];
         foreach ($objects as $item) {
             $temp = new Ingredient();
+
             $temp->name = $item->getIngredient()->getTitle();
             $temp->quantity = $item->getAmount() == null ? '-' : $item->getAmount() . ' '
                 . $item->getMeasure()->getTitle() . '(s)';

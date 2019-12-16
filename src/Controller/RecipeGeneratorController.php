@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\RecipeIngredient;
 use App\Form\RecipeGeneratorType;
 use App\Form\SaveType;
+use App\Repository\RecipeIngredientRepository;
 use App\Service\RecipesGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,8 +42,12 @@ class RecipeGeneratorController extends AbstractController
     /**
      * @Route("/recipe/generator/generated", name="recipe_generator_generated")
      */
-    public function generate(RecipesGenerator $generator, Request $request, TranslatorInterface $translator)
-    {
+    public function generate(
+        RecipesGenerator $generator,
+        Request $request,
+        TranslatorInterface $translator,
+        RecipeIngredientRepository $ingredientRepository
+    ) {
         $recipesWereSaved = false;
 
         $form = $this->createForm(SaveType::class);
@@ -58,9 +62,7 @@ class RecipeGeneratorController extends AbstractController
 
         $selectedTagRecipes = $generator->getGeneratedRecipes($generatedRecipeIds);
 
-        $summedRecipes = $this->getDoctrine()
-            ->getRepository(RecipeIngredient::class)
-            ->findSum($generatedRecipeIds);
+        $summedRecipes = $ingredientRepository->findSum($generatedRecipeIds);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();

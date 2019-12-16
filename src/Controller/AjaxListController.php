@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\RecipeIngredient;
+use App\Repository\RecipeIngredientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -11,12 +11,10 @@ class AjaxListController extends AbstractController
     /**
      * @Route("/ajax/list", name="ingredient_list")
      */
-    public function index()
+    public function index(RecipeIngredientRepository $ingredientRepository)
     {
         $generatedRecipeIds = $this->container->get('session')->get('generatedRecipeIds');
-        $summedRecipes = $this->getDoctrine()
-            ->getRepository(RecipeIngredient::class)
-            ->findSum($generatedRecipeIds);
+        $summedRecipes = $ingredientRepository->findSum($generatedRecipeIds);
 
         return $this->render('ingredient_list/index.html.twig', [
             'ingredientList' => $summedRecipes,
