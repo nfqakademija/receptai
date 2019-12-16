@@ -52,7 +52,6 @@ class RecipeGeneratorController extends AbstractController
         $generatedRecipeIds = $this->container->get('session')->get('generatedRecipeIds');
 
         if ($generatedRecipeIds == null) {
-            $this->addFlash('danger', $translator->trans('flash.selectTagsFirst'));
             return $this->redirectToRoute('recipe_generator');
         }
 

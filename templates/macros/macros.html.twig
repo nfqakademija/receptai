@@ -87,7 +87,7 @@
                     <div class="tab-content">
                         <div class="tab-pane active">
                             <ul>
-                                {% if ingredients is defined and ingredients|length > 0 %}
+                                {% if ingredients is defined %}
                                     {{ ingredients[0] }}
                                     {% for item in ingredients %}
                                         {{ macros.ingredientInSingleRecipe(item.name, item.quantity) }}

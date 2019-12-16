@@ -1,7 +1,6 @@
 email:
   existing: 'Elektroninis paštas jau užimtas'
   notFound: 'Toks e-paštas neegzistuoja'
-  invalid: 'Isitikinkite ar jūsų paštas turi "@" ir "."'
 password:
   short: 'Slaptažodis turėtų turėti {{ limit }} simbolius'
   long: 'Slaptažodis neturėtų būtų ilgesnis nei {{ limit }} simbolių'

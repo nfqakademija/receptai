@@ -6,8 +6,8 @@ use App\Entity\Ingredient;
 use App\Entity\Recipe;
 use App\Entity\RecipeIngredient;
 use App\Form\NewRecipeType;
-use App\Service\NewRecipeService;
 use App\Service\UploaderHelper;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NewRecipeController extends AbstractController
@@ -27,7 +29,6 @@ class NewRecipeController extends AbstractController
      * @param LoggerInterface $logger
      * @param UploaderHelper $uploaderHelper
      * @param TranslatorInterface $translator
-     * @param NewRecipeService $recipeService
      * @return RedirectResponse|Response
      */
     public function new(
@@ -35,8 +36,7 @@ class NewRecipeController extends AbstractController
         EntityManagerInterface $entityManager,
         LoggerInterface $logger,
         UploaderHelper $uploaderHelper,
-        TranslatorInterface $translator,
-        NewRecipeService $recipeService
+        TranslatorInterface $translator
     ) {
         if ($this->getUser()) {
             $recipe = new Recipe();
@@ -61,20 +61,8 @@ class NewRecipeController extends AbstractController
                     $recipe->setImageUrl($imageFileName);
                 }
 
-
-
-               // var_dump($tags);
-              //  die();
-                $tagArray = array();
                 foreach ($form['tags'] as $tagForm) {
-                    $tagArray[] = $tagForm['title']->getData();
-                }
-
-                if ($recipeService->determineIfMeatAndVegetarianTag($tagArray)) {
-                    $this->addFlash('danger', $translator->trans('flash.meatAndVegan'));
-                    return $this->redirectToRoute('new_recipe');
-                }
-                foreach ($tagArray as $tag) {
+                    $tag = $tagForm['title']->getData();
                     $recipe->addTag($tag);
                 }
 
@@ -107,6 +95,8 @@ class NewRecipeController extends AbstractController
 
                 $entityManager->flush();
                 $this->addFlash('success', $translator->trans('flash.newrecipe_success'));
+
+
                 return $this->redirect($this->generateUrl('home'));
             }
 
@@ -126,7 +116,6 @@ class NewRecipeController extends AbstractController
      * @param UploaderHelper $uploaderHelper
      * @param LoggerInterface $logger
      * @param TranslatorInterface $translator
-     * @param NewRecipeService $recipeService
      * @return RedirectResponse|Response
      */
     public function edit(
@@ -134,8 +123,7 @@ class NewRecipeController extends AbstractController
         $id,
         UploaderHelper $uploaderHelper,
         LoggerInterface $logger,
-        TranslatorInterface $translator,
-        NewRecipeService $recipeService
+        TranslatorInterface $translator
     ) {
         if ($this->getUser() && $this->getUser()->getRecipes()->contains($this->getDoctrine()->
             getRepository(Recipe::class)->find($id))
@@ -186,14 +174,7 @@ class NewRecipeController extends AbstractController
                 }
 
                 foreach ($form['tags'] as $tagForm) {
-                    $tagArray[] = $tagForm['title']->getData();
-                }
-
-                if ($recipeService->determineIfMeatAndVegetarianTag($tagArray)) {
-                    $this->addFlash('danger', $translator->trans('flash.meatAndVegan'));
-                    return $this->redirectToRoute('edit_recipe', ['id' => $id]);
-                }
-                foreach ($tagArray as $tag) {
+                    $tag = $tagForm['title']->getData();
                     $recipe->addTag($tag);
                 }
 

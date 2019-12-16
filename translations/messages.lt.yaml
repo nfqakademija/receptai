@@ -54,8 +54,5 @@ flash:
   newrecipe_failure: 'Deja, nepavyko pridėti naujo recepto'
   editrecipe_failure: 'Deja naujo recepto redagavimas buvo nesėkmingas'
   saved: 'Receptai išsaugoti'
-  saveFirst: 'Pirmai pasirinkite receptų etiketes išsaugokite receptus'
-  selectTagsFirst: 'Pirmai pasirinkite receptų etiketes'
-  meatAndVegan: 'Negalite pasirinkti mėsos ir vegetariškos etiketės'
 random_recipe:
   allIngredients: 'Visi ingredientai, kurie reikia pasigaminti šiuos receptus'
