@@ -7,10 +7,9 @@ password:
   long: 'Your password should not be more than {{limit}} characters'
 recipeTitle:
   short: 'The recipe title should be at least {{ limit }} characters'
-  long: 'The recipe title can not be more than {{limit}} characters'
+  long: 'The recipe title can not be more than {{ limit }} characters'
 description:
   short: 'The recipe description should be at least {{ limit }} characters'
-  long: 'The recipe description can not be more than {{limit}} characters'
 ingredientTitle:
   short: 'The ingredient title should be at least {{ limit }} characters'
-  long: 'The ingredient title can not be more than {{limit}} characters'
+  long: 'The ingredient title can not be more than {{ limit }} characters'

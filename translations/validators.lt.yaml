@@ -7,10 +7,9 @@ password:
   long: 'Slaptažodis neturėtų būti ilgesnis nei {{ limit }} simbolių'
 recipeTitle:
   short: 'Recepto pavadinimas turėtų turėti {{ limit }} simbolius'
-  long: 'Recepto pavadinimas neturėtų būti ilgesnis nei {{limit}} simbolių'
+  long: 'Recepto pavadinimas neturėtų būti ilgesnis nei {{ limit }} simbolių'
 description:
   short: 'Recepto aprašymas turėtų turėti {{ limit }} simbolius'
-  long: 'Recepto aprašymas neturėtų būti ilgesnis nei {{limit}} simbolių'
 ingredientTitle:
   short: 'Ingrediento pavadinimas turėtų turėti {{ limit }} simbolius'
-  long: 'Ingrediento pavadinimas neturėtų būti ilgesnis nei {{limit}} simbolių'
+  long: 'Ingrediento pavadinimas neturėtų būti ilgesnis nei {{ limit }} simbolių'

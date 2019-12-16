@@ -30,8 +30,6 @@ class NewRecipeType extends AbstractType
                         'min' => 3,
                         'minMessage' => 'recipeTitle.short',
                         // max length allowed by Symfony for security reasons
-                        'max' => 255,
-                        'maxMessage' => 'recipeTitle.long',
                     ]),
                 ],
             ])
