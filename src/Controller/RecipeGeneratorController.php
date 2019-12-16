@@ -28,6 +28,7 @@ class RecipeGeneratorController extends AbstractController
             $generatedRecipeIds = $generator->getGeneratedRecipesId($selectedTags);
 
             $this->container->get('session')->set('generatedRecipeIds', $generatedRecipeIds);
+            $this->container->get('session')->set('selectedTags', $selectedTags);
 
             return $this->redirect($this->generateUrl(
                 'recipe_generator_generated'

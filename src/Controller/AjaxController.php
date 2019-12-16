@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\RecipeRepository;
+use App\Service\RerolledRecipeService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,22 +16,21 @@ class AjaxController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function index(int $id, RecipeRepository $recipeRepository)
+    public function index(int $id, RecipeRepository $recipeRepository, RerolledRecipeService $recipeService)
     {
         $generatedRecipeIds = $this->container->get('session')->get('generatedRecipeIds');
-
+        $selectedTags = $this->container->get('session')->get('selectedTags');
         $key = array_search($id, $generatedRecipeIds);
 
         $recipe = $recipeRepository->find($id);
 
         $tags = $recipe->getTags();
 
-        $rerolledRecipeId = $recipeRepository->getRerolledAJaxId($tags, $generatedRecipeIds);
-        $ids = array_shift($rerolledRecipeId);
+        $rerolledId = $recipeService->getNeededRerollId($selectedTags, $generatedRecipeIds, $tags);
 
-        $neededRecipe = $this->getDoctrine()->getRepository(Recipe::class)->find($ids);
+        $neededRecipe = $this->getDoctrine()->getRepository(Recipe::class)->find($rerolledId);
 
-        $generatedRecipeIds[$key] = $ids;
+        $generatedRecipeIds[$key] = $rerolledId;
 
         $this->container->get('session')->set('generatedRecipeIds', $generatedRecipeIds);
 
