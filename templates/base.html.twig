@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <meta name="description" content="">
     <meta name="author" content="">
     <title>{% block title %}{{ 'base.title'|trans }}{% endblock %}</title>
@@ -24,6 +25,11 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
                     {% if app.user %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('easyadmin') }}"> {{ 'base.admin'|trans }}</a>
+                        </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('saved_recipe') }}">{{ 'base.meal_plan'|trans }}</a>
                         </li>
