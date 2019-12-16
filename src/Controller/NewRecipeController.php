@@ -51,8 +51,8 @@ class NewRecipeController extends AbstractController
                 /** @var UploadedFile $imageUrl */
                 $imageUrl = $form['image']->getData();
 
-                $recipe->setTitle(ucfirst($form['title']->getData()));
-                $recipe->setDescription(ucfirst($form['description']->getData()));
+                $recipe->setTitle(ucfirst(strtolower(trim($form['title']->getData()))));
+                $recipe->setDescription(ucfirst(strtolower(trim($form['description']->getData()))));
 
                 $recipe->setCreatedUser($user);
 
@@ -77,7 +77,7 @@ class NewRecipeController extends AbstractController
                 $entityManager->persist($recipe);
 
                 foreach ($form['ingredients'] as $ingredientForm) {
-                    $title = ucfirst($ingredientForm['title']->getData());
+                    $title = ucfirst(strtolower(trim($ingredientForm['title']->getData())));
                     $measure = $ingredientForm['measure']->getData();
                     $amount = $ingredientForm['amount']->getData();
 
@@ -168,8 +168,8 @@ class NewRecipeController extends AbstractController
                 /** @var UploadedFile $imageUrl */
                 $imageUrl = $form['image']->getData();
 
-                $recipe->setTitle($form['title']->getData());
-                $recipe->setDescription($form['description']->getData());
+                $recipe->setTitle(ucfirst(strtolower(trim($form['title']->getData()))));
+                $recipe->setDescription(ucfirst(strtolower(trim($form['description']->getData()))));
 
                 if ($imageUrl) {
                     $imageFileName = $uploaderHelper->upload($imageUrl, $logger);
@@ -198,7 +198,7 @@ class NewRecipeController extends AbstractController
                 }
 
                 foreach ($form['ingredients'] as $ingredientForm) {
-                    $title = ucfirst($ingredientForm['title']->getData());
+                    $title = ucfirst(strtolower(trim($ingredientForm['title']->getData())));
                     $measure = $ingredientForm['measure']->getData();
                     $amount = $ingredientForm['amount']->getData();
 

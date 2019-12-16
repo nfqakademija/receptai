@@ -31,10 +31,17 @@
                                 <ul>
                                     {% if summedRecipes is defined %}
                                         {% for summedRecipe in summedRecipes %}
-                                            {{ macros.ingredient(
-                                                summedRecipe.0.ingredient.title,
-                                                summedRecipe.total ~ summedRecipe.0.measure.title
-                                            )  }}
+                                            {% if summedRecipe.total is not null %}
+                                                {{ macros.ingredient(
+                                                    summedRecipe.0.ingredient.title,
+                                                    summedRecipe.total ~ ' ' ~ summedRecipe.0.measure.title ~ '(s)'
+                                                )  }}
+                                            {% else %}
+                                                {{ macros.ingredient(
+                                                    summedRecipe.0.ingredient.title,
+                                                    '-'
+                                                )  }}
+                                            {% endif %}
                                         {% endfor %}
                                     {% endif %}
                                 </ul>

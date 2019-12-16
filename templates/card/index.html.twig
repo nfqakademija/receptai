@@ -6,7 +6,9 @@
         </a>
         <div class="details">
             <h2 class="title">
-                <a href="{{ path('single_recipe', {id: id}) }}">{{ name }} </a>
+                <a href="{{ path('single_recipe', {id: id}) }}">
+                    {{ name|length > 60 ? name|slice(0, 60) ~ '...' : name  }}
+                </a>
             </h2>
 
             <div class="details">

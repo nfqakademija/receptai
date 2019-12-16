@@ -9,10 +9,17 @@
         <h3> Ingredients </h3>
         <ul>
             {% for ingredient in ingredientList %}
-                {{ macros.ingredient(
-                    ingredient.0.ingredient.title,
-                    ingredient.total ~ ingredient.0.measure.title
-                )  }}
+                {% if ingredient.total is not null %}
+                    {{ macros.ingredient(
+                        ingredient.0.ingredient.title,
+                            ingredient.total ~ ' ' ~ ingredient.0.measure.title ~ '(s)'
+                    )  }}
+                {% else %}
+                    {{ macros.ingredient(
+                        ingredient.0.ingredient.title,
+                        '-'
+                    ) }}
+                {% endif %}
             {% endfor %}
         </ul>
         <div class="action-bar">
