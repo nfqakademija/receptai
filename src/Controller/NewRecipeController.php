@@ -69,23 +69,27 @@ class NewRecipeController extends AbstractController
                 $entityManager->persist($recipe);
 
                 foreach ($form['ingredients'] as $ingredientForm) {
-                    $title = $ingredientForm['title']->getData();
+                    $title = ucfirst($ingredientForm['title']->getData());
                     $measure = $ingredientForm['measure']->getData();
                     $amount = $ingredientForm['amount']->getData();
 
-                    $ingredient = new Ingredient();
-                    $ingredient->setTitle(ucfirst($title));
+                    $persistedIngredient = $entityManager->getRepository(Ingredient::class)
+                        ->findOneBy(['title' => $title]);
+                    if ($persistedIngredient == null) {
+                        $persistedIngredient = new Ingredient();
+                        $persistedIngredient->setTitle($title);
+                        $entityManager->persist($persistedIngredient);
+                    }
 
                     $recipeIngredient = new RecipeIngredient();
                     $recipeIngredient->setRecipe($recipe);
-                    $recipeIngredient->setIngredient($ingredient);
+                    $recipeIngredient->setIngredient($persistedIngredient);
                     $recipeIngredient->setMeasure($measure);
 
                     if ($amount != null) {
                         $recipeIngredient->setAmount($amount);
                     }
 
-                    $entityManager->persist($ingredient);
                     $entityManager->persist($recipeIngredient);
                 }
 
@@ -179,7 +183,7 @@ class NewRecipeController extends AbstractController
                 }
 
                 foreach ($form['ingredients'] as $ingredientForm) {
-                    $title = $ingredientForm['title']->getData();
+                    $title = ucfirst($ingredientForm['title']->getData());
                     $measure = $ingredientForm['measure']->getData();
                     $amount = $ingredientForm['amount']->getData();
 
