@@ -55,5 +55,8 @@ flash:
   newrecipe_failure: 'Unfortunately new recipe addition was unsuccessful'
   editrecipe_failure: 'Unfortunately you cannot edit this recipe'
   saved: 'Meal plan was saved'
+  saveFirst: 'Select recipe tags and save a meal plan before continuing'
+  selectTagsFirst: 'Select a tag(s) first before continuing'
+  meatAndVegan: 'You can not have both vegetarian and meat tags'
 random_recipe:
   allIngredients: 'Everything needed to make these recipes'

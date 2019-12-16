@@ -1,6 +1,7 @@
 email:
   existing: 'This email is already taken'
   notFound: 'Email could not be found'
+  invalid: 'Make sure your email contains "@" and "."'
 password:
   short: 'Your password should be at least {{ limit }} character'
   long: 'Your password should not be more than {{limit}} characters'
