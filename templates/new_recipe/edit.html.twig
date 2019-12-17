@@ -42,7 +42,8 @@
             </div>
         </div>
 
-        <label for="edit_ingredients">Ingredients</label>
+        <label for="edit_image_url">
+            Image</label>
         <ul class="ingredients list-without-bullets" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}">
             {% for ingredient in form.ingredients %}
                 <li>
@@ -57,7 +58,8 @@
             {% endfor %}
         </ul>
 
-        <label class="sections"><b>Tags</b></label>
+        <label for="edit_image_url">
+            Tags</label>
         <ul class="tags list-without-bullets" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
             {% for tag in form.tags %}
                 <li>
