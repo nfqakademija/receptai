@@ -20,7 +20,7 @@
                     {% if app.user %}
                     {{ form_start(saveForm) }}
                     <input type="submit" name="commit" value="{{ 'recipe_generator.saveButton'|trans }}"
-                           class="next-plan next-plan-mine">
+                           class="ml-btn-success btn-lg disable-on-click">
                     {% if recipesWereSaved == true %}
                         <a href="{{ path('saved_recipe') }}">{{ 'generated_recipe.saved'|trans }}</a>
                     {% endif %}
