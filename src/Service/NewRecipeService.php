@@ -12,9 +12,6 @@ class NewRecipeService
         if (in_array('Chicken', $tagArray) && in_array('Vegetarian', $tagArray)) {
             return true;
         }
-        if (in_array('Dessert', $tagArray) && in_array('Vegetarian', $tagArray)) {
-            return true;
-        }
         if (in_array('Fish', $tagArray) && in_array('Vegetarian', $tagArray)) {
             return true;
         }
