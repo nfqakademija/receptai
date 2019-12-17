@@ -1,15 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Add New Recipe{% endblock %}
-
 {% block body %}
     <div class="container">
-        <span id="meal-plan-title"> <h1> Add a new recipe! </h1></span>
+        <span id="meal-plan-title"> <h1> {{ 'new_recipe.addNew'|trans }}</h1></span>
         {{ form_start(form) }}
         <div class="form-group">
             <div>
                 <label for="add_title">
-                    Title</label>
+                    {{ 'new_recipe.title'|trans }}</label>
                 {{ form_errors(form.title) }}
                 {{ form_widget(form.title, {
                     attr: {
@@ -22,7 +20,7 @@
 
             <div>
                 <label for="add_description">
-                    Description</label>
+                    {{ 'new_recipe.description'|trans }}</label>
                 {{ form_errors(form.description) }}
                 {{ form_widget(form.description, {
                     attr: {
@@ -34,7 +32,7 @@
             </div>
             <div>
                 <label for="add_image_url">
-                    Image</label>
+                    {{ 'new_recipe.image'|trans }}</label>
                 {{ form_errors(form.image) }}
                 {{ form_widget(form.image, {
                     attr: {
@@ -46,7 +44,7 @@
         </div>
 
         <label for="add_ingredients">
-            Ingredients</label>
+            {{ 'new_recipe.ingredients'|trans }}</label>
         <ul class="ingredients list-without-bullets" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}">
             {% for ingredient in form.ingredients %}
                 <li>
@@ -59,7 +57,7 @@
 
 
         <label for="add_tags">
-            Tags</label>
+            {{ 'new_recipe.tags'|trans }}</label>
         <ul class="tags list-without-bullets" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
             {% for tag in form.tags %}
                 <li>{{ form_row(tag.title) }}</li>
@@ -87,7 +85,7 @@
 
         var $collectionHolder;
 
-        var $addIngredientButton = $('<button type="button" class="btn-secondary btn">Add new ingredient</button>');
+        var $addIngredientButton = $('<button type="button" class="btn-secondary btn"> Add new ingredient</button>');
         var $newLinkLi = $('<div><br><hr></div>').append($addIngredientButton);
 
         jQuery(document).ready(function() {
@@ -134,7 +132,7 @@
         }
 
         function addIngredientFormDeleteLink($ingredientFormLi) {
-            var $removeFormButton = $('<button type="button" class="btn-danger btn">Delete this ingredient</button>');
+            var $removeFormButton = $('<button type="button" class="btn-danger btn">Delete</button>');
             $ingredientFormLi.append($removeFormButton);
 
             $removeFormButton.on('click', function(e) {
@@ -190,7 +188,7 @@
         }
 
         function addTagFormDeleteLink($tagFormLi) {
-            var $removeFormButton = $('<button type="button" class="btn-danger btn">Delete this tag</button>');
+            var $removeFormButton = $('<button type="button" class="btn-danger btn">Delete</button>');
             $tagFormLi.append($removeFormButton);
 
             $removeFormButton.on('click', function(e) {

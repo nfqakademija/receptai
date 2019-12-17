@@ -5,6 +5,8 @@ home_page:
   logout: 'Atsijungti'
   recipes: 'Receptai'
   text: 'Visi receptai'
+  startNext: 'Pradėti kitą maisto planą'
+  allRecipes: 'Visi mūsų receptai'
 base:
   home: 'Pagrindinis'
   login: 'Prisijungti'
@@ -59,3 +61,31 @@ flash:
   meatAndVegan: 'Negalite pasirinkti mėsos ir vegetariškos etiketės'
 random_recipe:
   allIngredients: 'Visi ingredientai, kurie reikia pasigaminti šiuos receptus'
+user_created:
+  myRecipes: 'Mano sukurti receptai'
+  noRecipes: "Jūs dar nesukūrėte jokių receptų"
+  addNew: 'Pridėti naują receptą'
+saved_recipe:
+  myMeal: 'Mano maisto planas'
+  forThese: 'Šiems receptams reikės:'
+  ingredients: 'Ingredientai'
+  noRecipesSaved: "Jūs dar neišsaugojote receptų."
+  saveRecipe: 'Išsaugoti receptus'
+recipe_generator:
+  saveButton: 'Išsaugoti'
+new_recipe:
+  addNew: 'Pridėti naują receptą'
+  title: 'Pavadinimas'
+  description: 'Aprašmas'
+  image: 'Nuotrauka'
+  ingredients: 'Ingredientai'
+  tags: 'Etiketės'
+  addNewIngredients: 'Pridėti naują receptą'
+  editRecipe: 'Pakeisti receptą'
+landing:
+  getStarted: 'Pradėkime!'
+error_page:
+  404: "Puslapis, kurio ieškojote neegzistuoja."
+  403: "Neturite teisių žiūrėti šio puslapio."
+  error: 'Atsitiko klaida'
+  takeBack: 'Gražinkite mane atgal į Receptus'

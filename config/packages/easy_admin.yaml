@@ -25,7 +25,7 @@ easy_admin:
     Recipe:
       class: App\Entity\Recipe
       list:
-        fields: ['id', 'title', 'description', 'imageUrl', 'tags']
+        fields: ['id', 'created_user', 'title', 'description', 'imageUrl', 'tags']
       form:
         fields: ['title', 'description', 'imageUrl', 'tags']
     Tag:

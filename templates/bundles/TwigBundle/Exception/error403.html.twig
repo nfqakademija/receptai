@@ -48,9 +48,9 @@
 <body>
 <a href="{{ path('home') }}"><img src="https://img.icons8.com/dusk/64/000000/restaurant.png"></a>
 <div class="dialog">
-    <h1>You don't have the permissions required to view this page.</h1>
+    <h1>{{ 'error_page.403'|trans }}</h1>
 </div>
-<p><a href="{{ path('home') }}">Take me back to Receptai</a></p>
+<p><a href="{{ path('home') }}">{{ 'error_page.takeBack'|trans }}</a></p>
 
 
 </body></html>

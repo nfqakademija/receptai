@@ -4,6 +4,8 @@ home_page:
   logout: 'Log out'
   recipes: 'Recipes'
   text: 'All recipes'
+  startNext: 'Start next meal plan'
+  allRecipes: 'All our recipes'
 base:
   home: 'Home'
   login: 'Login'
@@ -60,3 +62,34 @@ flash:
   meatAndVegan: 'You can not have both vegetarian and meat tags'
 random_recipe:
   allIngredients: 'Everything needed to make these recipes'
+user_created:
+  myRecipes: 'My Created Recipes'
+  noRecipes: "You haven't created any recipes yet."
+  addNew: 'Add new recipe'
+saved_recipe:
+  myMeal: 'My Meal Plan'
+  forThese: 'For these recipes:'
+  ingredients: 'Ingredients'
+  noRecipesSaved: "You haven't saved any recipes yet."
+  saveRecipe: 'Create a meal plan!'
+recipe_generator:
+  saveButton: 'Save'
+new_recipe:
+  addNew: 'Add a new recipe'
+  title: 'Title'
+  description: 'Description'
+  image: 'Image'
+  ingredients: 'Ingredients'
+  tags: 'Tags'
+  addNewIngredients: 'Add new ingredient'
+  editRecipe: 'Edit this recipe!'
+landing:
+  getStarted: 'Get started!'
+  intro1: 'If you ever catch yourself wondering'
+  intro2: "what should you cook - don't worry"
+  intro3: 'We are here to answer that question'
+error_page:
+  404: "The page you were looking for doesn't exist."
+  403: "You don't have the permissions required to view this page."
+  error: 'An error has occurred.'
+  takeBack: 'Take me back to Receptai'
