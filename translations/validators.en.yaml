@@ -13,3 +13,6 @@ description:
 ingredientTitle:
   short: 'The ingredient title should be at least {{ limit }} characters'
   long: 'The ingredient title can not be more than {{ limit }} characters'
+firstName:
+  short: 'Your name can not be less than {{ limit }} characters'
+  long: 'Your name can not be more than {{ limit }} characters'
