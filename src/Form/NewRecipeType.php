@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Tag;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -81,15 +83,22 @@ class NewRecipeType extends AbstractType
                 'by_reference' => false,
                 'mapped' => false,
             ])
-            ->add('tags', CollectionType::class, [
-                'entry_type' => TagType::class,
-                'entry_options' => ['label' => false,],
-                'required' => true,
-                'label' => false,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+            ->add('tags', EntityType::class, [
+                'class' => Tag::class,
+                'attr' => [
+                    'data-select' => 'true',
+                ],
+                'multiple' => true,
             ])
+//            ->add('tags', CollectionType::class, [
+//                'entry_type' => TagType::class,
+//                'entry_options' => ['label' => false,],
+//                'required' => true,
+//                'label' => false,
+//                'allow_add' => true,
+//                'allow_delete' => true,
+//                'by_reference' => false,
+//            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Submit Recipe',
                 'attr' => [
@@ -97,11 +106,4 @@ class NewRecipeType extends AbstractType
                 ]
             ]);
     }
-
-//    public function configureOptions(OptionsResolver $resolver)
-//    {
-//        $resolver->setDefaults([
-//            'data_class' => Recipe::class
-//        ]);
-//    }
 }
