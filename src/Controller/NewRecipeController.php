@@ -61,16 +61,18 @@ class NewRecipeController extends AbstractController
                     $recipe->setImageUrl($imageFileName);
                 }
 
+                $realTagArray = $form['tags']->getData();
+
                 $tagArray = array();
-                foreach ($form['tags'] as $tagForm) {
-                    $tagArray[] = $tagForm['title']->getData();
+                foreach ($realTagArray as $tag) {
+                    $tagArray[] = $tag->getTitle();
                 }
 
                 if ($recipeService->determineIfMeatAndVegetarianTag($tagArray)) {
                     $this->addFlash('danger', $translator->trans('flash.meatAndVegan'));
                     return $this->redirectToRoute('new_recipe');
                 }
-                foreach ($tagArray as $tag) {
+                foreach ($realTagArray as $tag) {
                     $recipe->addTag($tag);
                 }
 
@@ -176,20 +178,18 @@ class NewRecipeController extends AbstractController
                     $recipe->setImageUrl($imageFileName);
                 }
 
-                foreach ($tags as $tag) {
-                    $recipe->removeTag($tag);
-                }
+                $realTagArray = $form['tags']->getData();
 
                 $tagArray = array();
-                foreach ($form['tags'] as $tagForm) {
-                    $tagArray[] = $tagForm['title']->getData();
+                foreach ($realTagArray as $tag) {
+                    $tagArray[] = $tag->getTitle();
                 }
 
                 if ($recipeService->determineIfMeatAndVegetarianTag($tagArray)) {
                     $this->addFlash('danger', $translator->trans('flash.meatAndVegan'));
                     return $this->redirectToRoute('edit_recipe', ['id' => $id]);
                 }
-                foreach ($tagArray as $tag) {
+                foreach ($realTagArray as $tag) {
                     $recipe->addTag($tag);
                 }
 

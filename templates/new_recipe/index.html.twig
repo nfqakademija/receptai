@@ -55,14 +55,8 @@
             {% endfor %}
         </ul>
 
-
-        <label for="add_tags">
-            {{ 'new_recipe.tags'|trans }}</label>
-        <ul class="tags list-without-bullets" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
-            {% for tag in form.tags %}
-                <li>{{ form_row(tag.title) }}</li>
-            {% endfor %}
-        </ul>
+        <label for="add_tags">{{ 'new_recipe.tags'|trans }}</label>
+        {{ form_widget(form.tags) }}
 
         <div class="wrapper">
             <button type="submit" class="next-plan-mine align-content-center">{{ 'generated_recipe.submit'|trans }}</button>
@@ -74,6 +68,7 @@
 
 {% block javascripts %}
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
     <script>
 
         $('.custom-file-input').on('change', function(event) {
@@ -82,6 +77,10 @@
                 .find('.custom-file-label')
                 .html(inputFile.files[0].name);
         });
+
+        $('select[data-select="true"]').select2(
+            {placeholder: 'Add tags',}
+        );
 
         var $collectionHolder;
 
@@ -137,62 +136,6 @@
 
             $removeFormButton.on('click', function(e) {
                 $ingredientFormLi.remove();
-            });
-        }
-
-        var $tagsCollectionHolder;
-
-        var $addTagButton = $('<button type="button" class="btn-secondary btn">Add a tag</button>');
-        var $newTagLinkLi = $('<div><br><hr></div>').append($addTagButton);
-
-        jQuery(document).ready(function() {
-
-            $tagsCollectionHolder = $('ul.tags');
-
-            $tagsCollectionHolder.find('li').each(function(index) {
-                if (index !== 0) {
-                    addTagFormDeleteLink($(this));
-                }
-            });
-
-            $tagsCollectionHolder.append($newTagLinkLi);
-
-            $tagsCollectionHolder.data('index', $tagsCollectionHolder.find(':input').length);
-
-            if ($tagsCollectionHolder.data('index') === 1) {
-                addTagForm($tagsCollectionHolder, $newTagLinkLi);
-            }
-
-            $addTagButton.on('click', function(e) {
-                addTagForm($tagsCollectionHolder, $newTagLinkLi);
-            });
-        });
-        function addTagForm($tagsCollectionHolder, $newTagLinkLi) {
-
-            var prototype = $tagsCollectionHolder.data('prototype');
-
-            var index = $tagsCollectionHolder.data('index');
-
-            var newForm = prototype;
-
-            newForm = newForm.replace(/__name__/g, index);
-
-            $tagsCollectionHolder.data('index', index + 1);
-
-            var $newFormLi = $('<li></li>').append(newForm);
-            $newTagLinkLi.before($newFormLi);
-
-            if (index !== 1) {
-                addTagFormDeleteLink($newFormLi);
-            }
-        }
-
-        function addTagFormDeleteLink($tagFormLi) {
-            var $removeFormButton = $('<button type="button" class="btn-danger btn">Delete</button>');
-            $tagFormLi.append($removeFormButton);
-
-            $removeFormButton.on('click', function(e) {
-                $tagFormLi.remove();
             });
         }
     </script>
