@@ -60,11 +60,13 @@
             state: link
         with_items: "{{ deployment.linked_directories + deployment.linked_files }}"
 
-      - name: Run assets install so easy admin is functional
-        shell: bin/console assets:install
-
       - name: "Warm up application cache" # <-- Symfony specific task, to be ready for new version
         shell: bin/console cache:warmup --env=prod --no-debug
+        args:
+            chdir: "{{ deploy_helper.new_release_path }}"
+
+      - name: "Install assets"
+        shell: bin/console assets:install
         args:
             chdir: "{{ deploy_helper.new_release_path }}"
 
