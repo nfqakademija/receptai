@@ -73,6 +73,7 @@ class NewRecipeType extends AbstractType
             ])
             ->add('ingredients', CollectionType::class, [
                 'entry_type' => IngredientType::class,
+                'entry_options' => ['label' => false,],
                 'required' => true,
                 'label' => false,
                 'allow_add' => true,
@@ -82,6 +83,7 @@ class NewRecipeType extends AbstractType
             ])
             ->add('tags', CollectionType::class, [
                 'entry_type' => TagType::class,
+                'entry_options' => ['label' => false,],
                 'required' => true,
                 'label' => false,
                 'allow_add' => true,

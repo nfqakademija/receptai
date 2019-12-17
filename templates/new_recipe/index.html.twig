@@ -48,14 +48,19 @@
         <label class="sections"> <b> Ingredients</b></label>
         <ul class="ingredients list-without-bullets" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}">
             {% for ingredient in form.ingredients %}
-                <li>{{ form_row(ingredient) }}</li>
+                <li>
+                    {{ form_row(ingredient.title) }}
+                    {{ form_row(ingredient.measure) }}
+                    {{ form_row(ingredient.amount) }}
+                </li>
             {% endfor %}
         </ul>
+
 
         <label class="sections"> <b> Tags </b></label>
         <ul class="tags list-without-bullets" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}">
             {% for tag in form.tags %}
-                <li>{{ form_row(tag) }}</li>
+                <li>{{ form_row(tag.title) }}</li>
             {% endfor %}
         </ul>
 
@@ -89,8 +94,10 @@
 
             $collectionHolder.append($newLinkLi);
 
-            $collectionHolder.find('li').each(function() {
-                addIngredientFormDeleteLink($(this));
+            $collectionHolder.find('li').each(function(index) {
+                if (index !== 0) {
+                    addIngredientFormDeleteLink($(this));
+                }
             });
 
             $collectionHolder.data('index', $collectionHolder.find(':input').length);
@@ -142,8 +149,10 @@
 
             $tagsCollectionHolder = $('ul.tags');
 
-            $tagsCollectionHolder.find('li').each(function() {
-                addTagFormDeleteLink($(this));
+            $tagsCollectionHolder.find('li').each(function(index) {
+                if (index !== 0) {
+                    addTagFormDeleteLink($(this));
+                }
             });
 
             $tagsCollectionHolder.append($newTagLinkLi);
