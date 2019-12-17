@@ -20,20 +20,23 @@
                     <div class="form-group first-name">
                         <label for="registration_first_name">
                             {{ 'registration_form.whatFirstName'|trans }}</label>
-                        {# form_label(registrationForm.username) #}
+                        <div class="form__error">
+                            {{ form_errors(registrationForm.firstname) }}
+                        </div>
+                        <div>
                         {{ form_widget(registrationForm.firstname) }}
+                        </div>
                     </div>
 
 
                     <div class="form-group">
                         <label for="registration_email">
                             {{ 'registration_form.enterEmail'|trans }}</label>
-                        <div>
-                            {# form_label(registrationForm.email) #}
-                            {{ form_widget(registrationForm.email) }}
-                        </div>
                         <div class="form__error">
                             {{ form_errors(registrationForm.email) }}
+                        </div>
+                        <div>
+                            {{ form_widget(registrationForm.email) }}
                         </div>
                     </div>
 
@@ -41,12 +44,11 @@
                     <div class="form-group">
                         <label for="registration_password">
                             {{ 'registration_form.createPassword'|trans }}</label>
-                        {# form_label(registrationForm.password) #}
-                        <div>
-                        {{ form_widget(registrationForm.plainPassword) }}
-                        </div>
                         <div class="form__error">
                             {{ form_errors(registrationForm.plainPassword) }}
+                        </div>
+                        <div>
+                        {{ form_widget(registrationForm.plainPassword) }}
                         </div>
                     </div>
 

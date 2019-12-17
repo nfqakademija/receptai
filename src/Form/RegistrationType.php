@@ -17,7 +17,19 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label' => 'registration_form.username'
+                'label' => 'registration_form.username',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your name',
+                    ]),
+                    new Length([
+                        'min' => 1,
+                        'minMessage' => 'firstName.short',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                        'maxMessage' => 'firstName.long',
+                    ])
+                ]
             ])
             ->add('email', EmailType::class, [
                 'label' => 'registration_form.email',

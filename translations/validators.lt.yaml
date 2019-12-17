@@ -13,3 +13,6 @@ description:
 ingredientTitle:
   short: 'Ingrediento pavadinimas turėtų turėti {{ limit }} simbolius'
   long: 'Ingrediento pavadinimas neturėtų būti ilgesnis nei {{ limit }} simbolių'
+firstName:
+  short: 'Jūsų vardas negali būti trumpenis nei {{ limit }} simboliai'
+  long: 'Jūsų vardas negali būti ilgesnis nei {{ limit }} simboliai'
