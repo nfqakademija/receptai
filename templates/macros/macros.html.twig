@@ -21,7 +21,6 @@
 
 {% macro cardWithEdit(imageUrl, name, id) %}
     <div class="recipe-thumb">
-        <a class="ajax ml-btn-default" href="{{ path('edit_recipe', {id: id}) }}">Edit</a>
         <div class="content">
             <a href="{{ path('single_recipe', {id: id}) }}">
                 <img class="image" src="{{ uploaded_asset(imageUrl)}}">
@@ -34,7 +33,9 @@
                 </h2>
 
                 <div class="details">
-                    <div class="action-bar-right"></div>
+                    <div class="action-bar-right">
+                        <a class="ajax ml-btn-default btn-block next-plan-mine" href="{{ path('edit_recipe', {id: id}) }}">Edit</a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -19,6 +19,7 @@
                         <span id="meal-plan-title">My Meal Plan</span>
                     </h1>
                 </div><!-- meal-plan-header -->
+                {% if summedRecipes is defined and summedRecipes|length > 0%}
                 <div id="meal-plan-content" class="clearfix">
                     <div id="grocery-list-container">
                         <div id="grocery-list">
@@ -29,7 +30,6 @@
                             <div>
                                 <h3> Ingredients </h3>
                                 <ul>
-                                    {% if summedRecipes is defined %}
                                         {% for summedRecipe in summedRecipes %}
                                             {% if summedRecipe.total is not null %}
                                                 {{ macros.ingredient(
@@ -43,7 +43,8 @@
                                                 )  }}
                                             {% endif %}
                                         {% endfor %}
-                                    {% endif %}
+
+
                                 </ul>
                                 <div class="action-bar">
                                     <button class="ml-btn-link has-tooltip action-bar-print" onClick="printDiv('grocery-list-container')" target="_blank" title="" data-original-title="Print your grocery list">
@@ -52,17 +53,22 @@
                                         </i>
                                     </button>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                     <div id="meals" class="pad-small">
-                        {% if selectedRecipes is defined %}
+                        {% if selectedRecipes is defined and selectedRecipes|length > 0 %}
                             {% for recipe in selectedRecipes %}
                                 {{ macros.card(
                                     recipe.imageUrl,
                                     recipe.title,
                                     recipe.id) }}
                             {% endfor %}
+                        {% else %}
+                            <h3>You haven't saved any recipes yet.</h3>
+                            <br>
+                            <a href="{{ path('recipe_generator') }}" class="next-plan-mine">Save recipes</a>
                         {% endif %}
                     </div>
                 </div>
