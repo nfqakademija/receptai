@@ -52,7 +52,7 @@ class NewRecipeController extends AbstractController
                 $imageUrl = $form['image']->getData();
 
                 $recipe->setTitle(ucfirst(strtolower(trim($form['title']->getData()))));
-                $recipe->setDescription(ucfirst(strtolower(trim($form['description']->getData()))));
+                $recipe->setDescription(ucfirst(trim($form['description']->getData())));
 
                 $recipe->setCreatedUser($user);
 
@@ -171,7 +171,7 @@ class NewRecipeController extends AbstractController
                 $imageUrl = $form['image']->getData();
 
                 $recipe->setTitle(ucfirst(strtolower(trim($form['title']->getData()))));
-                $recipe->setDescription(ucfirst(strtolower(trim($form['description']->getData()))));
+                $recipe->setDescription(ucfirst(trim($form['description']->getData())));
 
                 if ($imageUrl) {
                     $imageFileName = $uploaderHelper->upload($imageUrl, $logger);
