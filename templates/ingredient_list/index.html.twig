@@ -3,10 +3,10 @@
 <div id="grocery-list">
     <div id="success-message">
         <i class="fa fa-check"></i>
-        <h2>For these recipes:</h2>
+        <h2>{{ 'saved_recipe.forThese'|trans }}</h2>
     </div>
     <div>
-        <h3> Ingredients </h3>
+        <h3> {{ 'saved_recipe.ingredients'|trans }} </h3>
         <ul>
             {% for ingredient in ingredientList %}
                 {% if ingredient.total is not null %}

@@ -8,7 +8,7 @@
         <div>
             <div id="meal-plan-header" class="pad-small">
                 <h1>
-                    <span id="meal-plan-title">My Created Recipes</span>
+                    <span id="meal-plan-title">{{ 'user_created.myRecipes'|trans }}</span>
                 </h1>
             </div><!-- meal-plan-header -->
 
@@ -23,9 +23,9 @@
                             }}
                         {% endfor %}
                     {% else %}
-                        <h3>You haven't created any recipes yet.</h3>
+                        <h3>{{ 'user_created.noRecipes'|trans }}</h3>
                         <br>
-                        <a href="{{ path('new_recipe') }}" class="next-plan-mine">Add new recipe</a>
+                        <a href="{{ path('new_recipe') }}" class="next-plan-mine">{{ 'user_created.addNew'|trans }}</a>
                     {% endif %}
                 </div>
             </div>

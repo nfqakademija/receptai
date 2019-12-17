@@ -1,15 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Recipe{% endblock %}
-
 {% block body %}
     <div class="container">
-        <span id="meal-plan-title"> <h1> Edit this recipe! </h1></span>
+        <span id="meal-plan-title"> <h1> {{ 'new_recipe.editRecipe'|trans }} </h1></span>
         {{ form_start(form) }}
         <div class="form-group">
             <div>
                 <label for="edit_title">
-                    Title</label>
+                    {{ 'new_recipe.title'|trans }}</label>
                 {{ form_errors(form.title) }}
                 {{ form_widget(form.title) }}
                 {{ form_help(form.title) }}
@@ -17,7 +15,7 @@
 
             <div>
                 <label for="edit_desciption">
-                    Description</label>
+                    {{ 'new_recipe.description'|trans }}</label>
                 {{ form_errors(form.description) }}
                 {{ form_widget(form.description) }}
                 {{ form_help(form.description) }}
@@ -25,7 +23,7 @@
             </div>
 
             <label for="edit_image_url">
-                Image</label>
+                {{ 'new_recipe.image'|trans }}</label>
             <div class="row">
                 <div class="col-sm-9">
                     {{ form_widget(form.image, {
@@ -42,8 +40,8 @@
             </div>
         </div>
 
-        <label for="edit_image_url">
-            Image</label>
+        <label for="edit_ingredients">
+            {{ 'new_recipe.ingredients'|trans }}</label>
         <ul class="ingredients list-without-bullets" data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}">
             {% for ingredient in form.ingredients %}
                 <li>
@@ -154,7 +152,7 @@
         }
 
         function addIngredientFormDeleteLink($ingredientFormLi) {
-            var $removeFormButton = $('<button type="button" class="btn-danger btn">Delete this ingredient</button>');
+            var $removeFormButton = $('<button type="button" class="btn-danger btn">Delete</button>');
             $ingredientFormLi.append($removeFormButton);
 
             $removeFormButton.on('click', function(e) {
@@ -226,7 +224,7 @@
         }
 
         function addTagFormDeleteLink($tagFormLi) {
-            var $removeFormButton = $('<button type="button" class="btn-danger btn">Delete this tag</button>');
+            var $removeFormButton = $('<button type="button" class="btn-danger btn">Delete</button>');
             $tagFormLi.append($removeFormButton);
 
             $removeFormButton.on('click', function(e) {
